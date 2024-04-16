@@ -1,0 +1,686 @@
+/*-----THE CURRENT STYLE FILE-----*/ /*
+    RESSOURCES 
+
+    0px---600px ( PHONE )
+    600px---900px ( TABLET PORTRAIT )
+    900px---1200px ( TABLET LANDSCAPE )
+    1200px-- 1800px ( NORMAL PC )
+    1800px--- +00 ( BIG DESKTOP )
+
+*/
+*,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+  font-family: "Sora", Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+@media (max-width: 75em) {
+  *,
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 62.5%;
+    font-family: "Sora", Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    font-weight: 700;
+  }
+}
+section.container {
+  /**
+    ** @param heigth (to define the heigth of the box)
+    ** @param width (to define the width of the box)
+   */
+  height: 100vh;
+  width: 100%;
+  /* To center absolutely*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 23% 77%;
+  overflow: hidden;
+}
+
+.menu-select {
+  color: #0096c7;
+  background: #ced4da;
+  font-weight: 700;
+}
+
+.delete, .patienting, .modif, .add {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+}
+.delete-box {
+  position: absolute;
+  height: 30%;
+  width: 30%;
+  background-color: white;
+  border-radius: 5px;
+  top: 50%;
+  left: 60%;
+  transform: translate(-60%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.delete-box > * {
+  margin: 1rem 0;
+}
+.delete-box i {
+  font-size: 6rem;
+  color: rgb(255, 179, 0);
+}
+.delete-box p {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.delete-box button {
+  font-size: 1.2rem;
+  padding: 1rem;
+  color: white;
+  background: #D90B1C;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+}
+.delete-box button:active {
+  transform: scale(0.95);
+  background: rgb(255, 67, 67);
+}
+.delete-cancel i, .patienting-cancel i, .modif-cancel i, .add-cancel i {
+  font-size: 2.5rem;
+  color: white;
+  background: transparent;
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  border: 2px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+}
+
+
+.patienting-box {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-60%, -50%);
+  background: white;
+  width: 35%;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20% 80%;
+  justify-items: center;
+  padding: 5rem 0;
+}
+.patienting-box p {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #222A51;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.patienting-box form {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+.patienting-box form > *:not(label) {
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: 0;
+  outline: none;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.patienting-box form > *:not(label):focus {
+  border: 1px solid #0277B2;
+}
+.patienting-box form option {
+  font-size: 1.2rem;
+}
+.patienting-box form label {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+.patienting-box form button {
+  margin: 1rem 0;
+  font-weight: 700;
+  color: white;
+  background: #0277B2;
+  border-radius: 5px;
+}
+.patienting-box form button:active {
+  transform: scale(0.95);
+}
+
+
+section.container .left {
+  /**
+    ** @param heigth (to define the heigth of the box)
+    ** @param width (to define the width of the box)
+   */
+  height: 100%;
+  width: 100%;
+  background: url('../assert/img/Group 7.png'), linear-gradient(90deg, #052c3fe9, #0277B2);
+  background-size: cover;
+  box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.4);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20% 60% 20%;
+}
+
+section.container .left .logo {
+  /**
+    ** @param heigth (to define the heigth of the box)
+    ** @param width (to define the width of the box)
+   */
+  height: 100%;
+  width: 110%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+section.container .left .logo img {
+  width: 17rem;
+}
+section.container .left .list {
+  /**
+    ** @param heigth (to define the heigth of the box)
+    ** @param width (to define the width of the box)
+   */
+  height: 100%;
+  width: 100%;
+}
+section.container .left .list p {
+  margin: 0 1rem;
+  font-size: 1.7rem;
+  color: white;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+section.container .left .list ul {
+  margin: 3rem 0;
+}
+section.container .left .list ul a {
+  color: white;
+  font-weight: 600;
+}
+section.container .left .list ul a li {
+  padding: 2.5rem;
+  font-size: 1.7rem;
+}
+section.container .left .list ul a li i {
+  margin: 0 1rem;
+  font-size: 1.7rem;
+}
+section.container .left .disconnect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+section.container .left .disconnect button {
+  /**
+    ** @param px (for the button border length)
+    ** @param color (for the button background color)
+    ** @param radius (for the button corner radius)
+   */
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  border-radius: 100px;
+  outline: none;
+  transition: 0.2s;
+  font-size: 1.7rem;
+  font-weight: 600;
+  padding: 1.5rem 3rem;
+  cursor: pointer;
+}
+section.container .left .disconnect button:active {
+  background-color: white;
+  color: #0096c7;
+  border: 0;
+  transform: scale(0.99);
+}
+section.container .rigth {
+  /**
+    ** @param heigth (to define the heigth of the box)
+    ** @param width (to define the width of the box)
+   */
+  height: 100%;
+  width: 100%;
+  background: #ced4da;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10% 90%;
+}
+section.container .rigth .head {
+  /**
+    ** @param heigth (to define the heigth of the box)
+    ** @param width (to define the width of the box)
+   */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+section.container .rigth .head div {
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+  height: fit-content;
+  padding: 1rem 2rem;
+  background: #ffffff;
+  border-radius: 100px;
+  margin-right: 2rem;
+  display: flex;
+  align-items: center;
+}
+section.container .rigth .head div img {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1.5rem;
+  border-radius: 100px;
+}
+section.container .rigth .head div p {
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: #212529;
+}
+section.container .rigth .info p.title {
+  /**
+    ** @param width (to define the width of the block element)
+    ** @param margin (to define the Top-Bottom margin)
+   */
+  width: 90%;
+  margin: 1rem auto;
+  font-size: 1.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #343a40;
+}
+section.container .rigth .info .box {
+  height: 85%;
+  /**
+    ** @param width (to define the width of the block element)
+    ** @param margin (to define the Top-Bottom margin)
+   */
+  width: 90%;
+  margin: 1rem auto;
+  display: grid;
+  grid-template-rows: 40% 60%;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  gap: 0rem 2rem;
+}
+section.container .rigth .info .box div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white ;
+  height: 90%;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+section.container .rigth .info .box div:nth-child(1) {
+  background: #DF7224;
+
+}
+section.container .rigth .info .box div:nth-child(2) {
+  background: #4D9C39;
+
+}
+section.container .rigth .info .box div:nth-child(3) {
+  background: #8338ec;
+
+}
+section.container .rigth .info .box div:nth-child(4) {
+  background: #B71A23;
+
+}
+section.container .rigth .info .box div:nth-child(5) {
+  background: #E56997;
+
+}
+section.container .rigth .info .box div:nth-child(6) {
+  background: #3B54D8;
+
+}
+section.container .rigth .info .box div:nth-child(7) {
+  grid-column: 3/5;
+  background-image: url('../assert/img/bgg.jpeg');
+  background-size: cover;
+}
+section.container .rigth .info .box div p {
+  font-size: 1.7rem;
+  color: white;
+}
+section.container .rigth .info .box div p:nth-child(1) {
+  font-weight: 700;
+  font-size: 5rem;
+}
+section.container .rigth .patient {
+  height: 95%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5% 20% 5% 60% 10%;
+}
+
+section.container .rigth .patient .title p {
+  font-size: 1.8rem;
+  margin-left: 2rem;
+}
+
+section.container .rigth .patient .search {
+  display: grid;
+  justify-content: center;
+}
+
+section.container .rigth .patient .search input,
+section.container .rigth .patient .search select,
+section.container .rigth .patient .search button,
+section.container .rigth .patient .search label {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1rem;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+}
+
+section.container .rigth .patient .search div {
+  margin: 1rem 0;
+}
+
+section.container .rigth .patient .search div input,
+section.container .rigth .patient .search div select,
+section.container .rigth .patient .search div button {
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+section.container .rigth .patient .search div:nth-child(1) {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 70% 35%;
+}
+
+section.container .rigth .patient .search div:nth-child(1) button {
+  margin-left: 1rem;
+  color: white;
+  background-color: #222A51;
+}
+
+section.container .rigth .patient .search div:nth-child(1) button:active {
+  transform: scale(0.95);
+}
+
+
+section.container .rigth .patient .repere {
+  display: grid;
+  grid-template-columns: 30% 20% 15% 10% 10%;
+  grid-template-rows: fr;
+  /**
+    ** @param width (to define the width of the block element)
+    ** @param margin (to define the Top-Bottom margin)
+   */
+  width: 92%;
+  margin: 0 auto;
+  align-items: center;
+  justify-items: center;
+  padding: 0rem 3rem;
+  font-weight: 300;
+  background: rgba(255, 255, 255, 0.337254902);
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+section.container .rigth .patient .repere p {
+  font-size: 1.1rem;
+}
+
+
+section.container .rigth .patient .list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 1rem;
+}
+
+section.container .rigth .patient .list .patient {
+  border-left: 6px solid #c257cc;
+  /**
+    ** @param width (to define the width of the block element)
+    ** @param margin (to define the Top-Bottom margin)
+   */
+  width: 92%;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 30% 20% 15% 10% 10% 5% 10%;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 0rem 1rem;
+  font-weight: 300;
+}
+
+section.container .rigth .patient .list .patient p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+  width: 100%;
+  height: 100%;
+  font-size: 1.2rem;
+}
+
+section.container .rigth .patient .list .patient p:not(:last-child) {
+  border-right: 1px dashed rgb(197, 197, 197);
+}
+
+section.container .rigth .patient .list .patient div button {
+  font-size: 1.2rem;
+  padding: 0.7rem;
+  border: 0;
+  background-color: transparent;
+}
+
+section.container .rigth .patient .list .patient div button i {
+  font-size: 1.5rem;
+}
+
+section.container .rigth .patient .list .patient div button:active {
+  transform: scale(0.95);
+}
+
+section.container .rigth .patient .list .patient div .set {
+  color: #57cc99;
+}
+
+section.container .rigth .patient .list .patient div .del {
+  color: #D90B1C;
+}
+
+section.container .rigth .patient .pagination {
+  /**
+    ** @param width (to define the width of the block element)
+    ** @param margin (to define the Top-Bottom margin)
+   */
+  width: 92%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+section.container .rigth .patient .pagination button {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  margin: 0 0.5rem;
+  border: 0;
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+}
+
+
+section.container .rigth .patient .pagination button:active {
+  transform: scale(0.95);
+}
+section.container .rigth .patient .pagination .pre {
+  background: #222A51;
+}
+
+section.container .rigth .patient .pagination .post {
+  background: #222A51;
+}
+
+section.container .rigth .patient .pagination .ajouter {
+  background: white;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+}
+section.container .rigth .patient .pagination .ajouter i {
+  font-size: 2rem;
+  color: #222A51;
+}
+section.container .rigth .patient .search form {
+  width: 120%;
+}
+
+section.container .rigth .patient .repere {
+  grid-template-columns: 30% 25% 10% 25% 10%;
+}
+
+section.container .rigth .patient .list .patient {
+  grid-template-columns: 30% 25% 10% 25% 10%;
+  border-left-color: white;
+}
+section.container .rigth .patient {
+  grid-template-rows: 5% 10% 10% 5% 60% 10%;
+}
+section.container .rigth .patient .register {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+section.container .rigth .patient .register button {
+  /**
+    ** @param color (for the button background color)
+    ** @param radius (for the button corner radius)
+   */
+  border: 0;
+  background-color: #0277B2;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  margin-right: 3rem;
+  font-size: 1.3rem;
+  padding: 1rem;
+}
+
+section.container .rigth .patient .register .refresh{
+  /**
+    ** @param color (for the button background color)
+    ** @param radius (for the button corner radius)
+   */
+  border: 0;
+  background-color: #D90B1C;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  margin-right: 3rem;
+  font-size: 1.3rem;
+  padding: 1rem;
+}
+
+
+section.container .rigth .patient .register button i {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+}
+section.container .rigth .patient .register button:active {
+  transform: scale(0.95);
+}
+section.container .rigth .patient .repere {
+  grid-template-columns: 25% 25% 12.5% 12.5% 10% 10%;
+}
+section.container .rigth .patient .list .patient {
+  grid-template-columns: 25% 25% 12.5% 12.5% 10% 10%;
+}
+
+section.container .rigth .patient .list .patient .status {
+  color: #3c3c3c;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #d8d8d8;
+
+}
+
+section.container .rigth .patient .list .patient .status_ok {
+  color: #007442;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #04c873;
+
+}
+
+section.container .rigth .patient .list .patient div {
+  display: flex;
+  padding-left: 1.5rem;
+}
+
+section.container .rigth .patient .list .patient div button i {
+  cursor: pointer;
+  font-size: 1.7rem;
+  margin-right: 0.5rem;
+  padding-left: 1rem;
+  font-weight: bold;
+  
+}
+
+section.container .rigth .patient .list .patient div button:active {
+  transform: scale(0.95);
+}
+
+section.container .rigth .patient .list .patient div button .te {
+  color: rgb(198, 189, 59);
+}
+
+section.container .rigth .patient .list .patient div .en {
+  color: rgb(46, 46, 163);
+}
+
+section.container .rigth .patient .list .patient div .lost {
+  color: red;
+}
+
+section.container .rigth .patient .list .patient div .bring-back {
+  color: #57cc99;
+}
