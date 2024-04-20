@@ -12,7 +12,7 @@
   <!-- ICON -->
   <link
     rel="shortcut icon"
-    href="../../public/source/images/logo/logoB.png"
+    href="../../../public/source/images/logo/logoB.png"
     type="image/x-icon"
   />
   <link
@@ -28,7 +28,7 @@
     referrerpolicy="no-referrer"
   />
     <!-- CSS FILE -->
-    <link rel="stylesheet" href="../../public/styles/body.css">
+    <link rel="stylesheet" href="../../../public/styles/dahboard.css">
     <!-- JS LINK -->
   
     <!-- TITRE DE LA PAGE -->
@@ -42,45 +42,49 @@
       <div class="left">
         <!-- LOGO DU CENTRE CULTUREL COMOE -->
         <div class="logo">
-          <img src="../assert/img/logo/Fichier 2.png" alt="logo du centre comoe" />
+          <img src="../../../public/source/images/logo/logoB.png" alt="logo du centre comoe" />
         </div>
         <!-- LISTE DES OPTIONS MENU -->
         <div class="list">
-          <p>Menu</p>
           <!-- LISTE DE MENU -->
           <ul>
             <!-- OPTION ACCEUIL -->
-            <a href="index.html"
+            <a href="./dashboard.html"
               ><li class="menu-select">
-                <i class="fa-solid fa-chart-line"></i> Acceuil
+                <i class="fa-solid fa-chart-line"></i> Dashboard
               </li></a
             >
-            <!-- OPTION PATIENT -->
-            <a href="./patient.html"
-              ><li><i class="fa-solid fa-hospital-user"></i> Patient</li></a
+            <!-- OPTION CLIENT -->
+            <a href="./list-client.html"
+              ><li ><i class="fa-solid fa-hospital-user"></i> Client</li></a
             >
-            <!-- OPTION EXAMEN -->
-            <a href="./examen.html"
+            <!-- OPTION RESERVATION -->
+            <a href="./list-reservation.html"
               ><li>
-                <i class="fa-solid fa-microscope"></i>
-                Examen
+                <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
               </li></a
             >
-            <!-- OPTION ANALYSTES -->
-            <a href="./analyste.html"
-              ><li>
-                <i class="fa-solid fa-magnifying-glass-chart"></i> Analyste
-              </li></a
+            <!-- OPTION FACTURE -->
+            <a href="./list-facture.html"
+              ><li><i class="fa-solid fa-square-poll-vertical"></i> Facture</li></a
             >
-            <!-- OPTION ANALYSE -->
-            <a href="./analyse.html"
-              ><li><i class="fa-solid fa-vial-virus"></i> Analyse</li></a
-            >
-             <!-- OPTION RESULTAT -->
-             <a href="./resultat.html"
-             ><li><i class="fa-solid fa-square-poll-vertical"></i> Resultat</li></a
-           >
-          </ul>
+             <!-- OPTION RECU -->
+             <a href="./list-recu.html"
+             ><li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li></a>
+
+              <!-- OPTION INVENTAIRE -->
+              <a href="./list-inventaire.html"
+              ><li><i class="fa-solid fa-magnifying-glass-chart"></i> Inventaire</li></a>
+
+               <!-- OPTION GESTIONNAIRE -->
+             <a href="./list-gestionnaire.html"
+             ><li><i class="fa-solid fa-hospital-user"></i> Gestionnaire</li></a>
+
+              <!-- OPTION VOITURE -->
+              <a href="./list-voiture.html"
+              ><li ><i class="fa-solid fa-square-poll-vertical"></i> Voiture</li></a>
+          </ul>    
+
         </div>
         <!-- DECONNECTION -->
         <div class="disconnect">
@@ -92,7 +96,7 @@
         <!-- ADMIN INFO -->
         <div class="head">
           <div>
-            <img src="../assert/img/Ellipse 1.png" alt="photo de profil" />
+            <img src="../../../public/source/images/Ellipse 1.png" alt="photo de profil" />
             <p>Admin name</p>
           </div>
         </div>
@@ -102,38 +106,56 @@
           <p class="title">statistiques</p>
           <!-- BOX DES STATS -->
           <div class="box">
-            <!-- PATIENT -->
+            <!-- CADRE -->
             <div>
+              <p>Nombre de client : </p>
               <p>27</p>
-              <p>Nombre de Patient</p>
             </div>
-            <!-- NOMBRE D'EXAMEN -->
+            
+            <!-- CADRE -->
             <div>
-              <p>38</p>
-              <p>Nombre d'Examen</p>
+              <p>Nombre de reservation : </p>
+              <p>27</p>
             </div>
-            <!-- NOMBRE D'ANALYSTE -->
+
+            <!-- CADRE -->
             <div>
-              <p>5</p>
-              <p>Nombre d'Analyste</p>
+              <p>Nombre de facture : </p>
+              <p>27</p>
             </div>
-            <!-- NOMBRE D'ANALYSE -->
+
+            <!-- CADRE -->
             <div>
-              <p>15</p>
-              <p>Nombre d'Analyse</p>
+              <p>Nombre de reçu : </p>
+              <p>27</p>
             </div>
-            <!-- NOMBRE DE RESULTAT -->
+
+            <!-- CADRE -->
             <div>
-              <p>10</p>
-              <p>Nombre de resultat</p>
+              <p>Nombre d'inventaire : </p>
+              <p>27</p>
             </div>
-             <!-- NOMBRE DE RESULTAT -->
-              <div>
-                <p>255</p>
-                <p>NOMBRE TOTAL</p>
-              </div>
+
+            <!-- CADRE -->
+            <div>
+              <p>Nombre de Gestionnaire : </p>
+              <p>27</p>
+            </div>
+
+            <!-- CADRE -->
+            <div>
+              <p>Nombre de voiture : </p>
+              <p>27</p>
+            </div>
+
+             <!-- CADRE -->
+             <div>
+              <p>NOMBRE TOTAL : </p>
+              <p>300</p>
+            </div>
+            
             <!-- GRAPHIQUE -->
-            <div></div>
+            <!-- <div></div> -->
           </div>
         </div>
       </div>

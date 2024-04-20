@@ -57,17 +57,19 @@ section.container {
 }
 
 .menu-select {
-  color: #0096c7;
-  background: #ced4da;
+  color: #741414;
+  background: #d6d6d6;
   font-weight: 700;
 }
 
-.delete, .patienting, .modif, .add {
+.delete, .admining, .modif, .add {
   display: none;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100%;
   width: 100%;
+  cursor: pointer;
+
 }
 .delete-box {
   position: absolute;
@@ -82,6 +84,8 @@ section.container {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
+
 }
 .delete-box > * {
   margin: 1rem 0;
@@ -91,23 +95,27 @@ section.container {
   color: rgb(255, 179, 0);
 }
 .delete-box p {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
 }
+
 .delete-box button {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding: 1rem;
   color: white;
   background: #D90B1C;
   border: 0;
   outline: none;
   border-radius: 5px;
+  cursor: pointer;
+
 }
+
 .delete-box button:active {
   transform: scale(0.95);
   background: rgb(255, 67, 67);
 }
-.delete-cancel i, .patienting-cancel i, .modif-cancel i, .add-cancel i {
+.delete-cancel i, .admining-cancel i, .modif-cancel i, .add-cancel i {
   font-size: 2.5rem;
   color: white;
   background: transparent;
@@ -120,59 +128,67 @@ section.container {
 }
 
 
-.patienting-box {
+.admining-box {
   position: absolute;
   top: 50%;
   left: 60%;
   transform: translate(-60%, -50%);
   background: white;
-  width: 35%;
+  width: 40%;
+  height: 80%;
   border-radius: 5px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 20% 80%;
   justify-items: center;
-  padding: 5rem 0;
+  padding: 2rem 0;
 }
-.patienting-box p {
-  font-size: 1.6rem;
+
+.admining-box p {
+  font-size: 2rem;
   font-weight: 700;
-  color: #222A51;
+  color: #741414;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: uppercase;
 }
-.patienting-box form {
+
+.admining-box form {
   width: 60%;
   display: flex;
   flex-direction: column;
 }
-.patienting-box form > *:not(label) {
+
+.admining-box form > *:not(label) {
+  margin-bottom: 1rem;
   padding: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   border: 0;
   outline: none;
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
-.patienting-box form > *:not(label):focus {
-  border: 1px solid #0277B2;
+.admining-box form > *:not(label):focus {
+  border: 1px solid #c51e1e;
 }
-.patienting-box form option {
-  font-size: 1.2rem;
-}
-.patienting-box form label {
+.admining-box form option {
   font-size: 1.5rem;
-  margin: 0.5rem 0;
 }
-.patienting-box form button {
+.admining-box form label {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+.admining-box form button {
   margin: 1rem 0;
   font-weight: 700;
   color: white;
-  background: #0277B2;
+  background: #c51e1e;
   border-radius: 5px;
+  cursor: pointer;
+  margin-top: 2rem;
 }
-.patienting-box form button:active {
+.admining-box form button:active {
   transform: scale(0.95);
 }
 
@@ -184,7 +200,7 @@ section.container .left {
    */
   height: 100%;
   width: 100%;
-  background: url('../assert/img/Group 7.png'), linear-gradient(90deg, #052c3fe9, #0277B2);
+  background: linear-gradient(90deg, #741414d7, #741414d7), url("../source/images/bg.jpeg");
   background-size: cover;
   box-shadow: 0px 0px 50px 20px rgba(0, 0, 0, 0.4);
   display: grid;
@@ -222,7 +238,7 @@ section.container .left .list p {
   text-transform: uppercase;
 }
 section.container .left .list ul {
-  margin: 3rem 0;
+  margin: 1rem 0;
 }
 section.container .left .list ul a {
   color: white;
@@ -248,8 +264,8 @@ section.container .left .disconnect button {
     ** @param radius (for the button corner radius)
    */
   border: 2px solid white;
-  background-color: transparent;
-  color: white;
+  background-color: white;
+  color: #c51e1edc;
   border-radius: 100px;
   outline: none;
   transition: 0.2s;
@@ -258,12 +274,13 @@ section.container .left .disconnect button {
   padding: 1.5rem 3rem;
   cursor: pointer;
 }
-section.container .left .disconnect button:active {
+section.container .left .disconnect button:hover {
   background-color: white;
-  color: #0096c7;
+  color: #c51e1e;
   border: 0;
   transform: scale(0.99);
 }
+
 section.container .rigth {
   /**
     ** @param heigth (to define the heigth of the box)
@@ -271,7 +288,8 @@ section.container .rigth {
    */
   height: 100%;
   width: 100%;
-  background: #ced4da;
+  background: #d6d6d6;
+  /* background: white; */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 10% 90%;
@@ -316,13 +334,14 @@ section.container .rigth .info p.title {
    */
   width: 90%;
   margin: 1rem auto;
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   font-weight: 500;
   text-transform: uppercase;
   color: #343a40;
+  letter-spacing: 0.3rem;
 }
 section.container .rigth .info .box {
-  height: 85%;
+  height: 80%;
   /**
     ** @param width (to define the width of the block element)
     ** @param margin (to define the Top-Bottom margin)
@@ -330,217 +349,114 @@ section.container .rigth .info .box {
   width: 90%;
   margin: 1rem auto;
   display: grid;
-  grid-template-rows: 40% 60%;
+  grid-template-rows: 50% 50%;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
   gap: 0rem 2rem;
 }
+
 section.container .rigth .info .box div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: white ;
+  background: rgb(221, 201, 201) ;
   height: 90%;
   width: 100%;
   border-radius: 5px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  border: 2px solid #ce5252c4;
+  cursor: pointer;
 }
 
-section.container .rigth .info .box div:nth-child(1) {
-  background: #DF7224;
 
-}
-section.container .rigth .info .box div:nth-child(2) {
-  background: #4D9C39;
-
-}
-section.container .rigth .info .box div:nth-child(3) {
-  background: #8338ec;
-
-}
-section.container .rigth .info .box div:nth-child(4) {
-  background: #B71A23;
-
-}
-section.container .rigth .info .box div:nth-child(5) {
-  background: #E56997;
-
-}
-section.container .rigth .info .box div:nth-child(6) {
-  background: #3B54D8;
-
-}
-section.container .rigth .info .box div:nth-child(7) {
-  grid-column: 3/5;
-  background-image: url('../assert/img/bgg.jpeg');
-  background-size: cover;
-}
 section.container .rigth .info .box div p {
-  font-size: 1.7rem;
-  color: white;
+  font-weight: 800;
+  font-size: 8rem;
+
 }
 section.container .rigth .info .box div p:nth-child(1) {
-  font-weight: 700;
-  font-size: 5rem;
+  font-size: 2rem;
+  color: #461e1e;
+  font-weight: 500;
+
 }
-section.container .rigth .patient {
-  height: 95%;
+section.container .rigth .admin {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 5% 20% 5% 60% 10%;
+  /* grid-template-columns: 1fr; */
 }
 
-section.container .rigth .patient .title p {
-  font-size: 1.8rem;
-  margin-left: 2rem;
+section.container .rigth .admin .title p {
+  width: 94%;
+  margin: 1rem auto;
+  font-size: 1.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #343a40;
+  letter-spacing: 0.3rem;
 }
 
-section.container .rigth .patient .search {
+section.container .rigth .admin .search {
   display: grid;
   justify-content: center;
 }
 
-section.container .rigth .patient .search input,
-section.container .rigth .patient .search select,
-section.container .rigth .patient .search button,
-section.container .rigth .patient .search label {
+section.container .rigth .admin .search input,
+section.container .rigth .admin .search select,
+section.container .rigth .admin .search button,
+section.container .rigth .admin .search label {
   font-size: 1.5rem;
   font-weight: 500;
   padding: 1rem;
   border: 0;
   outline: none;
   border-radius: 5px;
+  width: 100%;
 }
 
-section.container .rigth .patient .search div {
+section.container .rigth .admin .search div {
   margin: 1rem 0;
 }
 
-section.container .rigth .patient .search div input,
-section.container .rigth .patient .search div select,
-section.container .rigth .patient .search div button {
+section.container .rigth .admin .search div input,
+section.container .rigth .admin .search div select,
+section.container .rigth .admin .search div button {
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 }
 
-section.container .rigth .patient .search div:nth-child(1) {
+section.container .rigth .admin .search div:nth-child(1) {
   width: 100%;
+  height: 1rem;
   display: grid;
   grid-template-columns: 70% 35%;
 }
 
-section.container .rigth .patient .search div:nth-child(1) button {
+section.container .rigth .admin .search div:nth-child(1) button {
   margin-left: 1rem;
   color: white;
-  background-color: #222A51;
+  background-color: #741414;
+  cursor: pointer;
 }
 
-section.container .rigth .patient .search div:nth-child(1) button:active {
+section.container .rigth .admin .search div:nth-child(1) button:active {
   transform: scale(0.95);
 }
 
 
-section.container .rigth .patient .repere {
-  display: grid;
-  grid-template-columns: 30% 20% 15% 10% 10%;
-  grid-template-rows: fr;
+section.container .rigth .admin .pagination {
   /**
     ** @param width (to define the width of the block element)
     ** @param margin (to define the Top-Bottom margin)
    */
-  width: 92%;
+  width: 95%;
   margin: 0 auto;
-  align-items: center;
-  justify-items: center;
-  padding: 0rem 3rem;
-  font-weight: 300;
-  background: rgba(255, 255, 255, 0.337254902);
-  margin-bottom: 1rem;
-  border-radius: 5px;
-}
-
-section.container .rigth .patient .repere p {
-  font-size: 1.1rem;
-}
-
-
-section.container .rigth .patient .list {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(7, 1fr);
-  gap: 1rem;
-}
-
-section.container .rigth .patient .list .patient {
-  border-left: 6px solid #c257cc;
-  /**
-    ** @param width (to define the width of the block element)
-    ** @param margin (to define the Top-Bottom margin)
-   */
-  width: 92%;
-  margin: 0 auto;
-  background: white;
-  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  display: grid;
-  grid-template-columns: 30% 20% 15% 10% 10% 5% 10%;
-  grid-template-rows: 1fr;
-  align-items: center;
-  justify-items: center;
-  padding: 0rem 1rem;
-  font-weight: 300;
-}
-
-section.container .rigth .patient .list .patient p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: grey;
-  width: 100%;
-  height: 100%;
-  font-size: 1.2rem;
-}
-
-section.container .rigth .patient .list .patient p:not(:last-child) {
-  border-right: 1px dashed rgb(197, 197, 197);
-}
-
-section.container .rigth .patient .list .patient div button {
-  font-size: 1.2rem;
-  padding: 0.7rem;
-  border: 0;
-  background-color: transparent;
-}
-
-section.container .rigth .patient .list .patient div button i {
-  font-size: 1.5rem;
-}
-
-section.container .rigth .patient .list .patient div button:active {
-  transform: scale(0.95);
-}
-
-section.container .rigth .patient .list .patient div .set {
-  color: #57cc99;
-}
-
-section.container .rigth .patient .list .patient div .del {
-  color: #D90B1C;
-}
-
-section.container .rigth .patient .pagination {
-  /**
-    ** @param width (to define the width of the block element)
-    ** @param margin (to define the Top-Bottom margin)
-   */
-  width: 92%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
+  float: left;
+  
 }
 
-section.container .rigth .patient .pagination button {
+section.container .rigth .admin .pagination button {
   font-size: 1.2rem;
   padding: 1rem 2rem;
   margin: 0 0.5rem;
@@ -548,49 +464,51 @@ section.container .rigth .patient .pagination button {
   border-radius: 5px;
   background-color: transparent;
   color: white;
+
 }
 
 
-section.container .rigth .patient .pagination button:active {
+section.container .rigth .admin .pagination button:active {
   transform: scale(0.95);
 }
-section.container .rigth .patient .pagination .pre {
+section.container .rigth .admin .pagination .pre {
   background: #222A51;
 }
 
-section.container .rigth .patient .pagination .post {
+section.container .rigth .admin .pagination .post {
   background: #222A51;
 }
 
-section.container .rigth .patient .pagination .ajouter {
+section.container .rigth .admin .pagination .ajouter {
   background: white;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
 }
-section.container .rigth .patient .pagination .ajouter i {
+section.container .rigth .admin .pagination .ajouter i {
   font-size: 2rem;
   color: #222A51;
 }
-section.container .rigth .patient .search form {
+section.container .rigth .admin .search form {
   width: 120%;
 }
 
-section.container .rigth .patient .repere {
-  grid-template-columns: 30% 25% 10% 25% 10%;
-}
 
-section.container .rigth .patient .list .patient {
+section.container .rigth .admin .list .admin {
   grid-template-columns: 30% 25% 10% 25% 10%;
   border-left-color: white;
 }
-section.container .rigth .patient {
+
+section.container .rigth .admin {
   grid-template-rows: 5% 10% 10% 5% 60% 10%;
+  width: 100%;
 }
-section.container .rigth .patient .register {
+
+section.container .rigth .admin .register {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  width: 100%;
 }
-section.container .rigth .patient .register button {
+section.container .rigth .admin .register button {
   /**
     ** @param color (for the button background color)
     ** @param radius (for the button corner radius)
@@ -601,41 +519,140 @@ section.container .rigth .patient .register button {
   border-radius: 5px;
   outline: none;
   margin-right: 3rem;
-  font-size: 1.3rem;
-  padding: 1rem;
+  font-size: 1.5rem;
+  padding: 1.2rem;
+  cursor: pointer;
+
 }
 
-section.container .rigth .patient .register .refresh{
+section.container .rigth .admin .register .refresh{
   /**
     ** @param color (for the button background color)
     ** @param radius (for the button corner radius)
    */
   border: 0;
-  background-color: #D90B1C;
+  background-color: #222A51;
   color: white;
   border-radius: 5px;
   outline: none;
-  margin-right: 3rem;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  padding: 1.2rem;
   padding: 1rem;
 }
 
 
-section.container .rigth .patient .register button i {
+section.container .rigth .admin .register button i {
   font-size: 1.5rem;
   margin-left: 0.5rem;
 }
-section.container .rigth .patient .register button:active {
+section.container .rigth .admin .register button:active {
   transform: scale(0.95);
 }
-section.container .rigth .patient .repere {
-  grid-template-columns: 25% 25% 12.5% 12.5% 10% 10%;
-}
-section.container .rigth .patient .list .patient {
-  grid-template-columns: 25% 25% 12.5% 12.5% 10% 10%;
+
+/* CLIENT */
+
+section.container .rigth .admin .repere-client {
+  display: grid;
+  grid-template-columns: 10% 15% 13% 25% 15% 13% 7%;
+  grid-template-rows: fr;
+  /**
+    ** @param width (to define the width of the block element)
+    ** @param margin (to define the Top-Bottom margin)
+   */
+  width: 95%;
+  margin: 0 auto;
+  align-items: center;
+  justify-items: center;
+  padding: 0rem 1rem;
+  font-weight: 300;
+  background: #741414;
+  /* margin-bottom: 1rem; */
+  border-radius: 5px;
+  height: 100%;
+
 }
 
-section.container .rigth .patient .list .patient .status {
+
+section.container .rigth .admin .repere-client p {
+  font-size: 1.5rem;
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section.container .rigth .admin .repere-client p:not(:last-child) {
+  border-right: 1px dashed wheat;
+}
+
+section.container .rigth .admin .list-client {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 1rem;
+}
+
+section.container .rigth .admin .list-client .client {
+  /**
+    ** @param width (to define the width of the block element)
+    ** @param margin (to define the Top-Bottom margin)
+   */
+  width: 95%;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.2);
+  /* border-radius: 5px; */
+  display: grid;
+  grid-template-columns: 10% 15% 13% 25% 15% 13% 7%;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 0rem 1rem;
+  font-weight: 300;
+
+}
+
+section.container .rigth .admin .list-client .client p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(99, 98, 98);
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+}
+
+section.container .rigth .admin .list-client .client p:not(:last-child) {
+  border-right: 1px dashed rgb(197, 197, 197);
+}
+
+section.container .rigth .admin .list-client .client div button {
+  font-size: 1.5rem;
+  padding: 0.7rem;
+  border: 0;
+  background-color: transparent;
+}
+
+section.container .rigth .admin .list-client .client div button i {
+  font-size: 1.5rem;
+}
+
+section.container .rigth .admin .list-client .client div button:active {
+  transform: scale(0.95);
+}
+
+section.container .rigth .admin .list-client .client div .set {
+  color: #57cc99;
+}
+
+section.container .rigth .admin .list-client .client div .del {
+  color: #D90B1C;
+}
+
+
+section.container .rigth .admin .list-client .client .status {
   color: #3c3c3c;
   font-size: 1.2rem;
   font-weight: 700;
@@ -643,7 +660,7 @@ section.container .rigth .patient .list .patient .status {
 
 }
 
-section.container .rigth .patient .list .patient .status_ok {
+section.container .rigth .admin .list-client .client .status_ok {
   color: #007442;
   font-size: 1.2rem;
   font-weight: 700;
@@ -651,12 +668,12 @@ section.container .rigth .patient .list .patient .status_ok {
 
 }
 
-section.container .rigth .patient .list .patient div {
+section.container .rigth .admin .list-client .client div {
   display: flex;
   padding-left: 1.5rem;
 }
 
-section.container .rigth .patient .list .patient div button i {
+section.container .rigth .admin .list-client .client div button i {
   cursor: pointer;
   font-size: 1.7rem;
   margin-right: 0.5rem;
@@ -665,22 +682,22 @@ section.container .rigth .patient .list .patient div button i {
   
 }
 
-section.container .rigth .patient .list .patient div button:active {
+section.container .rigth .admin .list-client .client div button:active {
   transform: scale(0.95);
 }
 
-section.container .rigth .patient .list .patient div button .te {
+section.container .rigth .admin .list-client .client div button .te {
   color: rgb(198, 189, 59);
 }
 
-section.container .rigth .patient .list .patient div .en {
+section.container .rigth .admin .list-client .client div .en {
   color: rgb(46, 46, 163);
 }
 
-section.container .rigth .patient .list .patient div .lost {
+section.container .rigth .admin .list-client .client div .lost {
   color: red;
 }
 
-section.container .rigth .patient .list .patient div .bring-back {
+section.container .rigth .admin .list-client .client div .bring-back {
   color: #57cc99;
 }
