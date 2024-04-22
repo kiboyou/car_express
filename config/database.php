@@ -1,4 +1,5 @@
 <?php
+//for connect mysql 
 try {
     // Connexion à la base de données
     $database = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASSWORD);

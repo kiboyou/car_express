@@ -12,7 +12,7 @@
     <!-- ICON -->
     <link
       rel="shortcut icon"
-      href="../public/source/images/logo/logoB.png"
+      href="<?= BASE_URL; ?>public/source/images/logo/logoB.png"
       type="image/x-icon"
     />
     <link
@@ -28,7 +28,7 @@
       referrerpolicy="no-referrer"
     />
     <!-- CSS FILE -->
-    <link rel="stylesheet" href="../public/styles/main.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>public/styles/main.css">
     <!-- JS LINK -->
    
 
@@ -40,7 +40,7 @@
     <div class="section1">
         <div class="navbar">
             <div class="logo">
-                <a href="./acceuil.html"><img src="../public/source/images/logo/logoR.png" alt=""></a>
+                <a href="<?= url('index'); ?>"><img src="<?= BASE_URL; ?>public/source/images/logo/logoR.png" alt=""></a>
             </div>
 
             <!-- USER CONNECTER -->
@@ -61,11 +61,11 @@
 
             <div class="menu">
               <ul>
-                <li><a href="./acceuil.html" id="active">Acceuil</a></li>
-                <li><a href="./body/car.html">Cars</a></li>
+                <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+                <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
               </ul>
               <li>
-                  <a href="./accountManagement/login.html" >Se connecter</a>
+                  <a href="<?= url('loginuser'); ?>" >Se connecter</a>
               </li>
           </div>
 
@@ -79,14 +79,14 @@
                         Nous sommes ravis de vous offrir une exdivérience de location simple, rapide et pratique.
                     </p>
                     <div>
-                        <a href="../views/accountManagement/login.html" class="annonceLink">se connecter</a>
+                        <a href="<?= url('loginuser'); ?>" class="annonceLink">se connecter</a>
                     </div>
                 </div>
                 
                 
             </div>
             <div class="cardImage">
-                <img src="../public/source/images/bgK.png" id="imageCard">
+                <img src="<?= BASE_URL; ?>public/source/images/bgK.png" id="imageCard">
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@
         </div>
         <div class="benefice">
             <div class="benefice-item-groupe benefice-item1">
-                <img src="../public/source/images/benefice/choix.svg" alt="">
+                <img src="<?= BASE_URL; ?>public/source/images/benefice/choix.svg" alt="">
                 <div class="texte">
                     Large choix de véhicules
                 </div>
@@ -105,7 +105,7 @@
                 </p>
             </div>
             <div class="benefice-item-groupe benefice-item2">
-                <img src="../public/source/images/benefice/reservation.png" alt="">
+                <img src="<?= BASE_URL; ?>public/source/images/benefice/reservation.png" alt="">
                 <div class="texte">
                     Facilité de réservation en ligne
                 </div>
@@ -114,7 +114,7 @@
                 </p>
             </div>
             <div class="benefice-item-groupe benefice-item3">
-                <img src="../public/source/images/benefice/T.png" alt="">
+                <img src="<?= BASE_URL; ?>public/source/images/benefice/T.png" alt="">
                 <div class="texte">
                     Transparence des tarifs et des conditions
                 </div>
@@ -123,7 +123,7 @@
                 </p>
             </div>
             <div class="benefice-item-groupe benefice-item4">
-                <img src="../public/source/images/benefice/Sp.png" alt="">
+                <img src="<?= BASE_URL; ?>public/source/images/benefice/Sp.png" alt="">
                 <div class="texte">
                     Service clientèle réactif
                 </div>
@@ -149,7 +149,7 @@
                         un déplacement professionnel ou des vacances en famille, nous avons la voiture parfaite pour vous.
                     </div>
                     <div class="btnRL">
-                        <a href="../views/body/car.html" class="reservatLink">voir plus pour la reservation</a>
+                        <a href="<?= url('api/View/listcar'); ?>" class="reservatLink">voir plus pour la reservation</a>
                     </div>
                </div>
             </div>
@@ -163,7 +163,7 @@
                         vous pouvez louer le véhicule parfait pour votre prochain voyage en quelques étapes simples.
                     </div>
                     <div class="btnRL">
-                        <a href="../views/body/car.html" class="reservatLink">voir plus pour louer</a>
+                        <a href="<?= url('api/View/listcar'); ?>" class="reservatLink">voir plus pour louer</a>
                     </div>
                </div>
             </div>
@@ -177,7 +177,7 @@
             <div class="part1">
                 <div class="produits-item-groupe produits-item1">
                     <div class="imgVoiture">
-                        <img src="../public/source/images/produit/test1.jpeg" alt="">
+                        <img src="<?= BASE_URL; ?>public/source/images/produit/test1.jpeg" alt="">
                     </div>
                     <div class="presentationVoiture">
                         <div class="titreVoiture">
@@ -189,13 +189,13 @@
                             ce qui les rend faciles à garer dans les espaces restreints
                         </div>
                         <div class="btnCont">
-                            <a href="../views/body/car.html" class="btnVoiture">voir plus</a>
+                            <a href="<?= url('api/View/listcar'); ?>" class="btnVoiture">voir plus</a>
                         </div>
                     </div>
                 </div>
                 <div class="produits-item-groupe produits-item2">
                     <div class="imgVoiture">
-                        <img src="../public/source/images/produit/Maybach2.jpeg" alt="">
+                        <img src="<?= BASE_URL; ?>public/source/images/produit/Maybach2.jpeg" alt="">
                     </div>
                     <div class="presentationVoiture">
                         <div class="titreVoiture">
@@ -206,7 +206,7 @@
                             Ils offrent la possibilité de conduire avec le toit ouvert
                         </div>
                         <div class="btnCont">
-                            <a href="../views/body/car.html" class="btnVoiture">voir plus</a>
+                            <a href="<?= url('api/View/listcar'); ?>" class="btnVoiture">voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
             <div class="part2">
                 <div class="produits-item-groupe produits-item3">
                     <div class="imgVoiture">
-                        <img src="../public/source/images/produit/Maybach.jpeg" alt="">
+                        <img src="<?= BASE_URL; ?>public/source/images/produit/Maybach.jpeg" alt="">
                     </div>
                     <div class="presentationVoiture">
                         <div class="titreVoiture">
@@ -225,13 +225,13 @@
                             Elles sont équipées des dernières technologies et des finitions haut de gamme
                         </div>
                         <div class="btnCont">
-                            <a href="../views/body/car.html" class="btnVoiture">voir plus</a>
+                            <a href="<?= url('api/View/listcar'); ?>" class="btnVoiture">voir plus</a>
                         </div>
                     </div>
                 </div>
                 <div class="produits-item-groupe produits-item4">
                     <div class="imgVoiture">
-                        <img src="../public/source/images/produit/lux.jpeg" alt="">
+                        <img src="<?= BASE_URL; ?>public/source/images/produit/lux.jpeg" alt="">
                     </div>
                     <div class="presentationVoiture">
                         <div class="titreVoiture">
@@ -242,7 +242,7 @@
                             Elles sont idéales pour les voyages sur de longues distances ou les déplacements professionnels
                         </div>
                         <div class="btnCont">
-                            <a href="../views/body/car.html" class="btnVoiture">voir plus</a>
+                            <a href="<?= url('api/View/listcar'); ?>" class="btnVoiture">voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
             </div>
             <div class="partenaire">
               <p>Partenaire(s)</p>
-              <img src="../public/source/images/logo/logoR.png" alt="logo-partenaires" />
+              <img src="<?= BASE_URL; ?>public/source/images/logo/logoR.png" alt="logo-partenaires" />
             </div>
             <div class="Newletters">
               <p>Newletters</p>

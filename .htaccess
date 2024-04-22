@@ -1,5 +1,21 @@
 RewriteEngine On
 
+# Réécriture pour la page admin
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin$ /api/View/admin [L,QSA]
+
+# Réécriture pour la page index customer
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^index$ /api/View/index [L,QSA]
+
+# Réécriture pour la page signin ou signup customer
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^loginuser$ /api/View/logincustomer [L,QSA]
+
+# Réécriture general du site
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^api/([^/]+)/([^/]+)$ index.php?controller=$1&action=$2 [L,QSA]

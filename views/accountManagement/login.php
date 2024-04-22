@@ -28,7 +28,7 @@
     referrerpolicy="no-referrer"
   />
     <!-- CSS FILE -->
-    <link rel="stylesheet" href="../../public/styles/account.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>public/styles/account.css">
     <!-- JS LINK -->
   
     <!-- TITRE DE LA PAGE -->
@@ -38,15 +38,15 @@
     <div class="section1">
       <div class="navbar">
         <div class="logo">
-            <a href="../acceuil.html"><img src="../../public/source/images/logo/logoR.png" alt=""></a>
+            <a href="<?= url('index'); ?>"><img src="<?= BASE_URL; ?>public/source/images/logo/logoR.png" alt=""></a>
         </div>
 
         <!-- USER CONNECTER -->
 
         <!-- <div class="menu">
             <ul>
-                <li><a href="../acceuil.html" id="active">Acceuil</a></li>
-                <li><a href="../body/car.html">Cars</a></li>
+                <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+                <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
             </ul>
             <li class="Deconnexion">
                 <a href="./login.html" >Deconnexion</a>
@@ -58,11 +58,11 @@
 
         <div class="menu">
           <ul>
-            <li><a href="../acceuil.html" id="active">Acceuil</a></li>
-            <li><a href="../body/car.html">Cars</a></li>
+            <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+            <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
           </ul>
           <li>
-              <a href="../accountManagement/login.html">Se conncter</a>
+              <a href="<?= url('loginuser'); ?>">Se conncter</a>
           </li>
        
       </div>
@@ -84,7 +84,7 @@
               
           </div>
           <div class="cardImage">
-              <img src="../public/source/images/bgK.png" id="imageCard">
+              <!-- <img src="<?= BASE_URL; ?>public/source/images/bgK.png" id="imageCard"> -->
           </div>
       </div>
   </div>
@@ -139,6 +139,6 @@
         </div>
       </div>
     </div>
-    <script src="../../public/js/accountManagement/account.js"></script>
+    <script src="<?= BASE_URL; ?>public/js/accountManagement/account.js"></script>
   </body>
 </html>

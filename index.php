@@ -15,8 +15,8 @@ switch ($controllerName) {
     case 'View':
         $controllerClass = "ViewController";
         break;
-    case 'Vehicule':
-        $controllerClass = "VehiculeController";
+    case 'Admin':
+        $controllerClass = "AdminController";
         break;
     default:
         # code...
