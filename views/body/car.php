@@ -35,11 +35,11 @@
       <!-- <div class="menu">
                 <ul>
                     <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
-                    <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
+                    <li><a href="<?= url('cars'); ?>">Cars</a></li>
                     <li><a href="../dashboard/client/dashboard.html">Mon dashboard</a></li>
                 </ul>
                 <li class="Deconnexion">
-                    <a href="<?= url('loginuser'); ?>" >Deconnexion</a>
+                    <a href="<?= url('login'); ?>" >Deconnexion</a>
                 </li>
                
             </div> -->
@@ -47,10 +47,10 @@
       <div class="menu">
         <ul>
           <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
-          <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
+          <li><a href="<?= url('cars'); ?>">Cars</a></li>
         </ul>
         <li>
-          <a href="<?= url('loginuser'); ?>">Se conncter</a>
+          <a href="<?= url('login'); ?>">Se conncter</a>
         </li>
 
       </div>
@@ -142,8 +142,8 @@
                 <!-- <p><span>Note: </span>4.2/5</p> -->
               </div>
               <div class="card-sub_btn">
-                <a href="<?= url('api/View/detailscar', ['matricule' => urlencode($datacar['matricule'])]); ?>#info_voiture"><button id="voir">voir +</button></a>
-                <a href="<?= url('api/View/detailscar', ['matricule' => urlencode($datacar['matricule'])]); ?>#info_formulaire"><button>Reserver</button></a>
+                <a href="<?= url('detailscars', ['matricule' => urlencode($datacar['matricule'])]); ?>#info_voiture"><button id="voir">voir +</button></a>
+                <a href="<?= url('detailscars', ['matricule' => urlencode($datacar['matricule'])]); ?>#info_formulaire"><button>Reserver</button></a>
               </div>
               <div class="card-type">
                 <p><?= $datacar['rentprice'] ?> Dinars</p>

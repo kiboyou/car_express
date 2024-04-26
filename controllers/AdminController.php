@@ -1,14 +1,17 @@
 <?php
 require MODELS . 'Admin.php';
+require MODELS . 'Customers.php';
 
 class AdminController
 {
     private $modeladmin;
+    private $modelcustomer;
 
     public function __construct()
     {
         global $database;
         $this->modeladmin = new Admin($database);
+        $this->modelcustomer = new Customer($database);
     }
 
     //display main page of dash
@@ -19,6 +22,7 @@ class AdminController
     //display customer info
     public function customer()
     {
+        $customers = $this->modelcustomer->Allcustomer();
         require_once VIEWS . '/dashboard/admin/list-client.php';
     }
     //display reservation info
@@ -69,13 +73,13 @@ class AdminController
             if (empty($errors)) {
                 $datamarque = $_POST['marque'];
                 if ($this->modeladmin->newmarque($datamarque)) {
-                    header('Location: ' . url('api/Admin/vehicule'));
+                    header('Location: ' . url('car'));
                 } else {
                     echo "Error to save ";
                 }
             }
         }
-        header('Location: ' . url('api/Admin/vehicule'));
+        header('Location: ' . url('car'));
     }
     //traitement of data model
     public function addmodele()
@@ -85,12 +89,12 @@ class AdminController
             $modeldata = $_POST['modele'];
             // echo $marquedata . ' ' . $modeldata;
             if ($this->modeladmin->newmodel($marquedata, $modeldata)) {
-                header('Location: ' . url('api/Admin/vehicule'));
+                header('Location: ' . url('car'));
             } else {
                 echo "Error to save";
             }
         }
-        header('Location: ' . url('api/Admin/vehicule'));
+        header('Location: ' . url('car'));
     }
     //traitment data to save a new car
     public function addvehicule()
@@ -112,7 +116,7 @@ class AdminController
                 $target = STORAGE . $newfilename;
                 if (move_uploaded_file($_FILES['vehiculepicture']['tmp_name'], $target)) {
                     if ($this->modeladmin->newcar($matriculedata, $modeldata, $catdata, $transdata, $newfilename, $vehiculeprice, $dispdata)) {
-                        header('Location: ' . url('api/Admin/vehicule'));
+                        header('Location: ' . url('car'));
                     } else {
                         echo "erreu to save data";
                     }
@@ -124,6 +128,24 @@ class AdminController
                 echo "Aucun fichier telecharge";
             }
         }
-        header('Location: ' . url('api/Admin/vehicule'));
+        header('Location: ' . url('car'));
+    }
+
+    public function registeradmin()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $lastnamedata = $_POST['username'];
+            $passworddata = $_POST['password'];
+            $passwordcrypt = password_hash($passworddata, PASSWORD_DEFAULT);
+
+            //send into database
+            if ($this->modeladmin->addadmin($lastnamedata, $passwordcrypt)) {
+                echo "Success";
+            } else {
+                // Gérer les erreurs lors de l'ajout du client à la base de données
+                echo "Une erreur s'est produite lors de l'ajout du client à la base de données.";
+            }
+            // echo $lastnamedata . ' ' . $firstnamedata . ' ' . $emaildata . ' ' . $phonedata . ' ' . $passwordcrypt;
+        }
     }
 }

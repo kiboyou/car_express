@@ -16,14 +16,8 @@ class ViewController
         require_once VIEWS . '/acceuil.php';
     }
 
-    //display admin page
-    public function admin()
-    {
-        echo "Bienvenue mr l'administrateur";
-    }
-
     //display login from customer page
-    public function logincustomer()
+    public function login()
     {
         require_once VIEWS . '/accountManagement/login.php';
     }

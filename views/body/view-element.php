@@ -35,10 +35,10 @@
             <!-- <div class="menu">
                 <ul>
                     <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
-                    <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
+                    <li><a href="<?= url('cars'); ?>">Cars</a></li>
                 </ul>
                 <li class="Deconnexion">
-                    <a href="<?= url('loginuser'); ?>" >Deconnexion</a>
+                    <a href="<?= url('login'); ?>" >Deconnexion</a>
                 </li>
                
             </div> -->
@@ -46,10 +46,10 @@
             <div class="menu">
                 <ul>
                     <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
-                    <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
+                    <li><a href="<?= url('cars'); ?>">Cars</a></li>
                 </ul>
                 <li>
-                    <a href="<?= url('loginuser'); ?>">Se conncter</a>
+                    <a href="<?= url('login'); ?>">Se conncter</a>
                 </li>
 
             </div>

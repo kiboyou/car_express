@@ -62,10 +62,10 @@
             <div class="menu">
               <ul>
                 <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
-                <li><a href="<?= url('api/View/listcar'); ?>">Cars</a></li>
+                <li><a href="<?= url('cars'); ?>">Cars</a></li>
               </ul>
               <li>
-                  <a href="<?= url('loginuser'); ?>" >Se connecter</a>
+                  <a href="<?= url('login'); ?>" >Se connecter</a>
               </li>
           </div>
 
@@ -79,7 +79,7 @@
                         Nous sommes ravis de vous offrir une exdivérience de location simple, rapide et pratique.
                     </p>
                     <div>
-                        <a href="<?= url('loginuser'); ?>" class="annonceLink">se connecter</a>
+                        <a href="<?= url('login'); ?>" class="annonceLink">se connecter</a>
                     </div>
                 </div>
                 
@@ -149,7 +149,7 @@
                         un déplacement professionnel ou des vacances en famille, nous avons la voiture parfaite pour vous.
                     </div>
                     <div class="btnRL">
-                        <a href="<?= url('api/View/listcar'); ?>" class="reservatLink">voir plus pour la reservation</a>
+                        <a href="<?= url('cars'); ?>" class="reservatLink">voir plus pour la reservation</a>
                     </div>
                </div>
             </div>
@@ -163,7 +163,7 @@
                         vous pouvez louer le véhicule parfait pour votre prochain voyage en quelques étapes simples.
                     </div>
                     <div class="btnRL">
-                        <a href="<?= url('api/View/listcar'); ?>" class="reservatLink">voir plus pour louer</a>
+                        <a href="<?= url('cars'); ?>" class="reservatLink">voir plus pour louer</a>
                     </div>
                </div>
             </div>
@@ -189,7 +189,7 @@
                             ce qui les rend faciles à garer dans les espaces restreints
                         </div>
                         <div class="btnCont">
-                            <a href="<?= url('api/View/listcar'); ?>" class="btnVoiture">voir plus</a>
+                            <a href="<?= url('cars'); ?>" class="btnVoiture">voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                             Ils offrent la possibilité de conduire avec le toit ouvert
                         </div>
                         <div class="btnCont">
-                            <a href="<?= url('api/View/listcar'); ?>" class="btnVoiture">voir plus</a>
+                            <a href="<?= url('cars'); ?>" class="btnVoiture">voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
                             Elles sont équipées des dernières technologies et des finitions haut de gamme
                         </div>
                         <div class="btnCont">
-                            <a href="<?= url('api/View/listcar'); ?>" class="btnVoiture">voir plus</a>
+                            <a href="<?= url('cars'); ?>" class="btnVoiture">voir plus</a>
                         </div>
                     </div>
                 </div>

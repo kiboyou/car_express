@@ -3,19 +3,36 @@ RewriteEngine On
 # Réécriture pour la page admin
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^admin$ /api/View/admin [L,QSA]
-
-# Réécriture pour la page index customer
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^index$ /api/View/index [L,QSA]
-
-# Réécriture pour la page signin ou signup customer
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^loginuser$ /api/View/logincustomer [L,QSA]
-
 # Réécriture general du site
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^api/([^/]+)/([^/]+)$ index.php?controller=$1&action=$2 [L,QSA]
+
+# LINK VIEW DASHBOARD
+# Réécriture pour la partie index dashboard admin
+RewriteRule ^admin$ /api/admin/index [L,QSA]
+# Réécriture pour la partie client dashboard admin
+RewriteRule ^customer$ /api/admin/customer [L,QSA]
+# Réécriture pour la partie reservation dashboard admin
+RewriteRule ^reservation$ /api/admin/reservation [L,QSA]
+# Réécriture pour la partie facture dashboard admin
+RewriteRule ^invoice$ /api/admin/facture [L,QSA]
+# Réécriture pour la partie reçu dashboard admin
+RewriteRule ^received$ /api/admin/received [L,QSA]
+# Réécriture pour la partie inventaire dashboard admin
+RewriteRule ^inventaire$ /api/admin/inventaire [L,QSA]
+# Réécriture pour la partie gestionnaire dashboard admin
+RewriteRule ^manager$ /api/admin/gestionnaire [L,QSA]
+# Réécriture pour la partie vehicule dashboard admin
+RewriteRule ^car$ /api/admin/vehicule [L,QSA]
+
+# LINK VIEW HOME
+# Réécriture pour la page index customer
+RewriteRule ^index$ /api/View/index [L,QSA]
+# Réécriture pour la page signin ou signup customer
+RewriteRule ^login$ /api/View/login [L,QSA]
+# Réécriture pour voir toutes les cars
+RewriteRule ^cars$ /api/View/listcar [L,QSA]
+# Réécriture pour voir toutes les cars
+RewriteRule ^detailscars$ /api/View/detailscar [L,QSA]
+
+
+

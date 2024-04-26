@@ -8,6 +8,25 @@ class Admin
         $this->database = $db;
     }
 
+    //login admin
+    public function loginadmin($useradmin){
+        $sql = "SELECT * FROM administrateur WHERE usernameadmin=:usernameadmin";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':usernameadmin',$useradmin);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function addadmin($usernameval, $passval){
+        $sql = "INSERT INTO administrateur(usernameadmin, passwordadmin) VALUES (:usernameadmin, :passwordadmin)";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':usernameadmin', $usernameval);
+        $stmt->bindParam(':passwordadmin', $passval);
+
+        return $stmt->execute();
+    }
+
     //add new marque
     public function newmarque($marquevalue)
     {

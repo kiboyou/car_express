@@ -18,42 +18,42 @@
         <!-- LISTE DE MENU -->
         <ul>
           <!-- OPTION ACCEUIL -->
-          <a href="<?= url('api/Admin/index'); ?>">
+          <a href="<?= url('admin'); ?>">
             <li>
               <i class="fa-solid fa-chart-line"></i> Dashboard
             </li>
           </a>
           <!-- OPTION CLIENT -->
-          <a href="<?= url('api/Admin/customer'); ?>">
+          <a href="<?= url('customer'); ?>">
             <li><i class="fa-solid fa-hospital-user"></i> Client</li>
           </a>
           <!-- OPTION RESERVATION -->
-          <a href="<?= url('api/Admin/reservation'); ?>">
+          <a href="<?= url('reservation'); ?>">
             <li>
               <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
             </li>
           </a>
           <!-- OPTION FACTURE -->
-          <a href="<?= url('api/Admin/facture'); ?>">
+          <a href="<?= url('invoice'); ?>">
             <li><i class="fa-solid fa-square-poll-vertical"></i> Facture</li>
           </a>
           <!-- OPTION RECU -->
-          <a href="<?= url('api/Admin/received'); ?>">
+          <a href="<?= url('received'); ?>">
             <li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li>
           </a>
 
           <!-- OPTION INVENTAIRE -->
-          <a href="<?= url('api/Admin/inventaire'); ?>">
+          <a href="<?= url('inventaire'); ?>">
             <li><i class="fa-solid fa-magnifying-glass-chart"></i> Inventaire</li>
           </a>
 
           <!-- OPTION GESTIONNAIRE -->
-          <a href="<?= url('api/Admin/gestionnaire'); ?>">
+          <a href="<?= url('manager'); ?>">
             <li><i class="fa-solid fa-hospital-user"></i> Gestionnaire</li>
           </a>
 
           <!-- OPTION VOITURE -->
-          <a href="<?= url('api/Admin/vehicule'); ?>">
+          <a href="<?= url('car'); ?>">
             <li class="menu-select"><i class="fa-solid fa-square-poll-vertical"></i> Voiture</li>
           </a>
         </ul>
@@ -61,7 +61,7 @@
       </div>
       <!-- DECONNECTION -->
       <div class="disconnect">
-        <a href="<?= url('api/Admin/index'); ?>"><button>Se deconnecter</button></a>
+        <a href="<?= url('admin'); ?>"><button>Se deconnecter</button></a>
       </div>
     </div>
     <!-- PARTIE 2 DROITE -->
@@ -115,7 +115,7 @@
         <!-- LISTE DES PATIENTS -->
         <div class="list-client">
           <?php foreach ($cars as $datacar) : ?>
-            <div class="client"> 
+            <div class="client">
               <p><?= $datacar['matricule'] ?></p>
               <?= ($datacar['categorie'] == 'eco') ? '<p>Economique</p>' : (($datacar['categorie'] == 'suv') ? '<p>SUV</p>' : '<p>Luxueuse</p>') ?>
               <p><?= $datacar['namemarque'] ?></p>
@@ -130,19 +130,7 @@
               </div>
             </div>
           <?php endforeach; ?>
-          <!-- <div class="client">
-            <p>1234456</p>
-            <p>4X4</p>
-            <p>Toyota </p>
-            <p>Corolla</p>
-            <p>Autumatique</p>
-            <!-- <p class="status">NON</p> -->
-          <!-- <p class="status_ok">OUI</p> -->
-          <!-- <div>
-              <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-              <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-            </div> -->
-        </div> -->
+        </div>
       </div>
 
       <!-- PAGINATION -->
@@ -215,10 +203,10 @@
       <!-- ajouter une marque -->
       <div class="admining-box">
         <p>Enregistrer une marque</p>
-        <form method="post" action="<?= url('api/Admin/addmarque'); ?>">
+        <form method="post" id="marqueForm" action="<?= url('api/Admin/addmarque'); ?>">
 
           <label for="marque"></label>
-          <input type="text" name="marque" placeholder="Entrez le nom">
+          <input type="text" name="marque" id="marque" placeholder="Entrez le nom">
 
           <button type="submit">Valider</button>
         </form>
@@ -234,16 +222,16 @@
       <!-- ajouter une marque -->
       <div class="admining-box">
         <p>Enregistrer un model</p>
-        <form method="POST" action="<?= url('api/Admin/addmodele'); ?>">
+        <form method="POST" id="modelForm" action="<?= url('api/Admin/addmodele'); ?>">
           <label>choisissez une marque</label>
-          <select name="marque">
+          <select name="marque" id="marqueSelect">
             <option selected>Selectionnez</option>
             <?php foreach ($marque as $datamarque) : ?>
               <option value="<?= $datamarque['idmarque']; ?>"><?= $datamarque['namemarque']; ?></option>
             <?php endforeach; ?>
           </select>
           <label for="modele"></label>
-          <input type="text" name="modele" placeholder="Entrez le model correspondant">
+          <input type="text" name="modele" id="modele" placeholder="Entrez le model correspondant" disabled>
           <button type="submit">Valider</button>
         </form>
       </div>
@@ -270,6 +258,7 @@
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard.js"></script>
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard-car.js"></script>
     <script src="<?= BASE_URL; ?>public/js/reload.js"></script>
+    <script src="<?= BASE_URL; ?>public/js/validate.js"></script>
 </body>
 
 </html>

@@ -18,6 +18,11 @@ switch ($controllerName) {
     case 'Admin':
         $controllerClass = "AdminController";
         break;
+    case 'Customer':
+        $controllerClass = "CustomerController";
+        break;
+    case 'Auth':
+        $controllerClass = "AuthController";
     default:
         # code...
         break;
