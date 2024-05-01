@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <!-- HEAD -->
@@ -43,7 +44,7 @@
                
             </div> -->
 
-            <div class="menu">
+            <!-- <div class="menu">
                 <ul>
                     <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
                     <li><a href="<?= url('cars'); ?>">Cars</a></li>
@@ -52,7 +53,29 @@
                     <a href="<?= url('login'); ?>">Se conncter</a>
                 </li>
 
-            </div>
+            </div> -->
+            <?php if (isset($_SESSION['customer'])) { ?>
+                <div class="menu">
+                    <ul>
+                        <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+                        <li><a href="<?= url('cars'); ?>">Cars</a></li>
+                        <li><a href="<?= url('404'); ?>">Mon dashboard</a></li>
+                    </ul>
+                    <li class="Deconnexion">
+                        <a href="<?= url('logout'); ?>">Deconnexion</a>
+                    </li>
+                </div>
+            <?php } else { ?>
+                <div class="menu">
+                    <ul>
+                        <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+                        <li><a href="<?= url('cars'); ?>">Cars</a></li>
+                    </ul>
+                    <li>
+                        <a href="<?= url('login'); ?>">Se connecter</a>
+                    </li>
+                </div>
+            <?php } ?>
 
         </div>
         <div class="container1">
@@ -154,19 +177,19 @@
                             </div>
                         </div>
                         <div class="form-groupe form3">
-                            <div class="select">
+                            <!-- <div class="select">
                                 <select name="" id="">
                                     <option value="">choisissez le nom de votre voiture</option>
                                     <option value=""></option>
                                     <option value=""></option>
                                     <option value=""></option>
                                 </select>
+                            </div> -->
+                            <div class="input1">
+                                <input type="text" name="" id="" placeholder="Entrez la marque votre voitutre" value="<?= $detailcar['namemarque'] ?>">
                             </div>
                             <div class="input1">
-                                <input type="text" name="" id="" placeholder="Entrez la marque votre voitutre" value="">
-                            </div>
-                            <div class="input1">
-                                <input type="text" name="" id="" placeholder="Entrez le model votre voiture" value="">
+                                <input type="text" name="" id="" placeholder="Entrez le model votre voiture" value="<?= $detailcar['namemodele'] ?>">
                             </div>
                         </div>
                         <div class="form-groupe form4">

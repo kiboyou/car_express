@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <!-- HEAD -->
@@ -44,7 +45,7 @@
                
             </div> -->
 
-      <div class="menu">
+      <!-- <div class="menu">
         <ul>
           <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
           <li><a href="<?= url('cars'); ?>">Cars</a></li>
@@ -53,7 +54,29 @@
           <a href="<?= url('login'); ?>">Se conncter</a>
         </li>
 
-      </div>
+      </div> -->
+      <?php if (isset($_SESSION['customer'])) { ?>
+        <div class="menu">
+          <ul>
+            <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+            <li><a href="<?= url('cars'); ?>">Cars</a></li>
+            <li><a href="<?= url('404'); ?>">Mon dashboard</a></li>
+          </ul>
+          <li class="Deconnexion">
+            <a href="<?= url('logout'); ?>">Deconnexion</a>
+          </li>
+        </div>
+      <?php } else { ?>
+        <div class="menu">
+          <ul>
+            <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+            <li><a href="<?= url('cars'); ?>">Cars</a></li>
+          </ul>
+          <li>
+            <a href="<?= url('login'); ?>">Se connecter</a>
+          </li>
+        </div>
+      <?php } ?>
 
     </div>
     <div class="container1">

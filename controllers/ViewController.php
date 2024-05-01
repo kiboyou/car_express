@@ -22,6 +22,16 @@ class ViewController
         require_once VIEWS . '/accountManagement/login.php';
     }
 
+    //deconnect
+    public function logout(){
+        require_once VIEWS . 'logout.php';
+    }
+
+    //page error
+    public function error(){
+        require_once VIEWS . '404.php';
+    }
+
     //display all car without data
     public function listcar()
     {

@@ -33,6 +33,14 @@ RewriteRule ^login$ /api/View/login [L,QSA]
 RewriteRule ^cars$ /api/View/listcar [L,QSA]
 # Réécriture pour voir toutes les cars
 RewriteRule ^detailscars$ /api/View/detailscar [L,QSA]
+# Réécriture pour voir 404 page 
+RewriteRule ^404$ /api/View/error [L,QSA]
 
 
+# Réécriture pour les deconnexions
+RewriteRule ^logout$ /api/View/logout [L,QSA]
+
+# Réécriture pour les traitements
+RewriteRule ^addcustomer$ /api/customer/registercustomer [L,QSA]
+RewriteRule ^connect$ /api/Auth/login [L,QSA]
 

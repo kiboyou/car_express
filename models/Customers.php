@@ -17,7 +17,7 @@ class Customer
         $stmt->bindParam(':phonecustomer', $phoneval);
         $stmt->bindParam(':passwordcustomer', $passval);
 
-        return $stmt->execute();
+        return $stmt->execute(); 
     }
     public function Allcustomer(){
         $sql = "SELECT * FROM customer";
@@ -32,5 +32,15 @@ class Customer
         $stmt->bindParam(':mailcustomer', $mailcustomer);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    //check if email exist
+    public function checkExistMail($emaildata){
+        $sql = "SELECT COUNT(*) AS total FROM customer WHERE mailcustomer=:mailcustomer";
+        $stmt = $this->database->prepare($sql);
+        $stmt->bindParam(':mailcustomer', $emaildata);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $data['total'] > 0;
     }
 }

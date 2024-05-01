@@ -1,3 +1,4 @@
+<?php require_once CONFIG . 'adminCheckLogin.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- HEAD -->
@@ -60,7 +61,7 @@
       </div>
       <!-- DECONNECTION -->
       <div class="disconnect">
-        <a href="<?= url('admin'); ?>"><button>Se deconnecter</button></a>
+        <a href="<?= url('logout'); ?>"><button>Se deconnecter</button></a>
       </div>
     </div>
     <!-- PARTIE 2 DROITE -->
@@ -69,7 +70,7 @@
       <div class="head">
         <div>
           <img src="<?= BASE_URL; ?>public/source/images/Ellipse 1.png" alt="photo de profil" />
-          <p>Admin name</p>
+          <p><?= $_SESSION['admin'] ?></p>
         </div>
       </div>
       <!-- INFORMATIONS & CHARTS BOARD -->

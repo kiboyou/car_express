@@ -20,6 +20,11 @@ class CustomerController
             $passwordcrypt = password_hash($passworddata, PASSWORD_DEFAULT);
 
             //send into database
+            if ($this->modelcustomer->checkExistMail($emaildata)) {
+                $mail_error = "Cet E-mail existe";
+                header('Location: ' . url('login', ['error' => $mail_error]));
+                exit();
+            }
             if ($this->modelcustomer->addcustomer($lastnamedata, $firstnamedata, $emaildata, $phonedata, $passwordcrypt)) {
                 header('Location: ' . url('login'));
                 exit();
@@ -27,9 +32,8 @@ class CustomerController
                 // Gérer les erreurs lors de l'ajout du client à la base de données
                 echo "Une erreur s'est produite lors de l'ajout du client à la base de données.";
             }
+
             // echo $lastnamedata . ' ' . $firstnamedata . ' ' . $emaildata . ' ' . $phonedata . ' ' . $passwordcrypt;
         }
     }
-
-    
 }

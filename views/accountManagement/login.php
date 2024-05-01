@@ -1,3 +1,12 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+// if(isset($_SESSION[''])){
+//   header('Location: ' . url());
+//   exit;
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- HEAD -->
@@ -45,7 +54,7 @@
 
       <!-- USER NON CONNCTER  -->
 
-      <div class="menu">
+      <!-- <div class="menu">
         <ul>
           <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
           <li><a href="<?= url('cars'); ?>">Cars</a></li>
@@ -54,7 +63,29 @@
           <a href="<?= url('login'); ?>">Se conncter</a>
         </li>
 
-      </div>
+      </div> -->
+      <?php if (isset($_SESSION['customer'])) { ?>
+        <div class="menu">
+          <ul>
+            <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+            <li><a href="<?= url('cars'); ?>">Cars</a></li>
+            <li><a href="<?= url('404'); ?>">Mon dashboard</a></li>
+          </ul>
+          <li class="Deconnexion">
+            <a href="<?= url('logout'); ?>">Deconnexion</a>
+          </li>
+        </div>
+      <?php } else { ?>
+        <div class="menu">
+          <ul>
+            <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
+            <li><a href="<?= url('cars'); ?>">Cars</a></li>
+          </ul>
+          <li>
+            <a href="<?= url('login'); ?>">Se connecter</a>
+          </li>
+        </div>
+      <?php } ?>
 
     </div>
     <div class="container1">
@@ -91,8 +122,11 @@
     <div class="container right-panel-active">
       <!-- Sign Up -->
       <div class="container__form container--signup">
-        <form action="<?= url('api/customer/registercustomer') ?>" class="form" method="post" id="registerForm">
+        <form action="<?= url('addcustomer') ?>" class="form" method="post" id="registerForm">
           <h2 class="form__title">Inscription</h2>
+          <span id="pass" style="color: <?= isset($_GET['error']) ? 'red' : 'inherit'; ?>;">
+            <?= isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>
+          </span>
           <input type="text" placeholder="Nom" id="lastnameclient" class="input" name="lastnameclient" />
           <span id="nameError" style="color: red;"></span>
           <input type="text" placeholder="Prenom" id="firstnameclient" class="input" name="firstnameclient" />
@@ -111,10 +145,14 @@
 
       <!-- Sign In -->
       <div class="container__form container--signin">
-        <form action="<?= url('api/Auth/login'); ?>" method="post" class="form" id="form2">
+        <form action="<?= url('connect'); ?>" method="post" class="form" id="form2">
           <h2 class="form__title">Connexion</h2>
-          <input type="text" name="mailcustomer" id="mailcustomer" placeholder="Email / Username pour admin" class="input" />
 
+          <span id="pass" style="color: <?= isset($_GET['error']) ? 'red' : 'inherit'; ?>;">
+            <?= isset($_GET['error']) ? htmlspecialchars($_GET['error']) : ''; ?>
+          </span>
+
+          <input type="text" name="mailcustomer" id="mailcustomer" placeholder="Email pour customer / Username pour autres" class="input" />
           <input type="password" name="passcustomer" id="passcustomer" placeholder="Mot de passe" class="input" />
           <a href="#" class="link">mot de passe oublié ?</a>
           <button class="btn">Se connecter</button>

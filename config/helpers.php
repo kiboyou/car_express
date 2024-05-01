@@ -28,6 +28,11 @@ define('INCLUDES', VIEWS . 'includes');
 //fonction to manage url
 function url($path, $params = [])
 {
+    if (isset($params['error'])) {
+        $path .= '?error=' . urlencode($params['error']);
+        unset($params['error']); // Supprime le message d'erreur de $params
+    }
+    
     $req = http_build_query($params);
     if (!empty($req)) {
         return BASE_URL . $path . '?' . $req;
