@@ -23,6 +23,13 @@ switch ($controllerName) {
         break;
     case 'Auth':
         $controllerClass = "AuthController";
+        break;
+    case 'Mail':
+        $controllerClass = "MailController";
+        break;
+    case 'Gestionnaire':
+        $controllerClass = 'GestionnaireController';
+        break;
     default:
         # code...
         break;

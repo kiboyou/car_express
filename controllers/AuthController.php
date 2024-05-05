@@ -33,11 +33,13 @@ class AuthController
                         // echo "Cet customer existe et son mot de passe est correct";
                         session_start();
                         // Après que l'utilisateur se soit connecté avec succès
-                        $_SESSION['customer'] = array(
+                        $_SESSION['customer'] =  [
+                            'id' => $customer['idcustomer'],
                             'lastname' => $customer['lastnamecustomer'],
                             'firstname' => $customer['firstnamecustomer'],
                             'email' => $customer['mailcustomer']
-                        );
+                        ];
+                        $_SESSION['isLoggincustomer'] = true;
                         // echo $_SESSION['firstnamecustomer'] . ' ' . $_SESSION['lastnamecustomer'] . ' ' . $_SESSION['mailcustomer'];
                         header('Location: ' . url('index'));
                     } else {
@@ -58,7 +60,11 @@ class AuthController
                     if ($admin) {
                         if (password_verify($passdata, $admin['passwordadmin'])) {
                             session_start();
-                            $_SESSION['admin'] = $admin['usernameadmin'];
+                            $_SESSION['admin'] = [
+                                'username' => $admin['usernameadmin']
+                            ];
+                            $_SESSION['role'] = 'administrator';
+                            $_SESSION['isLogginadmin'] = true;
                             header('Location: ' . url('admin'));
                             // echo "Admin connected with success";
                         } else {
@@ -78,7 +84,21 @@ class AuthController
                     if ($manager) {
                         if (password_verify($passdata, $manager['passwordgestionnaire'])) {
                             // header('Location: ' . url('admin'));
-                            echo "Gestionnaire connected with success";
+                            // echo "Gestionnaire connected with success";
+                            if ($manager['firstlogin'] == 1) {
+                                $idmanager = $manager['idgestionnaire'];
+                                // echo "Votre premiere connexion, il faut modifier le password! ID: " . $idmanager;
+                                header('Location: ' . url('resetpassword', ['idmanager' => $idmanager]));
+                            } else {
+                                // echo "Ce n'est pas votre premiere connexion";
+                                session_start();
+                                $_SESSION['manager'] = [
+                                    'username' => $manager['usermanager']
+                                ];
+                                $_SESSION['role'] = 'manager';
+                                $_SESSION['isLogginadmin'] = true;
+                                header('Location: ' . url('admin'));
+                            }
                         } else {
                             $pass_error = "Mot de passe incorrect";
                             header('Location: ' . url('login', ['error' => $pass_error]));

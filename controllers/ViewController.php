@@ -23,13 +23,19 @@ class ViewController
     }
 
     //deconnect
-    public function logout(){
+    public function logout()
+    {
         require_once VIEWS . 'logout.php';
     }
 
     //page error
-    public function error(){
+    public function error()
+    {
         require_once VIEWS . '404.php';
+    }
+    public function errorpage()
+    {
+        require_once VIEWS . 'error.php';
     }
 
     //display all car without data
@@ -37,6 +43,10 @@ class ViewController
     {
         $cars = $this->modelview->listcar();
         require_once VIEWS . '/body/car.php';
+    }
+    public function resetpassword()
+    {
+        require_once VIEWS . 'accountManagement/resetpassword.php';
     }
 
     //display one car 

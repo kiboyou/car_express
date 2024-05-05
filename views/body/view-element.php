@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <!-- HEAD -->
@@ -19,9 +21,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- CSS FILE -->
     <link rel="stylesheet" href="<?= BASE_URL; ?>public/styles/body.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>public/styles/modal.css">
     <!-- JS LINK -->
-
-
     <!-- TITRE DE LA PAGE -->
     <title>CarExpress | view-element</title>
 
@@ -59,7 +60,7 @@
                     <ul>
                         <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
                         <li><a href="<?= url('cars'); ?>">Cars</a></li>
-                        <li><a href="<?= url('404'); ?>">Mon dashboard</a></li>
+                        <li><a href="<?= url('dashCustomer'); ?>">Mon dashboard</a></li>
                     </ul>
                     <li class="Deconnexion">
                         <a href="<?= url('logout'); ?>">Deconnexion</a>
@@ -202,14 +203,23 @@
                                 <input type="date" name="" id="date2">
                             </div>
                         </div>
+                        <input type="hidden" name="idcustomer" value="<?= $_SESSION['customer']['id'] ?>">
                         <div class="form-groupe form-btn">
-                            <button id="effacer">effacer le formulaire</button>
-                            <button>valider le formulaire</button>
+                            <button id="effacer" type="reset">effacer le formulaire</button>
+                            <button id="valider">valider le formulaire</button>
                         </div>
                     </form>
                 </div>
                 </section>
         </main>
+    </div>
+
+    <!-- Fenêtre modale -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Veuillez vous connecter pour pouvoir valider le formulaire.</p><br>
+        </div>
     </div>
 
     <div class="section6">
@@ -237,5 +247,55 @@
         </footer>
     </div>
 </body>
+<!-- JavaScript pour contrôler le modal -->
+<!-- <script>
+    // Récupérer le bouton et le modal
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("openModalBtn");
+
+    // Récupérer le bouton de fermeture
+    var span = document.getElementsByClassName("close")[0];
+
+    // Quand l'utilisateur clique sur le bouton, ouvrir le modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // Quand l'utilisateur clique sur le bouton de fermeture, fermer le modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Quand l'utilisateur clique en dehors du modal, fermer le modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Récupérez la référence du bouton Valider
+        var validerBtn = document.getElementById('valider');
+        // Récupérez la référence de la fenêtre modale
+        var modal = document.getElementById('myModal');
+
+        // Ajoutez un gestionnaire d'événements au clic sur le bouton Valider
+        validerBtn.addEventListener('click', function() {
+            <?php if (empty($_SESSION['customer'])) : ?>
+                // Affichez la fenêtre modale si l'utilisateur n'est pas connecté
+                modal.style.display = 'block';
+                validerBtn.disabled = true;
+            <?php endif; ?>
+        });
+
+        // Ajoutez un gestionnaire d'événements pour fermer la fenêtre modale en cliquant sur le bouton de fermeture
+        var closeBtn = modal.querySelector('.close');
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            validerBtn.disabled = false;
+        });
+    });
+</script>
 
 </html>

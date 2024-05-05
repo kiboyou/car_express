@@ -8,7 +8,8 @@ function customerCheckLoggedIn()
     }
     // session_start();
     // Vérifier si l'utilisateur est connecté en vérifiant l'existence des variables de session
-    if (isset($_SESSION['customer'])) {
+    $loggedIn = $_SESSION['isLoggincustomer'] ?? false;
+    if ($loggedIn) {
         // //user deja connecte
         return;
     }

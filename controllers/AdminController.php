@@ -1,17 +1,20 @@
 <?php
 require MODELS . 'Admin.php';
 require MODELS . 'Customers.php';
+require MODELS . 'MailDesign.php';
 
 class AdminController
 {
     private $modeladmin;
     private $modelcustomer;
+    private $modelmaildesign;
 
     public function __construct()
     {
         global $database;
         $this->modeladmin = new Admin($database);
         $this->modelcustomer = new Customer($database);
+        $this->modelmaildesign = new MailDesign($database);
     }
 
     //display main page of dash
@@ -146,6 +149,43 @@ class AdminController
                 echo "Une erreur s'est produite lors de l'ajout du client à la base de données.";
             }
             // echo $lastnamedata . ' ' . $firstnamedata . ' ' . $emaildata . ' ' . $phonedata . ' ' . $passwordcrypt;
+        }
+    }
+    public function registermanager()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $firstnamemanager = $_POST['firstnamemanager']; //prenom
+            $lastnamemanager = $_POST['lastnamemanager']; //nom
+            $emailmanager = $_POST['mailmanager'];
+            $addressemanager = $_POST['addressmanager'];
+            $phonemanager = $_POST['phonemanager'];
+            $usermanagerdata = $_POST['usernamemanager'];
+
+            //default password for new manager
+            $defaultpasswordmanager = $this->modeladmin->generatePassword();
+            //hash password now
+            $passwordHash = password_hash($defaultpasswordmanager, PASSWORD_DEFAULT);
+
+            // echo $firstnamemanager . '<--->' . $lastnamemanager . '<--->' . $emailmanager . '<--->' . $addressemanager . '<--->' . $phonemanager . '<--->' . $usermanager . '<--->' . $passwordHash;
+            if ($this->modeladmin->isUsernameUnique($usermanagerdata)) {
+                if ($this->modeladmin->addmanager($lastnamemanager, $firstnamemanager, $usermanagerdata, $phonemanager, $addressemanager, $passwordHash)) {
+                    if ($this->modelmaildesign->sendManagerCredential($lastnamemanager, $emailmanager, $defaultpasswordmanager, $usermanagerdata)) {
+                        header('Location: ' . url('manager'));
+                    } else {
+                        $mailerror = "Manager cree et email non envoye";
+                        header('Location: ' . url('error', ['error' => $mailerror]));
+                        exit();
+                    }
+                } else {
+                    $manager_error = "Impossible de créer le nouvel manager";
+                    header('Location: ' . url('error', ['error' => $manager_error]));
+                    exit();
+                }
+            } else {
+                $username_erro = "Cet username existe deja";
+                header('Location: ' . url('error', ['error' => $username_erro]));
+                exit();
+            }
         }
     }
 }

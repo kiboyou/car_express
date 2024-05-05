@@ -24,41 +24,40 @@
               <i class="fa-solid fa-chart-line"></i> Dashboard
             </li>
           </a>
-          <!-- OPTION CLIENT -->
-          <a href="<?= url('customer'); ?>">
-            <li><i class="fa-solid fa-hospital-user"></i> Client</li>
-          </a>
-          <!-- OPTION RESERVATION -->
-          <a href="<?= url('reservation'); ?>">
-            <li>
-              <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
-            </li>
-          </a>
-          <!-- OPTION FACTURE -->
-          <a href="<?= url('invoice'); ?>">
-            <li class="menu-select"><i class="fa-solid fa-square-poll-vertical"></i> Facture</li>
-          </a>
-          <!-- OPTION RECU -->
-          <a href="<?= url('received'); ?>">
-            <li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li>
-          </a>
-
-          <!-- OPTION INVENTAIRE -->
-          <a href="<?= url('inventaire'); ?>">
-            <li><i class="fa-solid fa-magnifying-glass-chart"></i> Inventaire</li>
-          </a>
-
-          <!-- OPTION GESTIONNAIRE -->
-          <a href="<?= url('manager'); ?>">
-            <li><i class="fa-solid fa-hospital-user"></i> Gestionnaire</li>
-          </a>
-
-          <!-- OPTION VOITURE -->
-          <a href="<?= url('car'); ?>">
-            <li><i class="fa-solid fa-square-poll-vertical"></i> Voiture</li>
-          </a>
+          <?php if ($_SESSION['role'] == 'administrator') : ?>
+            <!-- OPTION CLIENT -->
+            <a href="<?= url('customer'); ?>">
+              <li><i class="fa-solid fa-hospital-user"></i> Client</li>
+            </a>
+            <!-- OPTION GESTIONNAIRE -->
+            <a href="<?= url('manager'); ?>">
+              <li><i class="fa-solid fa-hospital-user"></i> Gestionnaire</li>
+            </a>
+          <?php elseif ($_SESSION['role'] == 'manager') : ?>
+            <!-- OPTION RESERVATION -->
+            <a href="<?= url('reservation'); ?>">
+              <li>
+                <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
+              </li>
+            </a>
+            <!-- OPTION FACTURE -->
+            <a href="<?= url('invoice'); ?>">
+              <li class="menu-select"><i class="fa-solid fa-square-poll-vertical"></i> Facture</li>
+            </a>
+            <!-- OPTION RECU -->
+            <a href="<?= url('received'); ?>">
+              <li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li>
+            </a>
+            <!-- OPTION INVENTAIRE -->
+            <a href="<?= url('inventaire'); ?>">
+              <li><i class="fa-solid fa-magnifying-glass-chart"></i> Inventaire</li>
+            </a>
+            <!-- OPTION VOITURE -->
+            <a href="<?= url('car'); ?>">
+              <li><i class="fa-solid fa-square-poll-vertical"></i> Voiture</li>
+            </a>
+          <?php endif; ?>
         </ul>
-
       </div>
       <!-- DECONNECTION -->
       <div class="disconnect">
@@ -71,7 +70,13 @@
       <div class="head">
         <div>
           <img src="<?= BASE_URL; ?>public/source/images/Ellipse 1.png" alt="photo de profil" />
-          <p><?= $_SESSION['admin'] ?></p>
+          <p>
+            <? if($_SESSION['role'] == "administrator"){ ?>
+              <p><?= $_SESSION['admin']['username'] ?></p>
+            <? } else { ?>
+              <p><?= $_SESSION['manager']['username'] ?></p>
+            <? } ?>
+          </p>
         </div>
       </div>
       <!-- LIST OF ITEM -->

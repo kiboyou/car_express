@@ -60,7 +60,7 @@
           <ul>
             <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
             <li><a href="<?= url('cars'); ?>">Cars</a></li>
-            <li><a href="<?= url('404'); ?>">Mon dashboard</a></li>
+            <li><a href="<?= url('dashCustomer'); ?>">Mon dashboard</a></li>
           </ul>
           <li class="Deconnexion">
             <a href="<?= url('logout'); ?>">Deconnexion</a>

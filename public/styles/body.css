@@ -91,8 +91,8 @@ html {
     color: #c51e1e;
 }
 
-#active {
-    color: #c51e1e;
+.active {
+    color: #c51e1e !important;
 }
 
 .menu > li{
@@ -269,9 +269,9 @@ html {
   margin: 1rem auto;
   font-size: 2rem;
 }
-.overview-1 .container .test {
+.overview-1 .container {
   width: 90%;
-  /* height: 120vh; */
+  height: 120vh;
   margin: 4rem auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -856,4 +856,3 @@ footer div p:not(:last-child) {
   font-weight: 900;
   color: rgb(199, 199, 199);
 }
-

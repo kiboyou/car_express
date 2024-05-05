@@ -9,6 +9,22 @@ class CustomerController
         $this->modelcustomer = new Customer($database);
     }
 
+    public function dashindex(){
+        require_once VIEWS . 'dashboard/client/dashboard.php';
+    }
+
+    public function dashinvoice(){
+        require_once VIEWS . 'dashboard/client/list-facture.php';
+    }
+
+    public function dashreservation(){
+        require_once VIEWS . 'dashboard/client/list-reservation.php';
+    }
+
+    public function dashreceived(){
+        require_once VIEWS . 'dashboard/client/list-recu.php';
+    }
+
     public function registercustomer()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

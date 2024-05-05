@@ -1,46 +1,48 @@
 RewriteEngine On
 
-# Réécriture pour la page admin
+# PAGE GENERAL
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-# Réécriture general du site
 RewriteRule ^api/([^/]+)/([^/]+)$ index.php?controller=$1&action=$2 [L,QSA]
 
-# LINK VIEW DASHBOARD
-# Réécriture pour la partie index dashboard admin
+# LINK VIEW DASHBOARD ADMIN et MANAGER
 RewriteRule ^admin$ /api/admin/index [L,QSA]
-# Réécriture pour la partie client dashboard admin
 RewriteRule ^customer$ /api/admin/customer [L,QSA]
-# Réécriture pour la partie reservation dashboard admin
 RewriteRule ^reservation$ /api/admin/reservation [L,QSA]
-# Réécriture pour la partie facture dashboard admin
 RewriteRule ^invoice$ /api/admin/facture [L,QSA]
-# Réécriture pour la partie reçu dashboard admin
 RewriteRule ^received$ /api/admin/received [L,QSA]
-# Réécriture pour la partie inventaire dashboard admin
 RewriteRule ^inventaire$ /api/admin/inventaire [L,QSA]
-# Réécriture pour la partie gestionnaire dashboard admin
 RewriteRule ^manager$ /api/admin/gestionnaire [L,QSA]
-# Réécriture pour la partie vehicule dashboard admin
 RewriteRule ^car$ /api/admin/vehicule [L,QSA]
 
+# LINK VIEW DASH CUSTOMER
+RewriteRule ^dashCustomer$ /api/customer/dashindex [L,QSA]
+RewriteRule ^invoiceCustomer$ /api/customer/dashinvoice [L,QSA]
+RewriteRule ^reservationCustomer$ /api/customer/dashreservation [L,QSA]
+RewriteRule ^receivedCustomer$ /api/customer/dashreceived [L,QSA]
+
+
+
 # LINK VIEW HOME
-# Réécriture pour la page index customer
-RewriteRule ^index$ /api/View/index [L,QSA]
-# Réécriture pour la page signin ou signup customer
-RewriteRule ^login$ /api/View/login [L,QSA]
-# Réécriture pour voir toutes les cars
-RewriteRule ^cars$ /api/View/listcar [L,QSA]
-# Réécriture pour voir toutes les cars
-RewriteRule ^detailscars$ /api/View/detailscar [L,QSA]
-# Réécriture pour voir 404 page 
-RewriteRule ^404$ /api/View/error [L,QSA]
-
-
-# Réécriture pour les deconnexions
-RewriteRule ^logout$ /api/View/logout [L,QSA]
+RewriteRule ^index$ /api/view/index [L,QSA]
+RewriteRule ^login$ /api/view/login [L,QSA]
+RewriteRule ^cars$ /api/view/listcar [L,QSA]
+RewriteRule ^detailscars$ /api/view/detailscar [L,QSA]
+RewriteRule ^404$ /api/view/error [L,QSA]
+RewriteRule ^error$ /api/view/errorpage [L,QSA]
+RewriteRule ^resetpassword$ /api/view/resetpassword [L,QSA]
 
 # Réécriture pour les traitements
 RewriteRule ^addcustomer$ /api/customer/registercustomer [L,QSA]
-RewriteRule ^connect$ /api/Auth/login [L,QSA]
+RewriteRule ^connect$ /api/auth/login [L,QSA]
+RewriteRule ^logout$ /api/view/logout [L,QSA]
+RewriteRule ^addmanager$    /api/admin/registermanager  [L,QSA]
+RewriteRule ^updatepassword$    /api/gestionnaire/updatepassword    [L,QSA]
 
+# Réécriture pour les models d'envoi mail
+RewriteRule ^customerwelcome$   /api/mail/customerWelcome   [L,QSA]
+RewriteRule ^idmanager$ /api/mail/credentialManager [L,QSA]
+RewriteRule ^confirmReservation$    /api/mail/confirmReservationCustomer    [L,QSA]
+
+
+ErrorDocument   404 /404

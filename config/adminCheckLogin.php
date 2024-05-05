@@ -8,7 +8,8 @@ function adminCheckLoggedIn()
     }
     // session_start();
     // Vérifier si l'utilisateur est connecté en vérifiant l'existence des variables de session
-    if (isset($_SESSION['admin'])) {
+    $loggedIn = $_SESSION['isLogginadmin'] ?? false;
+    if ($loggedIn) {
         // //user deja connecte
         return;
     }
