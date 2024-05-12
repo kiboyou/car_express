@@ -8,7 +8,8 @@ class Customer
     }
 
     //add a new customer
-    public function addcustomer($lastnameval, $firstnameval, $mailval, $phoneval, $passval){
+    public function addcustomer($lastnameval, $firstnameval, $mailval, $phoneval, $passval)
+    {
         $sql = "INSERT INTO customer(lastnamecustomer, firstnamecustomer, mailcustomer, phonecustomer, passwordcustomer) VALUES (:lastnamecustomer, :firstnamecustomer, :mailcustomer, :phonecustomer, :passwordcustomer)";
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':lastnamecustomer', $lastnameval);
@@ -17,16 +18,20 @@ class Customer
         $stmt->bindParam(':phonecustomer', $phoneval);
         $stmt->bindParam(':passwordcustomer', $passval);
 
-        return $stmt->execute(); 
+        return $stmt->execute();
     }
-    public function Allcustomer(){
+    
+
+    public function Allcustomer()
+    {
         $sql = "SELECT * FROM customer";
         $query = $this->database->query($sql);
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //login customer
-    public function logincustomer($mailcustomer){
+    public function logincustomer($mailcustomer)
+    {
         $sql = "SELECT * FROM customer WHERE mailcustomer=:mailcustomer";
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':mailcustomer', $mailcustomer);
@@ -35,12 +40,13 @@ class Customer
     }
 
     //check if email exist
-    public function checkExistMail($emaildata){
+    public function checkExistMail($emaildata)
+    {
         $sql = "SELECT COUNT(*) AS total FROM customer WHERE mailcustomer=:mailcustomer";
         $stmt = $this->database->prepare($sql);
         $stmt->bindParam(':mailcustomer', $emaildata);
         $stmt->execute();
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         return $data['total'] > 0;
-    }
+    }    
 }

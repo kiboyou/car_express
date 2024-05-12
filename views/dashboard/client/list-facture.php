@@ -33,31 +33,33 @@
     <div class="left">
       <!-- LOGO DU CENTRE CULTUREL COMOE -->
       <div class="logo">
-        <img src="<?= BASE_URL; ?>public/source/images/logo/logoB.png" alt="logo du centre comoe" />
+      <a href="<?= url('index'); ?>">
+          <img src="<?= BASE_URL; ?>public/source/images/logo/logoB.png" alt="logo du centre comoe" />
+        </a>
       </div>
       <!-- LISTE DES OPTIONS MENU -->
       <div class="list">
         <!-- LISTE DE MENU -->
         <ul>
           <!-- OPTION ACCEUIL -->
-          <a href="<?= url('dashCustomer') ?>">
+          <a href="<?= url('dashCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li>
               <i class="fa-solid fa-chart-line"></i> Dashboard
             </li>
           </a>
 
           <!-- OPTION RESERVATION -->
-          <a href="<?= url('reservationCustomer') ?>">
+          <a href="<?= url('reservationCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li>
               <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
             </li>
           </a>
           <!-- OPTION FACTURE -->
-          <a href="<?= url('invoiceCustomer') ?>">
+          <a href="<?= url('invoiceCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li class="menu-select"><i class="fa-solid fa-square-poll-vertical"></i> Facture</li>
           </a>
           <!-- OPTION RECU -->
-          <a href="<?= url('receivedCustomer  ') ?>">
+          <a href="<?= url('receivedCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li>
           </a>
 
@@ -86,7 +88,7 @@
       <div class="admin">
         <!-- TITRE -->
         <div class="title">
-          <p class="title">Listes des factures </p>
+          <p class="title">Listes des factures</p>
         </div>
 
         <!-- RECHERCHE ET FILTRES -->
@@ -116,28 +118,31 @@
           <p>Status</p>
           <p>Actions</p>
         </div>
-
         <!-- LISTE DES PATIENTS -->
         <div class="list-client">
           <!-- Patient -->
-          <div class="client">
-            <p>OUATTARA</p>
-            <p>Voiture Économique</p>
-            <p>15</p>
-            <p>10 000</p>
-            <p>150 000</p>
-            <!-- <p class="status">En cours...</p> -->
-            <p class="status_ok">valider</p>
-            <div>
-              <!-- VALIDER -->
-              <a href="#"><button class="set"><i class="fa-solid fa-print"></i></button></a>
-              <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+          <?php foreach ($invoices as $invoice) : ?>
+            <div class="client">
+              <p><?= $invoice['lastnamecustomer'] ?></p>
+              <p><?= $invoice['namecar'] ?></p>
+              <p><?= $invoice['nbrejours'] ?></p>
+              <p><?= $invoice['prixunitaire'] ?></p>
+              <p><?= $invoice['total'] ?></p>
+              <!-- <p class="status">En cours...</p> -->
+              <!-- <p class="status_ok">valider</p> -->
+              <?= ($invoice['statutfacture'] == "non payé") ? '<p class="status">Non Payé</p>' : '<p class="status_ok">Payé</p>'?>
+              <div>
+                <!-- VALIDER -->
+                <a href="<?= url('invoicepdf',['client' => $_SESSION['customer']['id'], 'facture' => $invoice['idfacture']]) ?>"><button class="set"><i class="fa-solid fa-print"></i></button></a>
+                <!-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> -->
 
-              <!-- PAS VALIDER -->
-              <!-- <a href="#"><button class="set"><i class="fa-solid fa-print"></i></button></a> -->
+                <!-- PAS VALIDER -->
+                <!-- <a href="#"><button class="set"><i class="fa-solid fa-print"></i></button></a> -->
 
+              </div>
             </div>
-          </div>
+          <?php endforeach; ?>
+
         </div>
 
         <!-- PAGINATION -->

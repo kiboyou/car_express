@@ -60,7 +60,7 @@
           <ul>
             <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
             <li><a href="<?= url('cars'); ?>">Cars</a></li>
-            <li><a href="<?= url('dashCustomer'); ?>">Mon dashboard</a></li>
+            <li><a href="<?= url('dashCustomer', ['id' => $_SESSION['customer']['id']]); ?>">Mon dashboard</a></li>
           </ul>
           <li class="Deconnexion">
             <a href="<?= url('logout'); ?>">Deconnexion</a>
@@ -151,7 +151,7 @@
               <img src="<?= $imgPath; ?>" alt="house-image" />
             </div>
             <div class="card-title">
-              <p>Nom de la voiture</p>
+              <p> <?= $datacar['vehicule'] ?> </p>
             </div>
             <div class="card-info">
               <p><span>Modele: </span> <?= $datacar['namemodele'] ?> </p>

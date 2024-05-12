@@ -37,7 +37,9 @@ class AuthController
                             'id' => $customer['idcustomer'],
                             'lastname' => $customer['lastnamecustomer'],
                             'firstname' => $customer['firstnamecustomer'],
-                            'email' => $customer['mailcustomer']
+                            'email' => $customer['mailcustomer'],
+                            'phone' => $customer['phonecustomer'],
+                            'adresse' => $customer['adressecustomer'],
                         ];
                         $_SESSION['isLoggincustomer'] = true;
                         // echo $_SESSION['firstnamecustomer'] . ' ' . $_SESSION['lastnamecustomer'] . ' ' . $_SESSION['mailcustomer'];

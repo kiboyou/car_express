@@ -1,3 +1,8 @@
+<?php
+$nom = $_GET['nom'];
+$dateLocation = $_GET['startlocation'];
+$numReservation = $_GET['idreservation'];
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -90,18 +95,21 @@
     </header>
 
     <main>
-        <h3 style="text-align: center;">Welcome to our site</h3>
+        <h3 style="text-align: center;">Congratulations to your reservation</h3>
         <p>
-            Cher/Chère <?= $email ?>,
+            Cher/Chère <?= $nom ?>,
         </p>
         <p>
-            Nous espérons que vous allez bien. Nous avons bien reçu votre réservation identifié [numero] de voiture pour [date de réservation]. <br> Pour garantir votre réservation, nous vous prions de bien vouloir confirmer celle-ci dans les 24 prochaines heures.
+            Nous espérons que vous allez bien. Nous avons bien reçu votre réservation identifié <?= $numReservation ?> de voiture pour <?= $dateLocation ?>. <br> Pour garantir votre réservation, nous vous prions de bien vouloir confirmer celle-ci dans les 24 prochaines heures.
         </p>
         <p>
             Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à nous contacter. Nous sommes là pour vous aider à tout moment.
         </p>
         <p>
             Nous sommes impatients de vous servir et de vous offrir une expérience de location de voiture exceptionnelle.
+        </p>
+        <p>
+            N.B: Le jour de la prise du vehicule, veuillez donner le numero de reservation au receptionniste.
         </p>
         <p>Cordialement,</p>
         <p>L'équipe ABKM Service.</p>

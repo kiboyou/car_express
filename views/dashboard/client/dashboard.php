@@ -42,24 +42,24 @@
         <!-- LISTE DE MENU -->
         <ul>
           <!-- OPTION ACCEUIL -->
-          <a href="<?= url('dashCustomer') ?>">
+          <a href="<?= url('dashCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li class="menu-select">
               <i class="fa-solid fa-chart-line"></i> Dashboard
             </li>
           </a>
 
           <!-- OPTION RESERVATION -->
-          <a href="<?= url('reservationCustomer') ?>">
+          <a href="<?= url('reservationCustomer' , ['id' => $_SESSION['customer']['id']]) ?>">
             <li>
               <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
             </li>
           </a>
           <!-- OPTION FACTURE -->
-          <a href="<?= url('invoiceCustomer') ?>">
+          <a href="<?= url('invoiceCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li><i class="fa-solid fa-square-poll-vertical"></i> Facture</li>
           </a>
           <!-- OPTION RECU -->
-          <a href="<?= url('receivedCustomer  ') ?>">
+          <a href="<?= url('receivedCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li>
           </a>
 
@@ -87,7 +87,7 @@
       <!-- INFORMATIONS & CHARTS BOARD -->
       <div class="info">
         <!-- TITRE -->
-        <p class="title">statistiques</p>
+        <p class="title">statistiques <?php echo $idcustomer ?></p> 
         <!-- BOX DES STATS -->
         <div class="box">
 

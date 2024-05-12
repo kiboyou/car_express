@@ -14,6 +14,19 @@
             "database": "carexpressdb",
             "username": "devuser",
             "askForPassword": true
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "MYSQL LOCAL",
+            "username": "root",
+            "database": "carexpressdb"
         }
     ]
 }

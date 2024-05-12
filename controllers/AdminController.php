@@ -2,12 +2,18 @@
 require MODELS . 'Admin.php';
 require MODELS . 'Customers.php';
 require MODELS . 'MailDesign.php';
+require MODELS . 'Vehicule.php';
+require MODELS . 'Reservations.php';
+require MODELS . 'Factures.php';
 
 class AdminController
 {
     private $modeladmin;
     private $modelcustomer;
     private $modelmaildesign;
+    private $modelcar;
+    private $modelreservation;
+    private $modelinvoice;
 
     public function __construct()
     {
@@ -15,6 +21,9 @@ class AdminController
         $this->modeladmin = new Admin($database);
         $this->modelcustomer = new Customer($database);
         $this->modelmaildesign = new MailDesign($database);
+        $this->modelcar = new Vehicule($database);
+        $this->modelreservation = new reservation($database);
+        $this->modelinvoice = new Facture($database);
     }
 
     //display main page of dash
@@ -31,11 +40,13 @@ class AdminController
     //display reservation info
     public function reservation()
     {
+        $reservation = $this->modelreservation->allReservation();
         require_once VIEWS . 'dashboard/admin/list-reservation.php';
     }
     //display facture info
     public function facture()
     {
+        $invoice = $this->modelinvoice->allCustomerInvoice();
         require_once VIEWS . 'dashboard/admin/list-facture.php';
     }
     //display reçu info
@@ -58,7 +69,7 @@ class AdminController
     {
         $marque = $this->modeladmin->listmarque();
         $modele = $this->modeladmin->listmodele();
-        $cars = $this->modeladmin->listcar();
+        $cars = $this->modelcar->listcar();
         require VIEWS . 'dashboard/admin/list-voiture.php';
     }
 
@@ -103,7 +114,7 @@ class AdminController
     public function addvehicule()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $matriculedata = $this->modeladmin->generateMatricule();
+            $matriculedata = $this->modelcar->generateMatricule();
             $modeldata = $_POST['modele'];
             $catdata = $_POST['categorie'];
             $transdata = $_POST['transmission'];
@@ -118,7 +129,7 @@ class AdminController
                 //save file in le picture
                 $target = STORAGE . $newfilename;
                 if (move_uploaded_file($_FILES['vehiculepicture']['tmp_name'], $target)) {
-                    if ($this->modeladmin->newcar($matriculedata, $modeldata, $catdata, $transdata, $newfilename, $vehiculeprice, $dispdata)) {
+                    if ($this->modelcar->newcar($matriculedata, $modeldata, $catdata, $transdata, $newfilename, $vehiculeprice, $dispdata)) {
                         header('Location: ' . url('car'));
                     } else {
                         echo "erreu to save data";
@@ -167,7 +178,7 @@ class AdminController
             $passwordHash = password_hash($defaultpasswordmanager, PASSWORD_DEFAULT);
 
             // echo $firstnamemanager . '<--->' . $lastnamemanager . '<--->' . $emailmanager . '<--->' . $addressemanager . '<--->' . $phonemanager . '<--->' . $usermanager . '<--->' . $passwordHash;
-            if ($this->modeladmin->isUsernameUnique($usermanagerdata)) {
+            if ($this->modeladmin->isUsernameUnique($usermanagerdata)) { 
                 if ($this->modeladmin->addmanager($lastnamemanager, $firstnamemanager, $usermanagerdata, $phonemanager, $addressemanager, $passwordHash)) {
                     if ($this->modelmaildesign->sendManagerCredential($lastnamemanager, $emailmanager, $defaultpasswordmanager, $usermanagerdata)) {
                         header('Location: ' . url('manager'));

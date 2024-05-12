@@ -32,31 +32,33 @@
     <div class="left">
       <!-- LOGO DU CENTRE CULTUREL COMOE -->
       <div class="logo">
-        <img src="<?= BASE_URL; ?>public/source/images/logo/logoB.png" alt="logo du centre comoe" />
+      <a href="<?= url('index'); ?>">
+          <img src="<?= BASE_URL; ?>public/source/images/logo/logoB.png" alt="logo du centre comoe" />
+        </a>
       </div>
       <!-- LISTE DES OPTIONS MENU -->
       <div class="list">
         <!-- LISTE DE MENU -->
         <ul>
           <!-- OPTION ACCEUIL -->
-          <a href="<?= url('dashCustomer') ?>">
+          <a href="<?= url('dashCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li>
               <i class="fa-solid fa-chart-line"></i> Dashboard
             </li>
           </a>
 
           <!-- OPTION RESERVATION -->
-          <a href="<?= url('reservationCustomer') ?>">
+          <a href="<?= url('reservationCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li class="menu-select">
               <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
             </li>
           </a>
           <!-- OPTION FACTURE -->
-          <a href="<?= url('invoiceCustomer') ?>">
+          <a href="<?= url('invoiceCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
             <li><i class="fa-solid fa-square-poll-vertical"></i> Facture</li>
           </a>
           <!-- OPTION RECU -->
-          <a href="<?= url('receivedCustomer  ') ?>">
+          <a href="<?= url('receivedCustomer  ', ['id' => $_SESSION['customer']['id']]) ?>">
             <li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li>
           </a>
 
@@ -109,7 +111,7 @@
         <div class="repere-client">
           <p>Client</p>
           <p>Voiture</p>
-          <p>Date de reservation</p>
+          <p>numero de reservation</p>
           <p>Date de debut</p>
           <p>Date de fin</p>
           <p>Status</p>
@@ -119,23 +121,45 @@
         <!-- LISTE DES RESERVATIONS -->
         <div class="list-client">
           <!-- client -->
-          <div class="client">
-            <p>OUATTARA</p>
-            <p>Voiture Économique</p>
-            <p>15/04/2022</p>
-            <p>15/04/2022</p>
-            <p>15/04/2022</p>
-            <!-- <p class="status">En cours...</p> -->
-            <p class="status_ok">valider</p>
-            <div>
-              <!-- VALIDER -->
-              <a href="#"><button class="set"><i class="fa-solid fa-circle-check"></i></button></a>
-              <a href="#"><button class="del"><i class="fa-solid fa-ban"></i></button></a>
+          <?php foreach ($reservationData as $data) : ?>
+            <div class="client">
+              <p><?= $data['lastnamecustomer'] ?></p>
+              <p><?= $data['namecar'] ?></p>
+              <p><?= $data['idreservation'] ?></p>
+              <p><?= $data['debutlocation'] ?></p>
+              <p><?= $data['finlocation'] ?></p>
+              <!-- <p class="status">En cours...</p> -->
+              <!-- <p class="status_none">Annulé...</p> -->
+              <!-- <p class="status_ok">valider</p> -->
+              <?= ($data['statutreservation'] == "En attente") ? '<p class="status">En attente</p>' : (($data['statutreservation'] == "Confirme") ? '<p class="status_ok">Confirmé</p>' : '<p class="status_none">Annulé</p>') ?>
+              <div>
+                <!-- VALIDER-->
+                <?php if ($data['statutreservation'] == "Annule") : ?>
+                  <a href="#"><button class="del" disabled><i class="fa-solid fa-xmark"></i></button></a>
+                <?php elseif ($data['statutreservation'] == "Confirme") : ?>
+                  <a href="<?= url('invoiceCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
+                    <button class="set">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                  </a>
+                <?php else : ?>
+                  <a href="<?= url('confirm', ['reservation' => urlencode($data['idreservation'])]) ?>">
+                    <button class="set">
+                      <i class="fa-solid fa-circle-check"></i>
+                    </button>
+                  </a>
+                  <a href="<?= url('cancel', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
+                <?php endif; ?>
 
-              <!-- PAS VALIDER -->
-              <!-- <p>....</p> -->
+
+                <!-- <a href="#"><button class="del"><i class="fa-solid fa-ban"></i></button></a> -->
+
+                <!-- PAS VALIDER -->
+                <!-- <p>....</p> -->
+              </div>
             </div>
-          </div>
+          <?php endforeach; ?>
+
         </div>
 
         <!-- PAGINATION -->
@@ -163,17 +187,23 @@
     </div>
 
     <!-- supprimer un element -->
-    <div class="delete">
+    <!-- <div class="delete">
       <div class="delete-box">
         <i class="fa-solid fa-triangle-exclamation"></i>
         <p>Voulez-vous supprimer cette reservation ?</p>
-        <button>Confirmer</button>
+        <button id="deleteConfirmButton">Confirmer</button>
       </div>
       <div class="delete-cancel">
         <i class="fa-solid fa-xmark"></i>
       </div>
-    </div>
+    </div> -->
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard.js"></script>
 </body>
+<!-- <script>
+  document.getElementById('deleteConfirmButton').addEventListener('click', function() {
+    var reservationID = this.getAttribute('numreservation')
+    window.location.href = "<?= url('cancel', ['reservation' => urlencode('REPLACER_ICI')]) ?>".replace('REPLACER_ICI', encodeURIComponent(reservationID));
+  })
+</script> -->
 
 </html>

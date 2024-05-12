@@ -20,6 +20,10 @@ RewriteRule ^dashCustomer$ /api/customer/dashindex [L,QSA]
 RewriteRule ^invoiceCustomer$ /api/customer/dashinvoice [L,QSA]
 RewriteRule ^reservationCustomer$ /api/customer/dashreservation [L,QSA]
 RewriteRule ^receivedCustomer$ /api/customer/dashreceived [L,QSA]
+RewriteRule ^addreservation$    /api/customer/makereservation [L,QSA]
+RewriteRule ^confirm$    /api/customer/confirm [L,QSA]
+RewriteRule ^cancel$    /api/customer/annule [L,QSA]
+RewriteRule ^invoicepdf$    /api/customer/invoicepdf [L,QSA]
 
 
 

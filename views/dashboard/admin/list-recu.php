@@ -117,6 +117,7 @@
         <!-- LISTE DES PATIENTS -->
         <div class="list-client">
           <!-- Patient -->
+          
           <div class="client">
             <p>OUATTARA</p>
             <p>Voiture Économique</p>

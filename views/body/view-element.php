@@ -60,7 +60,7 @@ session_start();
                     <ul>
                         <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
                         <li><a href="<?= url('cars'); ?>">Cars</a></li>
-                        <li><a href="<?= url('dashCustomer'); ?>">Mon dashboard</a></li>
+                        <li><a href="<?= url('dashCustomer', ['id' => $_SESSION['customer']['id']]); ?>">Mon dashboard</a></li>
                     </ul>
                     <li class="Deconnexion">
                         <a href="<?= url('logout'); ?>">Deconnexion</a>
@@ -125,14 +125,14 @@ session_start();
                     <div class="besoins-item-groupe besoins-item2">
                         <div class="item-1">
                             <div class="titreBesoin">
-                                Nom de la voiture
+                                <?= $detailcar['vehicule'] ?>
                             </div>
                             <div class="card-info">
                                 <p><span>Modele : </span> <?= $detailcar['namemodele'] ?> </p>
                                 <p><span>Marque : </span> <?= $detailcar['namemarque'] ?> </p>
                                 <p><span>Transmission : </span><?= ($detailcar['transmission'] == 'auto') ? 'Automatique' : 'Manuelle' ?></p>
                                 <p><span>Categorie : </span><?= ($detailcar['categorie'] == 'eco') ? 'Economique' : (($detailcar['categorie'] == 'suv') ? 'SUV' : 'Luxueuse') ?></p>
-                                <p><span>Prix : </span><?= $detailcar['rentprice'] ?> Dinars</p>
+                                <p><span>Prix : </span><?= $detailcar['rentprice'] ?> Dinars / jours</p>
                                 <p><span>Disponible : </span> <?= ($detailcar['disponibilite'] == 1) ? '<span id="oui">Oui</span>' : '<span id="non">Non</span>' ?></p>
 
                             </div>
@@ -148,68 +148,83 @@ session_start();
             </div>
             <span id="info_formulaire"></span>
             <div class="section-view2">
-                <div class="titre_produits">
-                    Formulaire de reservation
-                </div>
-                <div class="formulaire">
-                    <form action="">
-                        <div class="form-groupe form1">
-                            <div class="input1">
-                                <input type="text" name="" id="" placeholder="Entrez votre nom">
+                <?php if ($detailcar['disponibilite'] == 0) : ?>
+                    <div class="titre_produits">
+                        Ce véhicule a été deja réservée
+                    </div>
+                <?php else : ?>
+                    <div class="titre_produits">
+                        Formulaire de reservation de ce vehicule
+                    </div>
+                    <!-- <h3 style="text-align: center;">N.B: Si vous reservez pour vous meme, veuillez laissez les champs (nom, prenom, email, telephone et addresse vide)</h3> -->
+                    <div class="formulaire">
+                        <form action="<?= url('addreservation') ?>" method="post">
+                            <div class="form-groupe form1">
+                                <div class="input1">
+                                    <input type="text" name="lastname_person" id="" placeholder="Entrez votre nom" value="<?= $_SESSION['customer']['lastname'] ?>">
+                                </div>
+                                <div class="input1">
+                                    <input type="text" name="firstname_person" id="" placeholder="Entrez votre prenom" value="<?= $_SESSION['customer']['firstname'] ?>">
+                                </div>
+                                <div class="input1">
+                                    <input type="email" name="mail_person" id="" placeholder="Entrez votre email" value="<?= $_SESSION['customer']['email'] ?>">
+                                </div>
                             </div>
-                            <div class="input1">
-                                <input type="text" name="" id="" placeholder="Entrez votre prenom">
+                            <div class="form-groupe form2">
+                                <div class="input1">
+                                    <input type="text" name="tel_person" id="" placeholder="Entrez votre numero de telephone" value="<?= $_SESSION['customer']['phone'] ?>">
+                                </div>
+                                <div class="input1">
+                                    <input type="text" name="address_person" id="" placeholder="Entrez votre adresse" value="<?= $_SESSION['customer']['adresse'] ?>">
+                                </div>
+                                <div class="select">
+                                    <select name="methodpaye" id="methodpaye">
+                                        <option selected>choisissez votre mode de paiement</option>
+                                        <option value="bankcard">Carte Bancaire</option>
+                                        <option value="espece">Especes</option>
+                                    </select>
+                                    <span class="methodPaymentError" style="color: red;"></span>
+                                </div>
                             </div>
-                            <div class="input1">
-                                <input type="email" name="" id="" placeholder="Entrez votre email">
-                            </div>
-                        </div>
-                        <div class="form-groupe form2">
-                            <div class="input1">
-                                <input type="text" name="" id="" placeholder="Entrez votre numero de telephon">
-                            </div>
-                            <div class="input1">
-                                <input type="text" name="" id="" placeholder="Entrez votre adresse">
-                            </div>
+                            <!-- <div class="form-groupe form3">
                             <div class="select">
-                                <select name="" id="">
-                                    <option value="">choisissez votre mode de paiement</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-groupe form3">
-                            <!-- <div class="select">
                                 <select name="" id="">
                                     <option value="">choisissez le nom de votre voiture</option>
                                     <option value=""></option>
                                     <option value=""></option>
                                     <option value=""></option>
                                 </select>
-                            </div> -->
+                            </div>
                             <div class="input1">
                                 <input type="text" name="" id="" placeholder="Entrez la marque votre voitutre" value="<?= $detailcar['namemarque'] ?>">
                             </div>
                             <div class="input1">
-                                <input type="text" name="" id="" placeholder="Entrez le model votre voiture" value="<?= $detailcar['namemodele'] ?>">
+                                <input type="hidden" name="vehiculechoose" id="" placeholder="Entrez le model votre voiture" value="<?= $detailcar['namemodele'] ?>">
                             </div>
-                        </div>
-                        <div class="form-groupe form4">
-                            <div class="input1">
-                                <label for="date1">date de debut</label>
-                                <input type="date" name="" id="date1">
+                        </div> -->
+                            <div class="form-groupe form4">
+                                <div class="input1">
+                                    <label for="date1">date de debut</label>
+                                    <input type="date" name="dateStart" id="date1">
+                                    <span id="startDateError" style="color: red;"></span>
+                                </div>
+                                <div class="input1">
+                                    <label for="date2">date de fin</label>
+                                    <input type="date" name="dateEnd" id="date2">
+                                    <span id="endDateError" style="color: red;"></span>
+                                </div>
                             </div>
-                            <div class="input1">
-                                <label for="date2">date de fin</label>
-                                <input type="date" name="" id="date2">
+                            <input type="hidden" name="idcar" value="<?= $detailcar['matricule'] ?>">
+                            <input type="hidden" name="priceCar" value="<?= $detailcar['rentprice'] ?>">
+                            <input type="hidden" name="idcustomer" value="<?= $_SESSION['customer']['id'] ?>">
+                            <div class="form-groupe form-btn">
+                                <button id="effacer" type="reset">effacer le formulaire</button>
+                                <button id="valider">valider le formulaire</button>
                             </div>
-                        </div>
-                        <input type="hidden" name="idcustomer" value="<?= $_SESSION['customer']['id'] ?>">
-                        <div class="form-groupe form-btn">
-                            <button id="effacer" type="reset">effacer le formulaire</button>
-                            <button id="valider">valider le formulaire</button>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                <?php endif; ?>
+
                 </section>
         </main>
     </div>
@@ -294,6 +309,56 @@ session_start();
         closeBtn.addEventListener('click', function() {
             modal.style.display = 'none';
             validerBtn.disabled = false;
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector("form");
+
+        const methodPaymentSelect = document.getElementById("methodpaye");
+        const startDateInput = document.getElementById("date1");
+        const endDateInput = document.getElementById("date2");
+
+        const methodPaymentError = document.getElementById("methodPaymentError");
+        const startDateError = document.getElementById("startDateError");
+        const endDateError = document.getElementById("endDateError");
+
+        form.addEventListener("submit", function(event) {
+            let valid = true;
+
+            // Réinitialisation des messages d'erreur
+            methodPaymentError.textContent = "";
+            startDateError.textContent = "";
+            endDateError.textContent = "";
+
+            // Vérification de la méthode de paiement
+            if (methodPaymentSelect.value === "" || methodPaymentSelect.value === "choisissez votre mode de paiement") {
+                methodPaymentError.textContent = "Veuillez choisir votre mode de paiement.";
+                valid = false;
+            }
+
+            // Vérification de la date de début
+            if (startDateInput.value === "") {
+                startDateError.textContent = "Veuillez sélectionner la date de début.";
+                valid = false;
+            }
+
+            // Vérification de la date de fin
+            if (endDateInput.value === "") {
+                endDateError.textContent = "Veuillez sélectionner la date de fin.";
+                valid = false;
+            }
+
+            // Vérification que la date de fin est postérieure à la date de début
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+            if (endDate <= startDate) {
+                endDateError.textContent = "La date de fin doit être postérieure à la date de début.";
+                valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault(); // Empêche l'envoi du formulaire si des erreurs sont présentes
+            }
         });
     });
 </script>

@@ -71,12 +71,12 @@
         <div>
           <img src="<?= BASE_URL; ?>public/source/images/Ellipse 1.png" alt="photo de profil" />
           <p>
-            <? if($_SESSION['role'] == "administrator"){ ?>
-              <p><?= $_SESSION['admin']['username'] ?></p>
-            <? } else { ?>
-              <p><?= $_SESSION['manager']['username'] ?></p>
-            <? } ?>
-          </p>
+            <? if ($_SESSION['role'] == "administrator") { ?>
+          <p><?= $_SESSION['admin']['username'] ?></p>
+        <? } else { ?>
+          <p><?= $_SESSION['manager']['username'] ?></p>
+        <? } ?>
+        </p>
         </div>
       </div>
       <!-- LIST OF ITEM -->
@@ -117,19 +117,28 @@
         <!-- LISTE DES PATIENTS -->
         <div class="list-client">
           <!-- Patient -->
-          <div class="client">
-            <p>OUATTARA</p>
-            <p>Voiture Économique</p>
-            <p>15</p>
-            <p>10 000</p>
-            <p>150 000</p>
-            <p class="status">En cours...</p>
-            <!-- <p class="status_ok">valider</p> -->
-            <div>
-              <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-              <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+          <?php foreach ($invoice as $data) : ?>
+            <div class="client">
+              <p><?= $data['lastnamecustomer'] ?></p>
+              <p><?= $data['namecar'] ?></p>
+              <p><?= $data['nbrejours'] ?></p>
+              <p><?= $data['prixunitaire'] ?></p>
+              <p><?= $data['total'] ?></p>
+              <!-- <p class="status">En cours...</p> -->
+              <!-- <p class="status_ok">valider</p> -->
+              <?= ($data['statutfacture'] == "non payé") ? '<p class="status">Non Payé</p>' : '<p class="status_ok">Payé</p>' ?>
+              <div>
+                <!-- VALIDER -->
+                <a href="<?= url('invoicepdf', ['client' => $data['idclient'], 'facture' => $data['idfacture']]) ?>"><button class="set"><i class="fa-solid fa-print"></i></button></a>
+                <button class="set"><i class=".los fa-solid fa-file-invoice-dollar"></i></button>
+                <!-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> -->
+
+                <!-- PAS VALIDER -->
+                <!-- <a href="#"><button class="set"><i class="fa-solid fa-print"></i></button></a> -->
+
+              </div>
             </div>
-          </div>
+          <?php endforeach; ?>
         </div>
 
         <!-- PAGINATION -->
@@ -158,7 +167,7 @@
     <!-- NOTIFICATION -->
     <div class="admining">
       <!-- ajouter un admin -->
-      <div class="admining-box">
+      <div class="admining-box" id="invoice-form">
         <p>Enregistrer une facture </p>
         <form>
           <label>choisissez le client</label>
@@ -214,5 +223,7 @@
 
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard.js"></script>
 </body>
+<script>
+</script>
 
 </html>

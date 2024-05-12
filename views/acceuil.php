@@ -63,7 +63,7 @@
                     <ul>
                         <li><a href="<?= url('index'); ?>" id="active">Acceuil</a></li>
                         <li><a href="<?= url('cars'); ?>">Cars</a></li>
-                        <li><a href="<?= url('dashCustomer'); ?>">Mon dashboard</a></li>
+                        <li><a href="<?= url('dashCustomer', ['id' => $_SESSION['customer']['id']]); ?>">Mon dashboard</a></li>
                     </ul>
                     <li class="Deconnexion">
                         <a href="<?= url('logout'); ?>">Deconnexion</a>
@@ -92,7 +92,7 @@
                     </p>
                     <div>
                         <!-- <a href="<?= url('login'); ?>" class="annonceLink">se connecter</a> -->
-                        <?= isset($_SESSION['customer']) ? '<a href="' . url('dashCustomer') . '" class="annonceLink">voir mon dashboard</a>' : '<a href="' . url('login') . '" class="annonceLink">se connecter</a>' ?>
+                        <?= isset($_SESSION['customer']) ? '<a href="' . url('dashCustomer', ['id' => $_SESSION['customer']['id']]) . '" class="annonceLink">voir mon dashboard</a>' : '<a href="' . url('login') . '" class="annonceLink">se connecter</a>' ?>
                     </div>
                 </div>
 

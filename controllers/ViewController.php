@@ -1,13 +1,16 @@
 <?php
 require MODELS . 'Admin.php';
+require MODELS . 'Vehicule.php';
 class ViewController
 {
     private $modelview;
+    private $modelcar;
 
     public function __construct()
     {
         global $database;
         $this->modelview = new Admin($database);
+        $this->modelcar = new Vehicule($database);
     }
 
     //display index home only of customer
@@ -41,7 +44,7 @@ class ViewController
     //display all car without data
     public function listcar()
     {
-        $cars = $this->modelview->listcar();
+        $cars = $this->modelcar->listcar();
         require_once VIEWS . '/body/car.php';
     }
     public function resetpassword()
@@ -54,7 +57,7 @@ class ViewController
     {
         if (!empty($_GET['matricule'])) {
             $matricule = $_GET['matricule'];
-            $detailcar = $this->modelview->listOnecar($matricule);
+            $detailcar = $this->modelcar->listOnecar($matricule);
             require_once VIEWS . '/body/view-element.php';
         }
     }

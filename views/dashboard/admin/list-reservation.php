@@ -71,12 +71,12 @@
         <div>
           <img src="<?= BASE_URL; ?>public/source/images/Ellipse 1.png" alt="photo de profil" />
           <p>
-            <? if($_SESSION['role'] == "administrator"){ ?>
-              <p><?= $_SESSION['admin']['username'] ?></p>
-            <? } else { ?>
-              <p><?= $_SESSION['manager']['username'] ?></p>
-            <? } ?>
-          </p>
+            <? if ($_SESSION['role'] == "administrator") { ?>
+          <p><?= $_SESSION['admin']['username'] ?></p>
+        <? } else { ?>
+          <p><?= $_SESSION['manager']['username'] ?></p>
+        <? } ?>
+        </p>
         </div>
       </div>
       <!-- LIST OF ITEM -->
@@ -117,19 +117,29 @@
         <!-- LISTE DES PATIENTS -->
         <div class="list-client">
           <!-- Patient -->
-          <div class="client">
-            <p>OUATTARA</p>
-            <p>Voiture Économique</p>
-            <p>15/04/2022</p>
-            <p>15/04/2022</p>
-            <p>15/04/2022</p>
-            <p class="status">En cours...</p>
-            <!-- <p class="status_ok">valider</p> -->
-            <div>
-              <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-              <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+          <?php foreach ($reservation as $data) : ?>
+            <div class="client">
+              <p><?= $data['lastnamecustomer'] ?></p>
+              <p><?= $data['namecar'] ?></p>
+              <p><?= $data['idreservation'] ?></p>
+              <p><?= $data['debutlocation'] ?></p>
+              <p><?= $data['finlocation'] ?></p>
+              <?= ($data['statutreservation'] == "En attente") ? '<p class="status">En attente</p>' : (($data['statutreservation'] == "Confirme") ? '<p class="status_ok">Confirmé</p>' : '<p class="status_none">Annulé</p>') ?>
+              <!-- <p class="status_ok">valider</p> -->
+              <?php if ($data['statutreservation'] == "Annule") : ?>
+                <a href="#"><button class="del" disabled><i class="fa-solid fa-xmark"></i></button></a>
+              <?php elseif ($data['statutreservation'] == "Confirme") : ?>
+                <a href="<?= url('cancel', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
+              <?php else : ?>
+                <a href="<?= url('confirm', ['reservation' => urlencode($data['idreservation'])]) ?>">
+                  <button class="set">
+                    <i class="fa-solid fa-circle-check"></i>
+                  </button>
+                </a>
+                <a href="<?= url('cancel', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
+              <?php endif; ?>
             </div>
-          </div>
+          <?php endforeach; ?>
         </div>
 
         <!-- PAGINATION -->
