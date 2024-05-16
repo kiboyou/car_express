@@ -1,16 +1,19 @@
 <?php
 require MODELS . 'Gestionnaire.php';
 require MODELS . 'Factures.php';
+require MODELS . 'Vehicule.php';
 
 class GestionnaireController
 {
     private $modelmanager;
     private $modelinvoice;
+    private $modelcar;
     public function __construct()
     {
         global $database;
         $this->modelmanager = new Gestionnaire($database);
         $this->modelinvoice = new Facture($database);
+        $this->modelcar = new Vehicule($database);
     }
 
     public function updatepassword()
@@ -88,6 +91,18 @@ class GestionnaireController
 
             $result = $this->modelmanager->detailInventory($date, $time, $statut);
             require_once VIEWS . 'dashboard/admin/details-inventaire.php';
+        }
+    }
+    public function updatedisponibilite(){
+        if(empty($_GET['matricule'])){
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            // echo $idcar . ' ' . $dispo;
+            if($this->modelcar->updateAvailable($_GET['matricule'])){
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+            }else{
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+            }
         }
     }
 }

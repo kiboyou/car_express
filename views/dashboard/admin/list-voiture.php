@@ -71,12 +71,12 @@
         <div>
           <img src="<?= BASE_URL; ?>public/source/images/Ellipse 1.png" alt="photo de profil" />
           <p>
-            <? if($_SESSION['role'] == "administrator"){ ?>
-              <p><?= $_SESSION['admin']['username'] ?></p>
-            <? } else { ?>
-              <p><?= $_SESSION['manager']['username'] ?></p>
-            <? } ?>
-          </p>
+            <? if ($_SESSION['role'] == "administrator") { ?>
+          <p><?= $_SESSION['admin']['username'] ?></p>
+        <? } else { ?>
+          <p><?= $_SESSION['manager']['username'] ?></p>
+        <? } ?>
+        </p>
         </div>
       </div>
       <!-- LIST OF ITEM -->
@@ -104,7 +104,6 @@
           <button>ajouter voiture</button>
           <button class="button1">ajouter marque</button>
           <button class="button2">ajouter model</button>
-          <button class="refresh">refresh @</button>
         </div>
 
         <!-- REPERES -->
@@ -131,8 +130,8 @@
               <?= ($datacar['disponibilite'] == 1) ? '<p class="status_ok">Oui</p>' : '<p class="status">Non</p>' ?>
 
               <div>
-                <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+                <!-- <a href="#"><button class="set"><i class=".los fa-solid fa-pen"></i></button></a> -->
+                <a href="<?= url('available', ['matricule' => $datacar['matricule']])?>"><button class="del"><i class=".los fa-solid fa-pen"></i></button></a>
               </div>
             </div>
           <?php endforeach; ?>
@@ -249,17 +248,43 @@
 
     </div>
 
+    <div class="admining admining_disponibilite">
+      <!-- ajouter une marque -->
+      <div class="admining-box">
+        <p>Enregistrer une marque</p>
+        <form method="post" id="" action="">
+
+          <label for="marque"></label>
+          <input type="text" name="marque" id="marque" placeholder="Entrez le nom">
+
+          <button type="submit">Valider</button>
+        </form>
+      </div>
+
+      <!-- Annuler l'enregistrenent -->
+      <div class="admining-cancel available">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+    </div>
+
     <!-- supprimer un element -->
-    <div class="delete">
+    <!-- <div class="delete">
       <div class="delete-box">
         <i class="fa-solid fa-triangle-exclamation"></i>
-        <p>Voulez-vous supprimer cette voiture ?</p>
-        <button>Confirmer</button>
+        <form>
+          <input type="hidden" id="idCar" name="idCar">
+          <select name="disponible" id="disponible" required>
+            <option selected>Choisir une disponibilité</option>
+            <option value="1">Disponible</option>
+            <option value="0">Indisponible</option>
+          </select>
+          <button type="submit">Confirmer</button>
+        </form>
       </div>
       <div class="delete-cancel">
         <i class="fa-solid fa-xmark"></i>
       </div>
-    </div>
+    </div> -->
 
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard.js"></script>
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard-car.js"></script>

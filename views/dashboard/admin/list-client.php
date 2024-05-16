@@ -108,8 +108,8 @@
           <p>Prenoms</p>
           <p>Date de naissance</p>
           <p>Email</p>
-          <p>Adresse</p>
           <p>Telephone</p>
+          <p>Statut</p>
           <p>Actions</p>
         </div>
 
@@ -122,11 +122,11 @@
               <p><?= $customer['firstnamecustomer'] ?></p>
               <p><?= $customer['birthdaycustomer'] ?></p>
               <p><?= $customer['mailcustomer'] ?></p>
-              <p><?= $customer['adressecustomer'] ?></p>
               <p> <?= $customer['phonecustomer'] ?></p>
+              <?= ($customer['statut'] == 0) ? '<p class="status_ok">ACTIF</p>' : '<p class="status_cancel">INACTIF</p>' ?>
               <div>
-                <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+                <a href="<?= url('statutcustomer', ['id' => $customer['idcustomer']])?>"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
+                <!-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> -->
               </div>
             </div>
           <?php endforeach; ?>

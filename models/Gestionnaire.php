@@ -53,7 +53,7 @@ class Gestionnaire
     }
     public function detailInventory($dateVal, $timeVal, $statVal)
     {
-        $sql = "SELECT matricule, marque, modele, categorie, rentprice, transmission FROM inventaire JOIN inventory_grouped
+        $sql = "SELECT matricule, marque, modele, categorie, rentprice, transmission, inventory_grouped.dateinventory, timeinventory FROM inventaire JOIN inventory_grouped
                     ON DATE(inventaire.dateinventory) = inventory_grouped.dateinventory
                     AND TIME(inventaire.dateinventory) = inventory_grouped.timeinventory
                     AND inventaire.disponibilite =

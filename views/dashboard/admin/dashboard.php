@@ -117,6 +117,12 @@
 
           <!-- CADRE -->
           <div>
+            <p>Nombre d'inventaire' : </p>
+            <p><?= $data['numInventory'] ?></p>
+          </div>
+
+          <!-- CADRE -->
+          <div>
             <p>Nombre de voiture : </p>
             <p><?= $data['carCount'] ?></p>
           </div>
@@ -124,7 +130,7 @@
           <!-- CADRE -->
           <div>
             <p>NOMBRE TOTAL : </p>
-            <p><?= $data['customerCount'] + $data['reservationCount'] + $data['invoiceCount'] + $data['receivedCount'] + $data['managerCount'] + $data['carCount'] ?></p>
+            <p><?= $data['customerCount'] + $data['reservationCount'] + $data['invoiceCount'] + $data['receivedCount'] + $data['managerCount'] + $data['carCount'] + $data['numInventory'] ?></p>
           </div>
 
           <!-- GRAPHIQUE -->

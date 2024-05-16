@@ -147,6 +147,30 @@ class CustomerController
             echo "Impossible";
         }
     }
+    public function progress(){
+        $num_reservation = $_GET['reservation'];
+        $car = $_GET['matricule'];
+        // echo $car;
+        // echo $num_reservation;
+        if($this->modelreservation->progressReservation($num_reservation)){
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        }else{
+            echo "Impossible";
+        }
+    }
+    public function close(){
+        $num_reservation = $_GET['reservation'];
+        $car = $_GET['matricule'];
+        // echo $car;
+        // echo $num_reservation;
+        if($this->modelreservation->closeReservation($num_reservation)){
+            if($this->modelcar->updateAvailable($car, 1)){
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+            }
+        }else{
+            echo "Impossible";
+        }
+    }
 
     // //get invoice
     // public function customerInvoice(){

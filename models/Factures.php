@@ -81,6 +81,17 @@ class Facture
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    //get all
+    public function allCustomerReceived()
+    {
+        $sql = "SELECT * FROM facture 
+            INNER JOIN reservationView re ON facture.idreservation = re.idreservation
+            INNER JOIN received ON facture.idfacture = received.idfacture";
+        $stmt = $this->database->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function countData($client)
     {

@@ -130,7 +130,7 @@
               <p><?= $data['statut'] ?></p>
               <p><?= $data['numinventory'] ?></p>
               <div>
-                <a href="<?= url('inventorydetails', ['dateinventory' => urlencode($data['dateinventory']), 'timeinventory' => urlencode($data['timeinventory']), 'statut' => urlencode($data['statut'])]) ?>"><button class="set">voir details</i></button></a>
+                <a href="<?= url('inventorydetails', ['dateinventory' => urlencode($data['dateinventory']), 'timeinventory' => urlencode($data['timeinventory']), 'statut' => urlencode($data['statut'])]) ?>"><button class="set"><i class="fa-solid fa-eye"></i></i></button></a>
               </div>
             </div>
           <?php endforeach; ?>

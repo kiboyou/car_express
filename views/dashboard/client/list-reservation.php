@@ -131,12 +131,12 @@
               <!-- <p class="status">En cours...</p> -->
               <!-- <p class="status_none">Annulé...</p> -->
               <!-- <p class="status_ok">valider</p> -->
-              <?= ($data['statutreservation'] == "En attente") ? '<p class="status">En attente</p>' : (($data['statutreservation'] == "Confirme") ? '<p class="status_ok">Confirmé</p>' : '<p class="status_none">Annulé</p>') ?>
+              <?= ($data['statutreservation'] == "En attente") ? '<p class="status">En attente</p>' : (($data['statutreservation'] == "Confirme") ? '<p class="status_ok">Confirmé</p>' : (($data['statutreservation'] == "Progress") ? '<p class="status_ok">En cours</p>' : (($data['statutreservation'] == "Close") ? '<p class="status">Fermé</p>' : '<p class="status_cancel">Annulé</p>'))) ?>
               <div>
                 <!-- VALIDER-->
                 <?php if ($data['statutreservation'] == "Annule") : ?>
                   <a href="#"><button class="del" disabled><i class="fa-solid fa-xmark"></i></button></a>
-                <?php elseif ($data['statutreservation'] == "Confirme") : ?>
+                <?php elseif ($data['statutreservation'] == "Confirme" || $data['statutreservation'] == "Progress" || $data['statutreservation'] == "Close") : ?>
                   <a href="<?= url('invoiceCustomer', ['id' => $_SESSION['customer']['id']]) ?>">
                     <button class="set">
                       <i class="fa-solid fa-eye"></i>

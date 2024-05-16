@@ -53,11 +53,10 @@ class Vehicule
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     //update disponibilte to non
-    public function updateAvailable($numcar, $datadispo){
-        $sql = "UPDATE voiture SET disponibilite = :disponibilite WHERE matricule = :matricule";
+    public function updateAvailable($numcar){
+        $sql = "UPDATE voiture SET disponibilite = CASE WHEN disponibilite = 1 THEN 0 ELSE 1 END WHERE matricule = :matricule";
         $stmt = $this->database->prepare($sql);
 
-        $stmt->bindParam(':disponibilite', $datadispo);
         $stmt->bindParam(':matricule', $numcar);
 
         return $stmt->execute(); 

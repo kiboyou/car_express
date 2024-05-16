@@ -70,6 +70,24 @@ class Reservation
 
         return $stmt->execute();
     }
+    public function progressReservation($numreservation){
+        $sql = "UPDATE reservation SET statutreservation = :statut WHERE idreservation = :id";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindValue(':statut', "Progress");
+        $stmt->bindParam(':id', $numreservation);
+
+        return $stmt->execute();
+    }
+    public function closeReservation($numreservation){
+        $sql = "UPDATE reservation SET statutreservation = :statut WHERE idreservation = :id";
+        $stmt = $this->database->prepare($sql);
+
+        $stmt->bindValue(':statut', "Close");
+        $stmt->bindParam(':id', $numreservation);
+
+        return $stmt->execute();
+    }
 
     //numéro for reservation
     public function newIDReservation()

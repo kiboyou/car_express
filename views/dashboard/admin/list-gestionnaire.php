@@ -71,12 +71,12 @@
         <div>
           <img src="<?= BASE_URL; ?>public/source/images/Ellipse 1.png" alt="photo de profil" />
           <p>
-            <? if($_SESSION['role'] == "administrator"){ ?>
-              <p><?= $_SESSION['admin']['username'] ?></p>
-            <? } else { ?>
-              <p><?= $_SESSION['manager']['username'] ?></p>
-            <? } ?>
-          </p>
+            <? if ($_SESSION['role'] == "administrator") { ?>
+          <p><?= $_SESSION['admin']['username'] ?></p>
+        <? } else { ?>
+          <p><?= $_SESSION['manager']['username'] ?></p>
+        <? } ?>
+        </p>
         </div>
       </div>
       <!-- LIST OF ITEM -->
@@ -107,28 +107,30 @@
         <div class="repere-client">
           <p>Nom</p>
           <p>Prenoms</p>
-          <p>username</p>
-          <p>Email</p>
-          <p>Adresse</p>
           <p>Telephone</p>
+          <p>Username</p>
+          <p>Adresse</p>
+          <p>statut</p>
           <p>Actions</p>
         </div>
 
         <!-- LISTE DES PATIENTS -->
         <div class="list-client">
           <!-- Patient -->
-          <div class="client">
-            <p>OUATTARA</p>
-            <p>Kiboyou Mohamed</p>
-            <p>15/04/2022</p>
-            <p>ouattarakiboyoumohamed@gmail.com</p>
-            <p>Foyer Babel</p>
-            <p> 0759239686</p>
-            <div>
-              <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-              <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+          <?php foreach ($managers as $manager) : ?>
+            <div class="client">
+              <p><?= $manager['nomgestionnaire'] ?></p>
+              <p><?= $manager['prenomgestionnaire'] ?></p>
+              <p><?= $manager['phonegestionnaire'] ?></p>
+              <p><?= $manager['usermanager'] ?></p>
+              <p><?= $manager['addressmanager'] ?></p>
+              <?= ($manager['statut'] == 0) ? '<p class="status_ok">ACTIF</p>' : '<p class="status_cancel">INACTIF</p>' ?>
+              <div>
+                <a href="<?= url('statutmanager', ['id' => $manager['idgestionnaire']])?>"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
+                <!-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> -->
+              </div>
             </div>
-          </div>
+          <?php endforeach; ?>
         </div>
 
         <!-- PAGINATION -->
@@ -194,115 +196,116 @@
     </div>
 
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("managerform");
+
+        const nameInput = document.getElementById("namemanager");
+        const firstnameInput = document.getElementById("firstmanager");
+        const emailInput = document.getElementById("mailmanager");
+        const addresseInput = document.getElementById("addressmanager");
+        const phoneInput = document.getElementById("phonemanager");
+        const usernameInput = document.getElementById("usernamemanager");
+
+        const nameError = document.getElementById("nameError");
+        const prenomError = document.getElementById("prenomError");
+        const mailError = document.getElementById("mailError");
+        const phoneError = document.getElementById("phoneError");
+        const addresseError = document.getElementById("addresseError");
+        const usernameError = document.getElementById("usernameError");
+
+        nameInput.addEventListener("blur", function() {
+          if (nameInput.value.trim() === "") {
+            nameError.style.display = "block";
+            nameError.textContent = "Le nom est requis";
+          } else {
+            nameError.style.display = "none";
+          }
+        });
+
+        firstnameInput.addEventListener("blur", function() {
+          if (firstnameInput.value.trim() === "") {
+            prenomError.style.display = "block";
+            prenomError.textContent = "Le prénom est requis";
+          } else {
+            prenomError.style.display = "none";
+          }
+        });
+
+        usernameInput.addEventListener("blur", function() {
+          if (usernameInput.value.trim() === "") {
+            usernameError.style.display = "block";
+            usernameError.textContent = "Le nom d'utilisateur est requis";
+          } else {
+            usernameError.style.display = "none";
+          }
+        });
+
+        emailInput.addEventListener("blur", function() {
+          if (emailInput.value.trim() === "") {
+            mailError.style.display = "block";
+            mailError.textContent = "L'email est requis";
+          } else {
+            mailError.style.display = "none";
+          }
+        });
+
+        phoneInput.addEventListener("blur", function() {
+          if (phoneInput.value.trim() === "") {
+            phoneError.style.display = "block";
+            phoneError.textContent = "Le numéro de téléphone est requis";
+          } else {
+            phoneError.style.display = "none";
+          }
+        });
+
+        addresseInput.addEventListener("blur", function() {
+          if (addresseInput.value.trim() === "") {
+            addresseError.style.display = "block";
+            addresseError.textContent = "L'addresse est requis";
+          } else {
+            addresseError.style.display = "none";
+          }
+        });
+
+        form.addEventListener("submit", function(event) {
+          let valid = true;
+
+          // Vérification du nom
+          if (nameInput.value.trim() === "") {
+            nameError.style.display = "block";
+            nameError.textContent = "Le nom est requis";
+            valid = false;
+          }
+
+          // Vérification du prénom
+          if (firstnameInput.value.trim() === "") {
+            prenomError.style.display = "block";
+            prenomError.textContent = "Le prénom est requis";
+            valid = false;
+          }
+
+          // Vérification de l'email
+          if (emailInput.value.trim() === "") {
+            mailError.style.display = "block";
+            mailError.textContent = "L'email est requis";
+            valid = false;
+          }
+
+          // Vérification du numéro de téléphone
+          if (phoneInput.value.trim() === "") {
+            phoneError.style.display = "block";
+            phoneError.textContent = "Le numéro de téléphone est requis";
+            valid = false;
+          }
+
+          if (!valid) {
+            event.preventDefault(); // Empêche l'envoi du formulaire si des erreurs sont présentes
+          }
+        });
+      });
+    </script>
 </body>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("managerform");
 
-    const nameInput = document.getElementById("namemanager");
-    const firstnameInput = document.getElementById("firstmanager");
-    const emailInput = document.getElementById("mailmanager");
-    const addresseInput = document.getElementById("addressmanager");
-    const phoneInput = document.getElementById("phonemanager");
-    const usernameInput = document.getElementById("usernamemanager");
-
-    const nameError = document.getElementById("nameError");
-    const prenomError = document.getElementById("prenomError");
-    const mailError = document.getElementById("mailError");
-    const phoneError = document.getElementById("phoneError");
-    const addresseError = document.getElementById("addresseError");
-    const usernameError = document.getElementById("usernameError");
-
-    nameInput.addEventListener("blur", function() {
-      if (nameInput.value.trim() === "") {
-        nameError.style.display = "block";
-        nameError.textContent = "Le nom est requis";
-      } else {
-        nameError.style.display = "none";
-      }
-    });
-
-    firstnameInput.addEventListener("blur", function() {
-      if (firstnameInput.value.trim() === "") {
-        prenomError.style.display = "block";
-        prenomError.textContent = "Le prénom est requis";
-      } else {
-        prenomError.style.display = "none";
-      }
-    });
-
-    usernameInput.addEventListener("blur", function() {
-      if (usernameInput.value.trim() === "") {
-        usernameError.style.display = "block";
-        usernameError.textContent = "Le nom d'utilisateur est requis";
-      } else {
-        usernameError.style.display = "none";
-      }
-    });
-
-    emailInput.addEventListener("blur", function() {
-      if (emailInput.value.trim() === "") {
-        mailError.style.display = "block";
-        mailError.textContent = "L'email est requis";
-      } else {
-        mailError.style.display = "none";
-      }
-    });
-
-    phoneInput.addEventListener("blur", function() {
-      if (phoneInput.value.trim() === "") {
-        phoneError.style.display = "block";
-        phoneError.textContent = "Le numéro de téléphone est requis";
-      } else {
-        phoneError.style.display = "none";
-      }
-    });
-
-    addresseInput.addEventListener("blur", function() {
-      if (addresseInput.value.trim() === "") {
-        addresseError.style.display = "block";
-        addresseError.textContent = "L'addresse est requis";
-      } else {
-        addresseError.style.display = "none";
-      }
-    });
-
-    form.addEventListener("submit", function(event) {
-      let valid = true;
-
-      // Vérification du nom
-      if (nameInput.value.trim() === "") {
-        nameError.style.display = "block";
-        nameError.textContent = "Le nom est requis";
-        valid = false;
-      }
-
-      // Vérification du prénom
-      if (firstnameInput.value.trim() === "") {
-        prenomError.style.display = "block";
-        prenomError.textContent = "Le prénom est requis";
-        valid = false;
-      }
-
-      // Vérification de l'email
-      if (emailInput.value.trim() === "") {
-        mailError.style.display = "block";
-        mailError.textContent = "L'email est requis";
-        valid = false;
-      }
-
-      // Vérification du numéro de téléphone
-      if (phoneInput.value.trim() === "") {
-        phoneError.style.display = "block";
-        phoneError.textContent = "Le numéro de téléphone est requis";
-        valid = false;
-      }
-
-      if (!valid) {
-        event.preventDefault(); // Empêche l'envoi du formulaire si des erreurs sont présentes
-      }
-    });
-  });
-</script>
 
 </html>

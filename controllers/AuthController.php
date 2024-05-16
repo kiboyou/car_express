@@ -31,19 +31,25 @@ class AuthController
                 if ($customer) {
                     if (password_verify($passdata, $customer['passwordcustomer'])) {
                         // echo "Cet customer existe et son mot de passe est correct";
-                        session_start();
-                        // Après que l'utilisateur se soit connecté avec succès
-                        $_SESSION['customer'] =  [
-                            'id' => $customer['idcustomer'],
-                            'lastname' => $customer['lastnamecustomer'],
-                            'firstname' => $customer['firstnamecustomer'],
-                            'email' => $customer['mailcustomer'],
-                            'phone' => $customer['phonecustomer'],
-                            'adresse' => $customer['adressecustomer'],
-                        ];
-                        $_SESSION['isLoggincustomer'] = true;
-                        // echo $_SESSION['firstnamecustomer'] . ' ' . $_SESSION['lastnamecustomer'] . ' ' . $_SESSION['mailcustomer'];
-                        header('Location: ' . url('index'));
+                        if ($customer['statut'] == 1) {
+                            $auth_error = "Votre compte a été désactivé. Contactez le service client.";
+                            header('Location: ' . url('error', ['error' => $auth_error]));
+                            exit();
+                        } else {
+                            session_start();
+                            // Après que l'utilisateur se soit connecté avec succès
+                            $_SESSION['customer'] =  [
+                                'id' => $customer['idcustomer'],
+                                'lastname' => $customer['lastnamecustomer'],
+                                'firstname' => $customer['firstnamecustomer'],
+                                'email' => $customer['mailcustomer'],
+                                'phone' => $customer['phonecustomer'],
+                                'adresse' => $customer['adressecustomer'],
+                            ];
+                            $_SESSION['isLoggincustomer'] = true;
+                            // echo $_SESSION['firstnamecustomer'] . ' ' . $_SESSION['lastnamecustomer'] . ' ' . $_SESSION['mailcustomer'];
+                            header('Location: ' . url('index'));
+                        }
                     } else {
                         $pass_error = "Mot de passe incorrect";
                         header('Location: ' . url('login', ['error' => $pass_error]));
@@ -52,7 +58,7 @@ class AuthController
                     }
                 } else {
                     $user_error = "Cet utilisateur n'existe pas";
-                    header('Location: ' . url('login', ['error' => $user_error]));
+                    header('Location: ' . url('error', ['error' => $user_error]));
                     exit();
                     // echo "Cet customer n'existe pas";
                 }
@@ -77,7 +83,7 @@ class AuthController
                         }
                     } else {
                         $user_error = "Cet utilisateur n'existe pas";
-                        header('Location: ' . url('login', ['error' => $user_error]));
+                        header('Location: ' . url('error', ['error' => $user_error]));
                         exit();
                         // echo "Cet admin n'existe pas";
                     }
@@ -92,14 +98,21 @@ class AuthController
                                 // echo "Votre premiere connexion, il faut modifier le password! ID: " . $idmanager;
                                 header('Location: ' . url('resetpassword', ['idmanager' => $idmanager]));
                             } else {
-                                // echo "Ce n'est pas votre premiere connexion";
-                                session_start();
-                                $_SESSION['manager'] = [
-                                    'username' => $manager['usermanager']
-                                ];
-                                $_SESSION['role'] = 'manager';
-                                $_SESSION['isLogginadmin'] = true;
-                                header('Location: ' . url('admin'));
+                                // verifier que le compte est toujours actif
+                                if ($manager['statut'] == 1) {
+                                    $auth_error = "Votre compte a été désactivé. Contactez l'administrateur";
+                                    header('Location: ' . url('error', ['error' => $auth_error]));
+                                    exit();
+                                } else {
+                                    // echo "Ce n'est pas votre premiere connexion";
+                                    session_start();
+                                    $_SESSION['manager'] = [
+                                        'username' => $manager['usermanager']
+                                    ];
+                                    $_SESSION['role'] = 'manager';
+                                    $_SESSION['isLogginadmin'] = true;
+                                    header('Location: ' . url('admin'));
+                                }
                             }
                         } else {
                             $pass_error = "Mot de passe incorrect";
@@ -109,7 +122,7 @@ class AuthController
                         }
                     } else {
                         $user_error = "Cet utilisateur n'existe pas";
-                        header('Location: ' . url('login', ['error' => $user_error]));
+                        header('Location: ' . url('error', ['error' => $user_error]));
                         exit();
                         // echo "Cet gestionnaire n'existe pas";
                     }

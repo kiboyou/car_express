@@ -23,6 +23,8 @@ RewriteRule ^receivedCustomer$ /api/customer/dashreceived [L,QSA]
 RewriteRule ^addreservation$    /api/customer/makereservation [L,QSA]
 RewriteRule ^confirm$    /api/customer/confirm [L,QSA]
 RewriteRule ^cancel$    /api/customer/annule [L,QSA]
+RewriteRule ^progress$    /api/customer/progress [L,QSA]
+RewriteRule ^close$    /api/customer/close [L,QSA]
 RewriteRule ^invoicepdf$    /api/customer/invoicepdf [L,QSA]
 
 
@@ -41,10 +43,13 @@ RewriteRule ^addcustomer$ /api/customer/registercustomer [L,QSA]
 RewriteRule ^connect$ /api/auth/login [L,QSA]
 RewriteRule ^logout$ /api/view/logout [L,QSA]
 RewriteRule ^addmanager$    /api/admin/registermanager  [L,QSA]
+RewriteRule ^statutmanager$    /api/admin/updatestatutmanager  [L,QSA]
+RewriteRule ^statutcustomer$    /api/admin/updatestatutcustomer  [L,QSA]
 RewriteRule ^updatepassword$    /api/gestionnaire/updatepassword    [L,QSA]
 RewriteRule ^paiement$  /api/gestionnaire/makepaiement  [L,QSA]
 RewriteRule ^inventory$  /api/gestionnaire/inventory  [L,QSA]
 RewriteRule ^inventorydetails$  /api/gestionnaire/inventoryDetails  [L,QSA]
+RewriteRule ^available$  /api/gestionnaire/updatedisponibilite  [L,QSA]
 
 # Réécriture pour les models d'envoi mail
 RewriteRule ^customerwelcome$   /api/mail/customerWelcome   [L,QSA]

@@ -22,8 +22,6 @@ for (let i = 0; i < menu_option.length; i++) {
   });
 }
 
-
-
 // ENREGISTRER UN NOUVEAU CADRE
 register.addEventListener("click", () => {
   admining.style.display = "block";
@@ -46,7 +44,6 @@ cancelDelete.addEventListener("click", () => {
   deleteadmin.style.display = "none";
 });
 
-
 // SUPPRESSION D'UN CADRE
 deladmin.forEach((el) =>
   el.addEventListener("click", () => {
@@ -57,4 +54,3 @@ deladmin.forEach((el) =>
 cancelDel.addEventListener("click", () => {
   warning.style.display = "none";
 });
-

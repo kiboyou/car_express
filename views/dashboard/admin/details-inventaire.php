@@ -19,50 +19,17 @@
         <!-- LISTE DE MENU -->
         <ul>
           <!-- OPTION ACCEUIL -->
-          <a href="<?= url('admin'); ?>">
+          <a href="<?= $_SERVER['HTTP_REFERER'] ?>">
             <li>
-              <i class="fa-solid fa-chart-line"></i> Dashboard
+              <i class="fa-solid fa-arrow-left"></i> BACK
             </li>
           </a>
-          <?php if ($_SESSION['role'] == 'administrator') : ?>
-            <!-- OPTION CLIENT -->
-            <a href="<?= url('customer'); ?>">
-              <li><i class="fa-solid fa-hospital-user"></i> Client</li>
-            </a>
-            <!-- OPTION GESTIONNAIRE -->
-            <a href="<?= url('manager'); ?>">
-              <li><i class="fa-solid fa-hospital-user"></i> Gestionnaire</li>
-            </a>
-          <?php elseif ($_SESSION['role'] == 'manager') : ?>
-            <!-- OPTION RESERVATION -->
-            <a href="<?= url('reservation'); ?>">
-              <li>
-                <i class="fa-solid fa-magnifying-glass-chart"></i> Reservation
-              </li>
-            </a>
-            <!-- OPTION FACTURE -->
-            <a href="<?= url('invoice'); ?>">
-              <li><i class="fa-solid fa-square-poll-vertical"></i> Facture</li>
-            </a>
-            <!-- OPTION RECU -->
-            <a href="<?= url('received'); ?>">
-              <li><i class="fa-solid fa-square-poll-vertical"></i> Reçu</li>
-            </a>
-            <!-- OPTION INVENTAIRE -->
-            <a href="<?= url('inventaire'); ?>">
-              <li class="menu-select"><i class="fa-solid fa-magnifying-glass-chart"></i> Inventaire</li>
-            </a>
-            <!-- OPTION VOITURE -->
-            <a href="<?= url('car'); ?>">
-              <li><i class="fa-solid fa-square-poll-vertical"></i> Voiture</li>
-            </a>
-          <?php endif; ?>
         </ul>
       </div>
       <!-- DECONNECTION -->
-      <div class="disconnect">
+      <!-- <div class="disconnect">
         <a href="<?= url('logout'); ?>"><button>Se deconnecter</button></a>
-      </div>
+      </div> -->
     </div>
     <!-- PARTIE 2 DROITE -->
     <div class="rigth">
@@ -83,13 +50,16 @@
       <div class="admin">
         <!-- TITRE -->
         <div class="title">
-          <p class="title">Details</p>
+          <!-- <p class="title">Details</p> -->
         </div>
 
+        <div class="search">
+          <p style="font-size: 20px;" class="title">Details de l'inventaire </p>
+        </div>
         <!-- AJOUTER -->
         <div class="register">
-          <button>ajouter +</button>
-          <button class="refresh">refresh @</button>
+          <!-- <button disabled>ajouter +</button> -->
+          <!-- <button class="refresh">refresh @</button> -->
         </div>
 
         <!-- REPERES -->
@@ -130,54 +100,6 @@
       </div>
 
     </div>
-    <!-- NOTIFICATION -->
-    <div class="admining">
-      <!-- ajouter un admin -->
-      <div class="admining-box">
-        <p>Enregistrer un client</p>
-        <form>
-          <label for=""></label>
-          <input type="text" name="" placeholder="Nom">
-
-          <label for=""></label>
-          <input type="text" name="" placeholder="Prenom">
-
-          <label for=""></label>
-          <input type="email" name="" placeholder="Email">
-
-          <label for=""></label>
-          <input type="text" name="" placeholder="Sexe">
-
-          <label for=""></label>
-          <input type="text" name="" placeholder="adresse">
-
-          <label for=""></label>
-          <input type="date" name="" placeholder="Date de naissance">
-
-          <label for=""></label>
-          <input type="number" name="" placeholder="Numero de telephone">
-
-          <button type="submit">Valider</button>
-        </form>
-      </div>
-      <!-- Annuler l'enregistrenent -->
-      <div class="admining-cancel">
-        <i class="fa-solid fa-xmark"></i>
-      </div>
-    </div>
-
-    <!-- supprimer un element -->
-    <div class="delete">
-      <div class="delete-box">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <p>Voulez-vous supprimer ce admin ?</p>
-        <button>Confirmer</button>
-      </div>
-      <div class="delete-cancel">
-        <i class="fa-solid fa-xmark"></i>
-      </div>
-    </div>
-
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard.js"></script>
 </body>
 

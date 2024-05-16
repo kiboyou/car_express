@@ -56,6 +56,7 @@ class AdminController
     //display reçu info
     public function received()
     {
+        $received = $this->modelinvoice->allCustomerInvoice();
         require_once VIEWS . 'dashboard/admin/list-recu.php';
     }
     //display inventaire info 
@@ -67,6 +68,7 @@ class AdminController
     //display gestionnaire info
     public function gestionnaire()
     {
+        $managers = $this->modeladmin->allmanager();
         require_once VIEWS . 'dashboard/admin/list-gestionnaire.php';
     }
     //display voiture info
@@ -183,7 +185,7 @@ class AdminController
             $passwordHash = password_hash($defaultpasswordmanager, PASSWORD_DEFAULT);
 
             // echo $firstnamemanager . '<--->' . $lastnamemanager . '<--->' . $emailmanager . '<--->' . $addressemanager . '<--->' . $phonemanager . '<--->' . $usermanager . '<--->' . $passwordHash;
-            if ($this->modeladmin->isUsernameUnique($usermanagerdata)) { 
+            if ($this->modeladmin->isUsernameUnique($usermanagerdata)) {
                 if ($this->modeladmin->addmanager($lastnamemanager, $firstnamemanager, $usermanagerdata, $phonemanager, $addressemanager, $passwordHash)) {
                     if ($this->modelmaildesign->sendManagerCredential($lastnamemanager, $emailmanager, $defaultpasswordmanager, $usermanagerdata)) {
                         header('Location: ' . url('manager'));
@@ -201,6 +203,32 @@ class AdminController
                 $username_erro = "Cet username existe deja";
                 header('Location: ' . url('error', ['error' => $username_erro]));
                 exit();
+            }
+        }
+    }
+    public function updatestatutmanager()
+    {
+        if (empty($_GET['id'])) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            // echo $_GET['id'];
+            if ($this->modeladmin->updateStatutManager($_GET['id'])) {
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+            } else {
+                echo "Erreur";
+            }
+        }
+    }
+    public function updatestatutcustomer()
+    {
+        if (empty($_GET['id'])) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            // echo $_GET['id'];
+            if ($this->modeladmin->updateStatutCustomer($_GET['id'])) {
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+            } else {
+                echo "Erreur";
             }
         }
     }
