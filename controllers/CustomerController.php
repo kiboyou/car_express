@@ -27,7 +27,7 @@ class CustomerController
     {
         $idcustomer = $_GET['id'];
         $reservationData = $this->modelreservation->userReservation($idcustomer);
-
+        $result = $this->modelinvoice->countData($idcustomer);
         require_once VIEWS . 'dashboard/client/dashboard.php';
     }
 
@@ -57,6 +57,8 @@ class CustomerController
 
     public function dashreceived()
     {
+        $idcustomer = $_GET['id'];
+        $received = $this->modelinvoice->customerReceived($idcustomer);
         require_once VIEWS . 'dashboard/client/list-recu.php';
     }
 

@@ -5,6 +5,7 @@ require MODELS . 'MailDesign.php';
 require MODELS . 'Vehicule.php';
 require MODELS . 'Reservations.php';
 require MODELS . 'Factures.php';
+require MODELS . 'Gestionnaire.php';
 
 class AdminController
 {
@@ -14,6 +15,7 @@ class AdminController
     private $modelcar;
     private $modelreservation;
     private $modelinvoice;
+    private $modelmanager;
 
     public function __construct()
     {
@@ -24,11 +26,13 @@ class AdminController
         $this->modelcar = new Vehicule($database);
         $this->modelreservation = new reservation($database);
         $this->modelinvoice = new Facture($database);
+        $this->modelmanager = new Gestionnaire($database);
     }
 
     //display main page of dash
     public function index()
     {
+        $data = $this->modeladmin->countDataAdmin();
         require_once VIEWS . '/dashboard/admin/dashboard.php';
     }
     //display customer info
@@ -57,6 +61,7 @@ class AdminController
     //display inventaire info 
     public function inventaire()
     {
+        $inventory = $this->modelmanager->groupInventory();
         require_once VIEWS . 'dashboard/admin/list-inventaire.php';
     }
     //display gestionnaire info

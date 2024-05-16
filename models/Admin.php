@@ -121,4 +121,21 @@ class Admin
 
         return $count['total'] == 0;
     }
+
+    public function countDataAdmin()
+    {
+        $sql = "SELECT 
+                    (SELECT COUNT(*) FROM customer) AS customerCount,
+                    (SELECT COUNT(*) FROM gestionnaire) AS managerCount,
+                    (SELECT COUNT(*) FROM voiture) AS carCount,
+                    (SELECT COUNT(*) FROM reservation) AS reservationCount,
+                    (SELECT COUNT(*) FROM reservation INNER JOIN facture ON reservation.idreservation = facture.idreservation) AS invoiceCount,
+                    (SELECT COUNT(*) FROM reservation INNER JOIN facture ON reservation.idreservation = facture.idreservation INNER JOIN received ON facture.idfacture = received.idfacture) AS receivedCount";
+
+
+        $stmt = $this->database->prepare($sql);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

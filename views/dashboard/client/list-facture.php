@@ -110,7 +110,6 @@
 
         <!-- REPERES -->
         <div class="repere-client">
-          <p>Client</p>
           <p>Voiture</p>
           <p>nombre de jours </p>
           <p>Prix unitaire</p>
@@ -122,8 +121,7 @@
         <div class="list-client">
           <!-- Patient -->
           <?php foreach ($invoices as $invoice) : ?>
-            <div class="client">
-              <p><?= $invoice['lastnamecustomer'] ?></p>
+            <div class="client"> 
               <p><?= $invoice['namecar'] ?></p>
               <p><?= $invoice['nbrejours'] ?></p>
               <p><?= $invoice['prixunitaire'] ?></p>

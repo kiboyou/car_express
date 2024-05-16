@@ -6,7 +6,7 @@ const lost = document.querySelectorAll(".lost");
 const deleteadmin = document.querySelector(".delete");
 const cancelDelete = document.querySelector(".delete-cancel");
 
-const deladmin = document.querySelectorAll(".set");
+const deladmin = document.querySelectorAll(".del");
 const warning = document.querySelector(".delete");
 const cancelDel = document.querySelector(".delete-cancel");
 
@@ -28,8 +28,6 @@ for (let i = 0; i < menu_option.length; i++) {
 register.addEventListener("click", () => {
   admining.style.display = "block";
 });
-
-
 
 canceladmining.addEventListener("click", () => {
   admining.style.display = "none";

@@ -88,49 +88,43 @@
           <!-- CADRE -->
           <div>
             <p>Nombre de client : </p>
-            <p>27</p>
+            <p><?= $data['customerCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>Nombre de reservation : </p>
-            <p>27</p>
+            <p><?= $data['reservationCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>Nombre de facture : </p>
-            <p>27</p>
+            <p><?= $data['invoiceCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>Nombre de reçu : </p>
-            <p>27</p>
-          </div>
-
-          <!-- CADRE -->
-          <div>
-            <p>Nombre d'inventaire : </p>
-            <p>27</p>
+            <p><?= $data['receivedCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>Nombre de Gestionnaire : </p>
-            <p>27</p>
+            <p><?= $data['managerCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>Nombre de voiture : </p>
-            <p>27</p>
+            <p><?= $data['carCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>NOMBRE TOTAL : </p>
-            <p>300</p>
+            <p><?= $data['customerCount'] + $data['reservationCount'] + $data['invoiceCount'] + $data['receivedCount'] + $data['managerCount'] + $data['carCount'] ?></p>
           </div>
 
           <!-- GRAPHIQUE -->

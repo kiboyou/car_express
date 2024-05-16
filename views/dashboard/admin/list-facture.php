@@ -130,11 +130,8 @@
               <div>
                 <!-- VALIDER -->
                 <a href="<?= url('invoicepdf', ['client' => $data['idclient'], 'facture' => $data['idfacture']]) ?>"><button class="set"><i class="fa-solid fa-print"></i></button></a>
-                <button class="set"><i class=".los fa-solid fa-file-invoice-dollar"></i></button>
-                <!-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> -->
-
-                <!-- PAS VALIDER -->
-                <!-- <a href="#"><button class="set"><i class="fa-solid fa-print"></i></button></a> -->
+                <!-- <a href="#"><button id="open-modal" class="set" data-factureID="<?= $data['idfacture']; ?>"><i class="fa-solid fa-file-invoice-dollar"></i></button></a> -->
+                <button class="showInvoice" data-factureid="<?= $data['idfacture']; ?>"><i class="fa-solid fa-file-invoice-dollar"></i></button>
 
               </div>
             </div>
@@ -168,37 +165,33 @@
     <div class="admining">
       <!-- ajouter un admin -->
       <div class="admining-box" id="invoice-form">
-        <p>Enregistrer une facture </p>
-        <form>
-          <label>choisissez le client</label>
-          <select name="">
-            <option value=""></option>
-            <option value="">GEORGES PAUL</option>
-            <option value="">DELACROIX ERIC</option>
-            <option value="">DUCHESS REINE</option>
+        <p>Creer un reçu </p>
+        <form id="paymentForm" action="<?= url('paiement') ?>" method="post">
+          <label>Numero de facture</label>
+          <select id="factureID" name="factureID">
+            <option selected>Choisir numero de facture</option>
+            <?php foreach ($invoice as $data) : ?>
+              <?php if ($data['statutfacture'] == 'non payé') : ?>
+                <option value="<?= $data['idfacture']; ?>" data-montant-total="<?= $data['montanttotalapayer']; ?>" data-montant-restant="<?= $data['resteapayer']; ?>" data-montant-paye="<?= $data['amount_advance']; ?>"><?= $data['idfacture']; ?></option>
+              <?php endif; ?>
+            <?php endforeach; ?>
           </select>
 
-          <label>choisissez la voiture</label>
-          <select name="">
-            <option value=""></option>
-            <option value="">GEORGES PAUL</option>
-            <option value="">DELACROIX ERIC</option>
-            <option value="">DUCHESS REINE</option>
-          </select>
+          <label for="">Total à payer</label>
+          <input type="number" id="amount_total" name="amount_total" placeholder="Montant à payer" disabled>
 
-          <label>choisissez la reservation</label>
-          <select name="">
-            <option value=""></option>
-            <option value="">RERSERVATION-1</option>
-            <option value="">RERSERVATION-2</option>
-            <option value="">RERSERVATION-3</option>
-          </select>
+          <label for="">Montant Restant à Payer</label>
+          <input type="number" id="amount_reste" name="amount_reste" placeholder="Montant restant" disabled>
 
-          <label for=""></label>
-          <input type="number" name="" placeholder="prix unitaire">
+          <label for="">Montant effectué</label>
+          <input type="number" id="amount_paid" name="amount_paid" placeholder="Montant payé">
 
-          <label for=""></label>
-          <input type="number" name="" placeholder="Nombre de jours">
+          <label for="">Reference de paiment</label>
+          <input type="text" id="reference" name="reference" placeholder="reference de paiement">
+
+          <input type="hidden" id="amount_paye" name="amount_paye">
+          <input type="hidden" id="reste" name="reste">
+          <input type="hidden" id="total" name="total">
 
           <button type="submit">Valider</button>
         </form>
@@ -213,7 +206,7 @@
     <div class="delete">
       <div class="delete-box">
         <i class="fa-solid fa-triangle-exclamation"></i>
-        <p>Voulez-vous supprimer cette facture ?</p>
+        <p>Hello world <span id="factureid"></span> </p>
         <button>Confirmer</button>
       </div>
       <div class="delete-cancel">
@@ -222,8 +215,68 @@
     </div>
 
     <script src="<?= BASE_URL; ?>public/js/dashboard/dashboard.js"></script>
+    <!-- <script src="<?= BASE_URL; ?>public/js/dashboard/dash.js"></script> -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Disable amount_paid initially
+        const amountPaidInput = document.getElementById('amount_paid');
+        const referPaid = document.getElementById('reference');
+
+        referPaid.disabled = true;
+        amountPaidInput.disabled = true;
+
+        // Event listener for invoice selection
+        const factureIDSelect = document.getElementById('factureID');
+        factureIDSelect.addEventListener('change', function() {
+          // valeur des attribut data
+          const selectedOption = factureIDSelect.options[factureIDSelect.selectedIndex];
+          const montantTotal = selectedOption.getAttribute('data-montant-total');
+          const montantRestant = selectedOption.getAttribute('data-montant-restant');
+          const montantPaye = selectedOption.getAttribute('data-montant-paye');
+
+          //complete montant total
+          document.getElementById('amount_total').value = montantTotal;
+          document.getElementById('total').value = montantTotal;
+          //montant restant
+          document.getElementById('amount_reste').value = montantRestant;
+          document.getElementById('reste').value = montantRestant;
+          //montant deja paye
+          document.getElementById('amount_paye').value = montantPaye;
+
+          // Enable amount_paid when an invoice is selected
+          amountPaidInput.disabled = !montantTotal; // Disable if no montantTotal
+          referPaid.disabled = !montantTotal;
+        });
+
+        // Event listener for form submission
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+          const amountTotal = document.getElementById('amount_total').value;
+          const amountPaid = amountPaidInput.value;
+          const amountRest = document.getElementById('amount_reste').value;
+          const referPaidValue = referPaid.value;
+
+          // Convert amountPaid and amountReste to float
+          const amountPaidFloat = parseFloat(amountPaid);
+          const amountRestFloat = parseFloat(amountRest);
+
+          if (amountTotal.trim() === '' || amountPaid.trim() === '' || referPaidValue.trim() === '') {
+            event.preventDefault();
+            alert('Veuillez remplir tous les champs.');
+          }
+          if (amountPaid <= 0 || amountPaidFloat > amountRestFloat) {
+            event.preventDefault();
+            alert('Le montant a payé ne doit etre null ou  superieur au montant restant.');
+          }
+        });
+
+        // Watch for changes in amount_total to enable/disable amount_paid
+        document.getElementById('amount_total').addEventListener('input', function() {
+          const amountTotal = this.value;
+          amountPaidInput.disabled = !amountTotal; // Disable if no amountTotal
+          referPaid.disabled = !montantTotal;
+        });
+      });
+    </script>
 </body>
-<script>
-</script>
 
 </html>

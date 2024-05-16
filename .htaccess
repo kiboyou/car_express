@@ -42,6 +42,9 @@ RewriteRule ^connect$ /api/auth/login [L,QSA]
 RewriteRule ^logout$ /api/view/logout [L,QSA]
 RewriteRule ^addmanager$    /api/admin/registermanager  [L,QSA]
 RewriteRule ^updatepassword$    /api/gestionnaire/updatepassword    [L,QSA]
+RewriteRule ^paiement$  /api/gestionnaire/makepaiement  [L,QSA]
+RewriteRule ^inventory$  /api/gestionnaire/inventory  [L,QSA]
+RewriteRule ^inventorydetails$  /api/gestionnaire/inventoryDetails  [L,QSA]
 
 # Réécriture pour les models d'envoi mail
 RewriteRule ^customerwelcome$   /api/mail/customerWelcome   [L,QSA]

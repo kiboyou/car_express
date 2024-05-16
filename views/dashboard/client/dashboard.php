@@ -94,25 +94,25 @@
           <!-- CADRE -->
           <div>
             <p>Nombre de reservation : </p>
-            <p>27</p>
+            <p><?= $result['reservationCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>Nombre de facture : </p>
-            <p>27</p>
+            <p><?= $result['invoiceCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>Nombre de reçu : </p>
-            <p>27</p>
+            <p><?= $result['receivedCount'] ?></p>
           </div>
 
           <!-- CADRE -->
           <div>
             <p>NOMBRE TOTAL : </p>
-            <p>300</p>
+            <p><?= $result['reservationCount'] + $result['invoiceCount'] + $result['receivedCount'] ?></p>
           </div>
 
           <!-- GRAPHIQUE -->

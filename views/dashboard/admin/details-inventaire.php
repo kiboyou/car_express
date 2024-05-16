@@ -83,22 +83,7 @@
       <div class="admin">
         <!-- TITRE -->
         <div class="title">
-          <p class="title">Listes des inventaires</p>
-        </div>
-
-        <!-- RECHERCHE ET FILTRES -->
-        <div class="search">
-          <form id="inventoryForm" method="post" action="<?= url('inventory'); ?>">
-            <!-- barre de recherche -->
-            <div>
-              <select name="statutSearch" id="statutSearch">
-                <option value="">Selectionner une disponibilite</option>
-                <option value="1">Disponible</option>
-                <option value="0">Indisponible</option>
-              </select>
-              <button type="submit" id="searchButton">Rechercher</button>
-            </div>
-          </form>
+          <p class="title">Details</p>
         </div>
 
         <!-- AJOUTER -->
@@ -109,29 +94,25 @@
 
         <!-- REPERES -->
         <div class="repere-client">
-          <p>N°</p>
-          <p>Date d'inventaire</p>
-          <p>Heure d'inventaire</p>
-          <p>Statut</p>
-          <p>Nombre</p>
-          <p>Action</p>
+          <p>Matricule</p>
+          <p>Marque</p>
+          <p>Modele</p>
+          <p>Categorie</p>
+          <p>Prix de location</p>
+          <p>Transmission</p>
         </div>
 
         <!-- LISTE DES PATIENTS -->
         <div id="inventoryTableData" class="list-client">
           <!-- Patient -->
-          <?php 
-          $i = 1;
-          foreach ($inventory as $data) : ?>
+          <?php foreach ($result as $data) : ?>
             <div class="client">
-              <p><?= $i++ ?></p>
-              <p><?= $data['dateinventory'] ?></p>
-              <p><?= $data['timeinventory'] ?></p>
-              <p><?= $data['statut'] ?></p>
-              <p><?= $data['numinventory'] ?></p>
-              <div>
-                <a href="<?= url('inventorydetails', ['dateinventory' => urlencode($data['dateinventory']), 'timeinventory' => urlencode($data['timeinventory']), 'statut' => urlencode($data['statut'])]) ?>"><button class="set">voir details</i></button></a>
-              </div>
+              <p><?= $data['matricule'] ?></p>
+              <p><?= $data['marque'] ?></p>
+              <p><?= $data['modele'] ?></p>
+              <p><?= $data['categorie'] ?></p>
+              <p><?= $data['rentprice'] ?></p>
+              <p><?= $data['transmission'] ?></p>
             </div>
           <?php endforeach; ?>
         </div>
