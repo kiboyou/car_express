@@ -15,7 +15,7 @@ define('BASE_URL', $base_url);
 // define('DB_HOST', '192.168.10.114');
 define('DB_HOST', 'localhost');
 define('DB_PORT', 3306);
-define('DB_NAME', 'carexpressdb');
+define('DB_NAME', 'dbcarexpress');
 // define('DB_USER', 'devuser');
 // define('DB_PASSWORD', 'Dev@1234');
 define('DB_USER', 'root');

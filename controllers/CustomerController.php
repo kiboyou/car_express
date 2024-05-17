@@ -38,8 +38,9 @@ class CustomerController
         require_once VIEWS . 'dashboard/client/list-facture.php';
     }
 
-    public function invoicepdf(){
-        if(!empty($_GET['client'] && !empty($_GET['facture']))){
+    public function invoicepdf()
+    {
+        if (!empty($_GET['client'] && !empty($_GET['facture']))) {
             $client = $_GET['client'];
             $facture = $_GET['facture'];
             $datainvoice = $this->modelinvoice->customerprintInvoice($client, $facture);
@@ -75,12 +76,14 @@ class CustomerController
             //send into database
             if ($this->modelcustomer->checkExistMail($emaildata)) {
                 $mail_error = "Cet E-mail existe";
-                header('Location: ' . url('login', ['error' => $mail_error]));
+                header('Location: ' . url('error', ['error' => $mail_error]));
                 exit();
             }
             if ($this->modelcustomer->addcustomer($lastnamedata, $firstnamedata, $emaildata, $phonedata, $passwordcrypt)) {
-                header('Location: ' . url('login'));
-                exit();
+                if ($this->modelmaildesign->sendWelcomeCustomer($lastnamedata, $emaildata)) {
+                    header('Location: ' . url('login'));
+                    exit();
+                }
             } else {
                 // Gérer les erreurs lors de l'ajout du client à la base de données
                 echo "Une erreur s'est produite lors de l'ajout du client à la base de données.";
@@ -134,40 +137,43 @@ class CustomerController
             echo "Impossible";
         }
     }
-    public function annule(){
+    public function annule()
+    {
         $num_reservation = $_GET['reservation'];
         $car = $_GET['matricule'];
         // echo $car;
         // echo $num_reservation;
-        if($this->modelreservation->cancelReservation($num_reservation)){
-            if($this->modelcar->updateAvailable($car, 1)){
+        if ($this->modelreservation->cancelReservation($num_reservation)) {
+            if ($this->modelcar->updateAvailable($car, 1)) {
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
-        }else{
+        } else {
             echo "Impossible";
         }
     }
-    public function progress(){
+    public function progress()
+    {
         $num_reservation = $_GET['reservation'];
         $car = $_GET['matricule'];
         // echo $car;
         // echo $num_reservation;
-        if($this->modelreservation->progressReservation($num_reservation)){
+        if ($this->modelreservation->progressReservation($num_reservation)) {
             header('Location: ' . $_SERVER['HTTP_REFERER']);
-        }else{
+        } else {
             echo "Impossible";
         }
     }
-    public function close(){
+    public function close()
+    {
         $num_reservation = $_GET['reservation'];
         $car = $_GET['matricule'];
         // echo $car;
         // echo $num_reservation;
-        if($this->modelreservation->closeReservation($num_reservation)){
-            if($this->modelcar->updateAvailable($car, 1)){
+        if ($this->modelreservation->closeReservation($num_reservation)) {
+            if ($this->modelcar->updateAvailable($car, 1)) {
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
-        }else{
+        } else {
             echo "Impossible";
         }
     }
