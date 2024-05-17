@@ -151,7 +151,7 @@
         <div class="pagination">
           <div>
             <a href="#"><button class="pre">
-                <<< /button></a>
+                <<</button></a>
             <a href="#"><button class="post">>></button></a>
           </div>
         </div>

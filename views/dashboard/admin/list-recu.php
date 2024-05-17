@@ -109,8 +109,8 @@
           <p>Montant total</p>
           <p>Montant payé</p>
           <p>Montnat restant</p>
-          <p>nom client</p>
-          <p>prenom client</p>
+          <p>nom</p>
+          <p>prenom</p>
         </div>
 
         <!-- LISTE DES PATIENTS -->
@@ -143,7 +143,7 @@
         <div class="pagination">
           <div>
             <a href="#"><button class="pre">
-                <<< /button></a>
+                << </button></a>
             <a href="#"><button class="post">>></button></a>
           </div>
         </div>

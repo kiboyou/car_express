@@ -72,7 +72,7 @@ class GestionnaireController
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $statut = $_POST['statutSearch'];
             if ($this->modelmanager->makeinventory($statut)) {
-                echo "Inventaire effectue";
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
             } else {
                 echo "Erreur";
             }

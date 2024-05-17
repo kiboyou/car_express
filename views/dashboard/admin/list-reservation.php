@@ -126,21 +126,23 @@
               <p><?= $data['finlocation'] ?></p>
               <?= ($data['statutreservation'] == "En attente") ? '<p class="status">En attente</p>' : (($data['statutreservation'] == "Confirme") ? '<p class="status_ok">Confirmé</p>' : (($data['statutreservation'] == "Progress") ? '<p class="status_ok">En cours</p>' : (($data['statutreservation'] == "Close") ? '<p class="status">Fermé</p>' : '<p class="status_cancel">Annulé</p>'))) ?>
               <!-- <p class="status_ok">valider</p> -->
-              <?php if ($data['statutreservation'] == "Annule") : ?>
-                <a href="#"><button class="del" disabled></button></a>
-              <?php elseif ($data['statutreservation'] == "Confirme") : ?>
-                <a href="<?= url('cancel', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
-                <a href="<?= url('progress', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-clipboard-check"></i></button></a>
-              <?php elseif ($data['statutreservation'] == "Progress") : ?>
-                <a href="<?= url('close', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
-              <?php else : ?>
-                <a href="<?= url('confirm', ['reservation' => urlencode($data['idreservation'])]) ?>">
-                  <button class="set">
-                    <i class="fa-solid fa-circle-check"></i>
-                  </button>
-                </a>
-                <a href="<?= url('cancel', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
-              <?php endif; ?>
+              <div>
+                <?php if ($data['statutreservation'] == "Annule") : ?>
+                  <a href="#"><button class="del" disabled></button></a>
+                <?php elseif ($data['statutreservation'] == "Confirme") : ?>
+                  <a href="<?= url('cancel', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
+                  <a href="<?= url('progress', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-clipboard-check"></i></button></a>
+                <?php elseif ($data['statutreservation'] == "Progress") : ?>
+                  <a href="<?= url('close', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-xmark"></i></button></a>
+                <?php else : ?>
+                  <a href="<?= url('confirm', ['reservation' => urlencode($data['idreservation'])]) ?>">
+                    <button class="set">
+                      <i class="fa-solid fa-circle-check"></i>
+                    </button>
+                  </a>
+                  <a href="<?= url('cancel', ['reservation' => urlencode($data['idreservation']), 'matricule' => urlencode($data['matricule'])]) ?>"><button class="del" data-numreservation="<?= $data['statutreservation'] ?>"><i class="fa-solid fa-ban"></i></button></a>
+                <?php endif; ?>
+              </div>
             </div>
           <?php endforeach; ?>
         </div>
@@ -149,7 +151,7 @@
         <div class="pagination">
           <div>
             <a href="#"><button class="pre">
-                <<< /button></a>
+                << </button></a>
             <a href="#"><button class="post">>></button></a>
           </div>
         </div>
