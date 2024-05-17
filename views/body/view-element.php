@@ -150,7 +150,7 @@ session_start();
             <div class="section-view2">
                 <?php if ($detailcar['disponibilite'] == 0) : ?>
                     <div class="titre_produits">
-                        Ce véhicule a été deja réservée
+                        Ce véhicule est indisponible à la réservation pour le moment
                     </div>
                 <?php else : ?>
                     <div class="titre_produits">
