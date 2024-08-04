@@ -1,0 +1,31 @@
+.mt-01 {
+    margin-top: 5rem;
+}
+
+.mt-02 {
+    margin-top: 3rem;
+}
+
+.p-02 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.pr-02 {
+    padding-right: 0rem;
+}
+
+.px-20 {
+    padding-left: 5rem;
+    /* padding-right: 5rem; */
+}
+
+.text-pt{
+    font-size: 10rem;
+}
+
+.border-btn{
+    border: 1px solid #c6c6c646;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
