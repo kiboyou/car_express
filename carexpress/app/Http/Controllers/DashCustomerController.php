@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Facture;
+use App\Models\Received;
 use App\Models\Reservation;
 use Auth;
 use Illuminate\Http\Request;
@@ -10,13 +11,18 @@ use Illuminate\Http\Request;
 class DashCustomerController extends Controller
 {
     //home page
-    public function index(){
+    public function index()
+    {
         $customer = Auth::guard('customer')->user();
-        return view('dashboard.client.dashboard', compact('customer'));
+        $nbreReservation = Reservation::count();
+        $nbreFacture = Facture::count();
+        $nbreReceived = 0;
+        return view('dashboard.client.dashboard', compact('customer', 'nbreReservation', 'nbreFacture', 'nbreReceived'));
     }
 
     //facture page
-    public function facturehome(){
+    public function facturehome()
+    {
         $customer = Auth::guard('customer')->user();
         // reservation du client
         $reservation = Reservation::where('customer_id', $customer->codeclient)->get();
@@ -27,20 +33,33 @@ class DashCustomerController extends Controller
     }
 
     //received page
-    public function receivedhome(){
+    public function receivedhome()
+    {
         $customer = Auth::guard('customer')->user();
-        return view('dashboard.client.list-recu' , compact('customer'));
+
+        // Récupérer les réservations du client
+        $reservations = Reservation::where('customer_id', $customer->codeclient)->get();
+
+        // Récupérer les factures associées aux réservations
+        $factures = Facture::whereIn('reservation_id', $reservations->pluck('numreservation'))->get();
+
+        // Récupérer les reçus associés aux factures
+        $receiveds = Received::whereIn('facture_id', $factures->pluck('numfacture'))->get();
+
+        return view('dashboard.client.list-recu', compact('customer', 'receiveds'));
     }
 
     //reservation page
-    public function reservationhome(){
+    public function reservationhome()
+    {
         $customer = Auth::guard('customer')->user();
         $reservations = Reservation::where('customer_id', $customer->codeclient)->get();
-        return view('dashboard.client.list-reservation' , compact('customer', 'reservations'));
+        return view('dashboard.client.list-reservation', compact('customer', 'reservations'));
     }
 
     //parametre page
-    public function parameterhome(){
+    public function parameterhome()
+    {
         $customer = Auth::guard('customer')->user();
         return view('dashboard.client.parametre', compact('customer'));
     }

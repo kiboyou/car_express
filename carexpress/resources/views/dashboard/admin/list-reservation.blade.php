@@ -4,10 +4,7 @@
     <div class="rigth">
         <!-- ADMIN INFO -->
         <div class="head">
-            <div>
-                <img src="../../../public/source/images/Ellipse 1.png" alt="photo de profil" />
-                <p>Ouattara kiboyou M.</p>
-            </div>
+            @include('includes.dashadminhead')
         </div>
         <!-- LIST OF ITEM -->
         <div class="admin">
@@ -48,178 +45,66 @@
             <!-- LISTE DES PATIENTS -->
             <div class="list-client">
                 <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+                @foreach ($reservations as $reservation)
+                    <div class="client">
+                        <p>{{ $reservation->customer->codeclient }}</p>
+                        <p>{{ $reservation->vehicule->getVehiculeName() }}</p>
+                        <p>{{ $reservation->created_at }}</p>
+                        <p>{{ $reservation->debutlocation }}</p>
+                        <p>{{ $reservation->finlocation }}</p>
+                        @if ($reservation->statut_reservation == 'en attente')
+                            <p class="status">En attente...</p>
+                        @elseif ($reservation->statut_reservation == 'en cours')
+                            <p class="status_progress">En cours...</p>
+                        @elseif ($reservation->statut_reservation == 'confirme')
+                            <p class="status_ok">Confirmé</p>
+                        @elseif ($reservation->statut_reservation == 'annule')
+                            <p class="status_cancel">Annulé.</p>
+                        @endif
+                        <div>
+                            @if ($reservation->statut_reservation == 'en attente')
+                                <button style="color: green"
+                                    data-url="{{ route('reservation.confirm', $reservation->numreservation) }}"
+                                    onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                                <button style="color: red"
+                                    data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
+                                    onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                            @elseif ($reservation->statut_reservation == 'en cours')
+                                <button style="color: gray"
+                                    data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
+                                    onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                                <button style="color: red"
+                                    data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
+                                    onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                            @elseif ($reservation->statut_reservation == 'confirme')
+                                <button style="color: gray"
+                                    data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
+                                    onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                                <button style="color: red"
+                                    data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
+                                    onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                            @elseif ($reservation->statut_reservation == 'annule')
+                                <button style="color: gray"
+                                    data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
+                                    onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                                <button style="color: gray"
+                                    data-url="{{ route('reservation.cancel', $reservation->numreservation) }}" disabled
+                                    onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                            @endif
+                            {{-- <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a> --}}
+                            {{-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> --}}
+                        </div>
                     </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p>15/04/2022</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
 
             <!-- PAGINATION -->
             <div class="pagination">
                 <div>
-                    <a href="#"><button class="pre">
+                    <x-pagination :varmodele="$reservations"></x-pagination>
+                    {{-- <a href="#"><button class="pre">
                             << </button></a>
-                    <a href="#"><button class="post">>></button></a>
+                    <a href="#"><button class="post">>></button></a> --}}
                 </div>
             </div>
 
@@ -260,6 +145,8 @@
                 <button type="submit">Valider</button>
             </form>
         </div>
+
+
         <!-- Annuler l'enregistrenent -->
         <div class="admining-cancel">
             <i class="fa-solid fa-xmark"></i>
@@ -281,4 +168,67 @@
 @section('jscustom')
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
     {{-- <script src="{{asset('js/dashboard/dashboard-car.js')}}"></script> --}}
+@endsection
+@section('scriptjs')
+    <script>
+        function confirmReservation(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous confirmer la reservation ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("La reservation n'a pas été confirmé.");
+            }
+        }
+
+        function cancelReservation(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous annuler la reservation ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("La reservation n'a pas été annule.");
+            }
+        }
+    </script>
 @endsection

@@ -27,38 +27,42 @@
 
         <!-- REPERES -->
         <div class="repere-client">
-            <p>Client</p>
-            <p>Voiture</p>
-            <p>Numero facture </p>
+            <p>Numero</p>
+            <p>Facture</p>
+            <p>Reservation</p>
             <p>Montant total</p>
-            <p>Montant payé</p>
-            <p>Montnat restant</p>
-            <p>Actions</p>
+            <p>Montant Versé</p>
+            <p>Montant Restant</p>
+            <p>Action</p>
         </div>
 
         <!-- LISTE DES PATIENTS -->
         <div class="list-client">
             <!-- Patient -->
-            <div class="client">
-                <p>OUATTARA</p>
-                <p>Voiture Économique</p>
-                <p>12045167</p>
-                <p>150 000</p>
-                <p>100 000</p>
-                <p>50 000</p>
-
-                <div>
-                    <a href="#"><button class="set"><i class="fa-solid fa-print"></i></button></a>
-                    <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+            @foreach ($receiveds as $received)
+                <div class="client">
+                    <p>{{$received->numreceived}}</p>
+                    <p>{{$received->facture->numfacture}}</p>
+                    <p>{{$received->facture->reservation->numreservation}}</p>
+                    <p>{{$received->facture->montant_total}}</p>
+                    <p>{{$received->montant_verse}}</p>
+                    <p>{{$received->restant}}</p>
+                    <div>
+                        @php
+                            $encryptednumreceived = Crypt::encrypt($received->numreceived);
+                        @endphp
+                        <a href="{{ route('pdf.received', $encryptednumreceived) }}"><button class="set"><i class="fa-solid fa-print"></i></button></a>
+                        {{-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> --}}
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
 
         <!-- PAGINATION -->
         <div class="pagination">
             <div>
                 <a href="#"><button class="pre">
-                        <<< /button></a>
+                        << </button></a>
                 <a href="#"><button class="post">>></button></a>
             </div>
         </div>

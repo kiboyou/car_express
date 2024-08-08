@@ -4,10 +4,7 @@
     <div class="rigth">
         <!-- ADMIN INFO -->
         <div class="head">
-            <div>
-                <img src="../../../public/source/images/Ellipse 1.png" alt="photo de profil" />
-                <p>Ouattara kiboyou M.</p>
-            </div>
+            @include('includes.dashadminhead')
         </div>
         <!-- LIST OF ITEM -->
         <div class="admin">
@@ -75,16 +72,19 @@
                             <p class="status">NON</p>
                         @endif
                         <div>
+
+                            <button class="set"
+                                onclick="editCar('{{ $car->matricule }}', '{{ $car->transmission_id }}', '{{ $car->carburant }}', '{{ $car->prixLocation }}')"><i
+                                    class="fa-solid fa-pen"></i></button>
+
                             <a href="#">
-                                <button class="set"
-                                    onclick="editCar('{{ $car->id }}', '{{ $car->matricule }}', '{{ $car->transmission_id }}', '{{ $car->carburant }}', '{{ $car->prixLocation }}')"><i
-                                        class="fa-solid fa-pen"></i></button>
-                            </a>
-                            <a href="#">
-                                <button class=""
-                                    onclick="confirmStatus('{{ $car->matricule }}', '{{ $car->disponible }}')"><i
+                                <button class="" style="color: red" onclick="deleteVehicule(this)"
+                                    data-url="{{ route('admin.voiture.delete', ['matricule' => $car->matricule]) }}"><i
                                         class=".los fa-solid fa-trash-can"></i></button>
                             </a>
+                            <button onclick="changeAvailable(this)"
+                                data-url="{{ route('admin.voiture.available', ['matricule' => $car->matricule]) }}"
+                                title="change statut"><i class=".los fa-solid fa-rotate"></i></button>
                         </div>
                     </div>
                 @endforeach
@@ -224,12 +224,12 @@
 
 @section('scriptjs')
     <script>
-        function editCar(id, matricule, transmission, carburant, prix) {
+        function editCar(matricule, transmission, carburant, prix) {
             const editModal = document.querySelector("#editModal");
             const editForm = document.querySelector("#editForm");
 
             // Remplir les champs du formulaire
-            editForm.action = `/vehicule/${id}`;
+            editForm.action = `/vehicule/${matricule}`;
             editForm.querySelector('input[name="matricule"]').value = matricule;
             editForm.querySelector('select[name="transmission_id"]').value = transmission;
             editForm.querySelector('select[name="carburant"]').value = carburant;
@@ -243,18 +243,63 @@
             document.querySelector("#editModal").style.display = "none";
         });
 
-        function confirmStatus(carId, disponible) {
-            const message = disponible == 1 ?
-                "Le véhicule est disponible, voulez-vous le rendre indisponible ?" :
-                "Le véhicule est indisponible, voulez-vous le rendre disponible ?";
-            console.log(carId, disponible);
-
-            const isConfirmed = confirm(message);
+        function changeAvailable(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous modifier la disponiblite de ce vehicule ?");
             if (isConfirmed) {
-                // Logique pour mettre à jour le statut du véhicule
-                alert("Le statut du véhicule a été mis à jour.");
+                fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
             } else {
-                alert("Le statut du véhicule n'a pas été modifié.");
+                alert("La disponibilite du vehicule n'a pas été modifié.");
+            }
+        }
+
+        function deleteVehicule(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous supprimer ce vehicule ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("Le vehicule n'a pas été supprimé.");
             }
         }
     </script>

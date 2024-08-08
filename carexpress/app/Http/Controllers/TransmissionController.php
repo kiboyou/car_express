@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 
 class TransmissionController extends Controller
 {
-    //get all transmissions
-    public function index()
-    {
-        $transmissions = Transmission::all();
-        return response()->json($transmissions);
-    }
 
     //create new transmission
     public function store(Request $request)
@@ -22,9 +16,25 @@ class TransmissionController extends Controller
         ]);
         $exists = Transmission::where('name', $request->name)->exists();
         if($exists){
-            return response()->json(['message' => 'Transmission already exists'], 409);
+            return redirect()->route('admin.transmission')->with('success','Transmission already exists');
         }
         Transmission::create($request->all());
-        return response()->json(['message' => 'Transmission created successfully']);
+        return redirect()->route('admin.transmission')->with('success','Transmission created successfully');
+    }
+
+    //delete transmission
+    public function deleteTransmission($idtransmission)
+    {
+        $transmission = Transmission::where('id', $idtransmission)->first();
+
+        if (!$transmission) {
+            return response()->json(['success' => false, 'message' => 'Transmission non trouvé.']);
+        }
+
+        //delete the transmission
+        $transmission->delete();
+
+        return response()->json(['success' => true, 'message' => 'La transmission a été supprimé avec succès.']);
+        // return redirect()->route('admin.customer')->with('success', 'Statut du client modifié avec succès');
     }
 }

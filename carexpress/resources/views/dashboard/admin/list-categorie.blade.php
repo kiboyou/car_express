@@ -3,10 +3,7 @@
     <div class="rigth">
         <!-- ADMIN INFO -->
         <div class="head">
-            <div>
-                <img src="../../../public/source/images/Ellipse 1.png" alt="photo de profil" />
-                <p>Ouattara kiboyou M.</p>
-            </div>
+            @include('includes.dashadminhead')
         </div>
         <!-- LIST OF ITEM -->
         <div class="admin">
@@ -52,8 +49,8 @@
                         <p>{{ $categorie->name }}</p>
 
                         <div>
-                            <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                            <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+                            {{-- <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a> --}}
+                            <button style="color: red" onclick="deleteMarque(this)" data-url="{{route('admin.categorie.delete', ['idcategorie' =>$categorie->id])}}"><i class=".los fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>
                 @endforeach
@@ -75,10 +72,10 @@
         <!-- ajouter un model -->
         <div class="admining-box">
             <p>Enregistrer une Categorie</p>
-            <form>
-
+            <form method="POST" action="{{ route('admin.categorie.store') }}">
+                @csrf
                 <label for=""></label>
-                <input type="text" name="" placeholder="Entrez le nom de la Categorie">
+                <input type="text" name="name" placeholder="Entrez le nom de la Categorie">
 
                 <button type="submit">Valider</button>
             </form>
@@ -105,4 +102,37 @@
 @section('jscustom')
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
     <script src="{{ asset('js/dashboard/dashboard-car.js') }}"></script>
+@endsection
+@section('scriptjs')
+    <script>
+        function deleteMarque(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous supprimer cette categorie ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("La categorie n'a pas été supprimé.");
+            }
+        }
+    </script>
 @endsection

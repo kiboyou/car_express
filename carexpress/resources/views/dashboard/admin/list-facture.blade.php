@@ -4,10 +4,7 @@
     <div class="rigth">
         <!-- ADMIN INFO -->
         <div class="head">
-            <div>
-                <img src="../../../public/source/images/Ellipse 1.png" alt="photo de profil" />
-                <p>Ouattara kiboyou M.</p>
-            </div>
+            @include('includes.dashadminhead')
         </div>
         <!-- LIST OF ITEM -->
         <div class="admin">
@@ -29,212 +26,60 @@
 
             <!-- AJOUTER -->
             <div class="register">
-                <button>ajouter +</button>
+                <button style="display:  none;">ajouter +</button>
                 <button class="refresh">refresh @</button>
             </div>
 
             <!-- REPERES -->
             <div class="repere-client">
                 <p>Client</p>
-                <p>Voiture</p>
-                <p>nombre de jours </p>
-                <p>Prix unitaire</p>
-                <p>Prix total</p>
-                <p>Status</p>
+                <p>Numero de facture</p>
+                <p>Numero de reservation </p>
+                <p>nombre de jours</p>
+                <p>Montant</p>
+                <p>Total</p>
                 <p>Actions</p>
             </div>
 
             <!-- LISTE DES PATIENTS -->
             <div class="list-client">
                 <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+                @foreach ($invoices as $invoice)
+                    <div class="client">
+                        <p>{{ $invoice->reservation->customer->codeclient }}</p>
+                        <p>{{ $invoice->numfacture }}</p>
+                        <p>{{ $invoice->reservation->numreservation }}</p>
+                        <p>{{ $invoice->nombre_jour }}</p>
+                        <p>{{ $invoice->montant }}</p>
+                        <p>{{ $invoice->montant_total }}</p>
+                        <!-- <p class="status_ok">valider</p> -->
+                        <div>
+                            @php
+                                $encryptednumfacture = Crypt::encrypt($invoice->numfacture);
+                            @endphp
+                            <a href="{{ route('admin.facture.pdf', $encryptednumfacture) }}"><button class="set"><i
+                                        class="fa-solid fa-print"></i></button></a>
+                            @if ($invoice->montantrestant == 0)
+                                <button class="set" disabled
+                                    onclick="makePaiement('{{ $invoice->numfacture }}', '{{ $invoice->montantrestant }}')"><i
+                                        class="fa-solid fa-credit-card"></i></button>
+                            @else
+                                <button class="set"
+                                    onclick="makePaiement('{{ $invoice->numfacture }}', '{{ $invoice->montantrestant }}')"><i
+                                        class="fa-solid fa-credit-card"></i></button>
+                            @endif
+                            {{-- <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
+                            <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> --}}
+                        </div>
                     </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Voiture Économique</p>
-                    <p>15</p>
-                    <p>10 000</p>
-                    <p>150 000</p>
-                    <p class="status">En cours...</p>
-                    <!-- <p class="status_ok">valider</p> -->
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
 
 
             <!-- PAGINATION -->
             <div class="pagination">
                 <div>
-                    <a href="#"><button class="pre">
-                            << </button></a>
-                    <a href="#"><button class="post">>></button></a>
+                    <x-pagination :varmodele="$invoices"></x-pagination>
                 </div>
             </div>
 
@@ -288,6 +133,30 @@
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
+    {{-- effectuer un paiement --}}
+    <div class="admining" id="editModalPaiment" style="display: none;">
+        <div class="admining-box">
+            <p>Effectuer un paiment</p>
+            <form id="editFormPaiment" method="POST">
+                @csrf
+                <label for=""></label>
+                <input type="text" name="facture_id" placeholder="" hidden>
+
+                <label></label>
+
+                <label>Montant Restant a payé</label>
+                <input type="number" name="montant" disabled placeholder="Montant a payé">
+
+                <label>Montant Versé</label>
+                <input type="number" name="montant_verse" placeholder="Montant payé">
+
+                <button type="submit">Valider</button>
+            </form>
+        </div>
+        <div class="admining-cancel close-form">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
     <!-- supprimer un element -->
     <div class="delete">
         <div class="delete-box">
@@ -304,4 +173,27 @@
 @section('jscustom')
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
     {{-- <script src="{{asset('js/dashboard/dashboard-car.js')}}"></script> --}}
+@endsection
+@section('scriptjs')
+    <script>
+        function makePaiement(numfacture, montant) {
+            const editModal = document.querySelector("#editModalPaiment");
+            const editForm = document.querySelector("#editFormPaiment");
+
+            // Remplir les champs du formulaire
+            // const paiementUrl = "{{ route('admin.facture.paiment', ['numfacture' => 'NUMFACTURE_PLACEHOLDER']) }}";
+            // editForm.action = paiementUrl.replace('NUMFACTURE_PLACEHOLDER', numfacture);
+            const paiementUrl = "{{ route('admin.facture.paiment') }}";
+            editForm.action = paiementUrl;
+            // editForm.action = `/facture/paiement/${numfacture}`;
+            editForm.querySelector('input[name="facture_id"]').value = numfacture;
+            editForm.querySelector('input[name="montant"]').value = montant;
+
+            // Afficher la modale
+            editModal.style.display = "block";
+        }
+        document.querySelector(".close-form").addEventListener("click", () => {
+            document.querySelector("#editModalPaiment").style.display = "none";
+        });
+    </script>
 @endsection

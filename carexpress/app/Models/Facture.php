@@ -18,11 +18,16 @@ class Facture extends Model
         'montant',
         'taxes',
         'montant_total',
-        'reservation_id'
+        'reservation_id',
+        'montantrestant'
     ];
 
     public function reservation(){
         return $this->belongsTo(Reservation::class, 'reservation_id');
+    }
+
+    public function received(){
+        return $this->hasMany(Received::class, 'facture_id');
     }
     public static function generateNumFacture(){
         do {

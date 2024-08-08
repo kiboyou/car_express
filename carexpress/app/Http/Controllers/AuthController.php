@@ -22,15 +22,30 @@ class AuthController extends Controller
         $personnel = Personnel::where('username', $request->input('username'))->first();
 
         if (!$personnel || !Hash::check($request->input('password'), $personnel->password)) {
-            return response()->json(['error' => 'Invalid credentials'], 401);
+            // Log::warning('Login attempt failed', ['username' => $request->input('username')]);
+            return redirect()->route('admin.login')->with('error', 'Nom d\'utilisateur ou mot de passe incorrect');
+        }
+        Log::info('Login successful', ['username' => $personnel->username]);
+        // Vérifiez si le compte est inactif et firstlogin est true
+        if ($personnel->statut !== 'actif' && $personnel->firstlogin) {
+            // Log::info('Redirecting to reset form', ['username' => $personnel->username]);
+            Auth::guard('personnel')->login($personnel);
+            return redirect()->route('admin.resetform')->with('success', 'Réinitialisez le mot de passe avant de vous connecter');
+        }
+
+        // Vérifiez si le compte est inactif et firstlogin est false
+        if ($personnel->statut !== 'actif' && !$personnel->firstlogin) {
+            // Log::info('Account inactive', ['username' => $personnel->username]);
+            return redirect()->route('login.personnel')->with('error', 'Votre compte est inactif, veuillez contacter l\'administrateur');
         }
 
         if (Auth::guard('personnel')->attempt($request->only('username', 'password'))) {
-            $personnel = Auth::guard('personnel')->user();
-            return response()->json($personnel);
+            $personel = Auth::guard('personnel')->user();
+            return redirect()->route('admin.dashboard');
         }
 
-        return response()->json(['error' => 'Login failed'], 500);
+        // Log::warning('Authentication failed', ['username' => $request->input('username')]);
+        return redirect()->route('admin.login')->with('error', 'Nom d\'utilisateur ou mot de passe incorrect');
     }
 
     public function logincustomer(Request $request)
@@ -46,7 +61,7 @@ class AuthController extends Controller
             return redirect()->route('logincustomer')->with('error', 'Email ou mot de passe incorrect');
         }
 
-        if($customer->statut !== 'actif'){
+        if ($customer->statut !== 'actif') {
             return redirect()->route('logincustomer')->with('error', 'Votre compte est inactif, veuillez contacter l\'administrateur');
         }
 
@@ -65,5 +80,13 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('logincustomer');
+    }
+    //logout for personnel
+    public function logoutPersonnel(Request $request)
+    {
+        Auth::guard('personnel')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 }
