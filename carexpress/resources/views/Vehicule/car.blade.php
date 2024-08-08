@@ -5,31 +5,43 @@
         <main class="overview-1 w-full md:w-4/5 lg:w-3/4 mx-auto">
             <!-- SEARCH AND FILTER BAR -->
             <section class="search p-4 md:p-6 lg:p-8 text-center">
-                <form action="#" class="w-4/5 mx-auto grid grid-cols-1 md:grid-cols-4 gap-2">
+                <form action="{{ route('allcar') }}" method="GET"
+                    class="w-4/5 mx-auto grid grid-cols-1 md:grid-cols-4 gap-2">
                     <!-- SEARCH BAR -->
-                    <input type="search" placeholder="Rechercher une voiture" name="#"
+                    <input type="search" placeholder="Rechercher par la marque" name="marque"
+                        class="w-full px-4 py-2 rounded-md text-gray-800 outline-none border border-red-600 shadow-md" />
+                    <input type="search" placeholder="Rechercher par le modele" name="modele"
                         class="w-full px-4 py-2 rounded-md text-gray-800 outline-none border border-red-600 shadow-md" />
                     <!-- CLIENT'S BUDGET -->
-                    <select name=""
+                    {{-- <select name="budget"
                         class="w-full px-4 py-2 rounded-md text-gray-800 outline-none border border-red-600 shadow-md">
-                        <option value="">Votre Budget</option>
-                        <option value="">0 - 5000</option>
-                        <option value="">5000 - 10000</option>
-                        <option value="">10000 - 50000</option>
-                        <option value="">50000 - 100000</option>
-                        <option value="">100000 - 500000</option>
-                        <option value="">500000 - +1000000</option>
-                    </select>
+                        <option selected>Votre Budget</option>
+                        <option value="10-50">10€ - 50€</option>
+                        <option value="50-100">50€ - 100€</option>
+                        <option value="100-200">100€ - 200€</option>
+                    </select> --}}
                     <!-- CATEGORY SELECT -->
-                    <select name=""
+                    <select name="categorie"
                         class="w-full px-4 py-2 rounded-md text-gray-800 outline-none border border-red-600 shadow-md">
-                        <option value="">Transmission</option>
-                        <option value="automatique">Automatique</option>
-                        <option value="manuelle">Manuelle</option>
+                        <option selected>Choisir une categorie</option>
+                        @foreach ($categories as $categorie)
+                            <option value="{{ $categorie->name }}"> {{ $categorie->name }} </option>
+                        @endforeach
                     </select>
                     <!-- SUBMIT BUTTON -->
-                    <button type="submit"
-                        class="w-full md:w-auto bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:scale-105 active:scale-95">Rechercher</button>
+                    <div class="flex space-x-2">
+                        <!-- SUBMIT BUTTON -->
+                        <button type="submit"
+                            class="w-full md:w-auto bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:scale-105 active:scale-95">
+                            Rechercher
+                        </button>
+
+                        <!-- RESET BUTTON -->
+                        <a href="{{ route('allcar') }}"
+                            class="w-full md:w-auto bg-gray-600 text-white px-4 py-2 rounded-md shadow-md text-center hover:scale-105 active:scale-95">
+                            Réinitialiser
+                        </a>
+                    </div>
                 </form>
             </section>
         </main>
@@ -96,10 +108,20 @@
 
     <!-- PAGINATION -->
     <section class="pagination flex justify-center space-x-4 p-4 mt-20">
-        <a href="#"><button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md"><i
-                    class="fa-solid fa-arrow-left-long"></i> Page recendente</button></a>
-        <a href="#"><button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Page suivante <i
-                    class="fa-solid fa-arrow-right-long"></i></button></a>
+        @if ($vehicules->onFirstPage())
+            <button disabled class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md"><i
+                    class="fa-solid fa-arrow-left-long"></i> Page précedente</button>
+        @else
+            <a href="{{ $vehicules->previousPageUrl() }}"><button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md"><i
+                        class="fa-solid fa-arrow-left-long"></i> Page précedente</button></a>
+        @endif
+        @if ($vehicules->hasMorePages())
+            <a href="{{ $vehicules->nextPageUrl() }}"><button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Page
+                    suivante <i class="fa-solid fa-arrow-right-long"></i></button></a>
+        @else
+            <button disabled class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Page
+                suivante <i class="fa-solid fa-arrow-right-long"></i></button>
+        @endif
     </section>
 @endsection
 
