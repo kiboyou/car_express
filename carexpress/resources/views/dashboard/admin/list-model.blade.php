@@ -54,25 +54,15 @@
                         <p>{{ $modele->marque->name }}</p>
                         <p>{{ $modele->name }}</p>
                         <div>
-                            <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                            <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+                            {{-- <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a> --}}
+                            <button style="color: red" onclick="deleteModele(this)" data-url="{{route('admin.modele.delete', ['idmodele' =>$modele->id])}}"><i class=".los fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>
                 @endforeach
             </div>
             <!-- PAGINATION -->
             <div class="pagination">
-                @if ($modeles->onFirstPage())
-                    <button class="pre" disabled> << </button>
-                @else
-                    <a href="{{ $modeles->previousPageUrl() }}"><button class="pre"> << </button></a>
-                @endif
-
-                @if ($modeles->hasMorePages())
-                    <a href="{{ $modeles->nextPageUrl() }}"><button class="post"> >> </button></a>
-                @else
-                    <button class="post" disabled>>></button>
-                @endif
+                <x-pagination :varmodele="$modeles"></x-pagination>
                 {{-- <div>
                         <p>Page {{ $modeles->currentPage() }} of {{ $modeles->lastPage() }}</p>
                     </div> --}}
@@ -132,4 +122,38 @@
 @section('jscustom')
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
     <script src="{{ asset('js/dashboard/dashboard-car.js') }}"></script>
+@endsection
+
+@section('scriptjs')
+    <script>
+        function deleteModele(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous supprimer cette modele ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("Le modele n'a pas été supprimé.");
+            }
+        }
+    </script>
 @endsection

@@ -17,12 +17,12 @@ class ModeleController extends Controller
     //create new modele
     public function store(Request $request)
     {
-        $request -> validate([
+        $request->validate([
             'name' => 'required|string',
             'marque_id' => 'required|integer'
         ]);
         $exists = Modele::where('name', $request->name)->exists();
-        if($exists){
+        if ($exists) {
             return response()->json(['message' => 'Modele already exists'], 409);
         }
         Modele::create($request->all());
@@ -32,34 +32,40 @@ class ModeleController extends Controller
     public function edit(Request $request, $modeleID)
     {
         $modele = Modele::find($modeleID);
-        if(!$modele){
+        if (!$modele) {
             return response()->json(['message' => 'Modele not found'], 404);
         }
-        $request -> validate([
+        $request->validate([
             'name' => 'required|string',
         ]);
         $modele->update($request->all());
         return response()->json(['message' => 'Modele updated successfully']);
     }
     //delete modele
-    public function delete($modeleID)
+    public function deleteModele($idmodele)
     {
-        $modele = Modele::find($modeleID);
-        if(!$modele){
-            return response()->json(['message' => 'Modele not found'], 404);
+        $modele = Modele::where('id', $idmodele)->first();
+
+        if (!$modele) {
+            return response()->json(['success' => false, 'message' => 'Modele non trouvé.']);
         }
+
+        //delete the modele
         $modele->delete();
-        return response()->json(['message' => 'Modele deleted successfully']);
+
+        return response()->json(['success' => true, 'message' => 'Le modele a été supprimé avec succès.']);
+        // return redirect()->route('admin.customer')->with('success', 'Statut du client modifié avec succès');
     }
 
-    public function showMarque($modeleID){
+    public function showMarque($modeleID)
+    {
         $modele = Modele::find($modeleID);
 
-        if(!$modele){
+        if (!$modele) {
             return response()->json(['message' => 'Modele not found'], 404);
         }
         $marque = $modele->marque;
-        if(!$marque){
+        if (!$marque) {
             return response()->json(['message' => 'Marque not found'], 404);
         }
         return response()->json($marque);

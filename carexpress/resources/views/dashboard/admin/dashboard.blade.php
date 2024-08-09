@@ -3,10 +3,7 @@
     <div class="rigth">
         <!-- ADMIN INFO -->
         <div class="head">
-            <div>
-                <img src="../../../public/source/images/Ellipse 1.png" alt="photo de profil" />
-                <p>Admin name</p>
-            </div>
+            @include('includes.dashadminhead');
         </div>
         <!-- INFORMATIONS & CHARTS BOARD -->
         <div class="info">
@@ -17,49 +14,49 @@
                 <!-- CADRE -->
                 <div>
                     <p>Nombre de client : </p>
-                    <p>27</p>
+                    <p>{{$nbreClient}}</p>
                 </div>
 
                 <!-- CADRE -->
                 <div>
                     <p>Nombre de reservation : </p>
-                    <p>27</p>
+                    <p>{{$nbreReservation}}</p>
                 </div>
 
                 <!-- CADRE -->
                 <div>
                     <p>Nombre de facture : </p>
-                    <p>27</p>
+                    <p>{{$nbreFacture}}</p>
                 </div>
 
                 <!-- CADRE -->
                 <div>
                     <p>Nombre de reçu : </p>
-                    <p>27</p>
+                    <p>{{$nbreReceived}}</p>
                 </div>
 
                 <!-- CADRE -->
                 <div>
                     <p>Nombre d'inventaire : </p>
-                    <p>27</p>
+                    <p>{{$nbreInventaire}}</p>
                 </div>
 
                 <!-- CADRE -->
                 <div>
                     <p>Nombre de Gestionnaire : </p>
-                    <p>27</p>
+                    <p>{{$nbrePersonnel}}</p>
                 </div>
 
                 <!-- CADRE -->
                 <div>
                     <p>Nombre de voiture : </p>
-                    <p>27</p>
+                    <p>{{$nbreVehicule}}</p>
                 </div>
 
                 <!-- CADRE -->
                 <div>
                     <p>NOMBRE TOTAL : </p>
-                    <p>300</p>
+                    <p>{{$nbreVehicule+$nbreClient+$nbreReservation+$nbreFacture+$nbreInventaire+$nbrePersonnel+$nbreReceived}}</p>
                 </div>
 
                 <!-- GRAPHIQUE -->

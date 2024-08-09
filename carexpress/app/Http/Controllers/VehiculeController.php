@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Log;
 
 class VehiculeController extends Controller
 {
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'matricule' => 'required|string|unique:vehicules,matricule',
             'prixLocation' => 'required|numeric',
@@ -24,7 +25,7 @@ class VehiculeController extends Controller
             return redirect()->back()->with('error', 'Véhicule déjà existant');
         }
         $imgpath = null;
-        if($request->hasFile('imageVehicule')){
+        if ($request->hasFile('imageVehicule')) {
             $img = $request->file('imageVehicule');
             $matricule = strtolower($request->matricule);
             $timecreate = now()->format('YmdHis');
@@ -55,5 +56,38 @@ class VehiculeController extends Controller
         }
         return response()->json($vehicule);
     }
-    
+
+    //change vehicule disponibility
+    public function updateAvailable($matricule)
+    {
+        $vehicule = Vehicule::where('matricule', $matricule)->first();
+
+        if (!$vehicule) {
+            return response()->json(['success' => false, 'message' => 'Vehicule non trouvé.']);
+        }
+
+        //inverser le statut
+        $vehicule->disponibilite = $vehicule->disponibilite == 1 ? 0 : 1;
+        $vehicule->save();
+
+        return response()->json(['success' => true, 'message' => 'La disponibilite du vehicule a été modifié avec succès.']);
+        // return redirect()->route('admin.customer')->with('success', 'Statut du client modifié avec succès');
+    }
+
+    //delete vehicule
+    public function deleteVehicule($matricule)
+    {
+        $vehicule = Vehicule::where('matricule', $matricule)->first();
+
+        if (!$vehicule) {
+            return response()->json(['success' => false, 'message' => 'Vehicule non trouvé.']);
+        }
+
+        //delete the vehicule
+        $vehicule->delete();
+
+        return response()->json(['success' => true, 'message' => 'Le vehicule a été supprimé avec succès.']);
+        // return redirect()->route('admin.customer')->with('success', 'Statut du client modifié avec succès');
+    }
+
 }

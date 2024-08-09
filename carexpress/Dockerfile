@@ -1,33 +1,31 @@
-# Utilisez l'image officielle PHP avec PHP-FPM
-FROM php:8.2-fpm
+FROM php:8.2-apache
 
-# Installez les extensions PHP nécessaires
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install pdo_mysql
+# Install required PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql
 
-# Installez Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Set document root
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-# Définissez le répertoire de travail
-WORKDIR /var/www/html
+# Copy application files
+COPY . /var/www/html
 
-# Copiez les fichiers du projet Laravel
-COPY . .
+# Set working directory
+RUN chown -R www-data:www-data /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
+RUN chmod -R 755 /var/www/html/storage
+RUN chmod -R 755 /var/www/html/bootstrap/cache
 
-# Installez les dépendances de Laravel
-RUN composer install
 
-# Assurez-vous que les permissions sont correctes pour les dossiers de stockage et de cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Exposez le port 9000 pour PHP-FPM
-EXPOSE 9000
+# Copy Apache configuration file
+COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 
-CMD ["php-fpm"]
+
+# Enable Apache modules
+RUN a2enmod rewrite
+
+# Exposer le port 80
+EXPOSE 80
+
+# Commande par défaut
+CMD ["apache2-foreground"]

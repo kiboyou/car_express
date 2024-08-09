@@ -3,10 +3,7 @@
     <div class="rigth">
         <!-- ADMIN INFO -->
         <div class="head">
-            <div>
-                <img src="../../../public/source/images/Ellipse 1.png" alt="photo de profil" />
-                <p>Ouattara kiboyou M.</p>
-            </div>
+            @include('includes.dashadminhead');
         </div>
         <!-- LIST OF ITEM -->
         <div class="admin">
@@ -35,178 +32,59 @@
 
             <!-- REPERES -->
             <div class="repere-client">
-                <p>Nom</p>
+                <p>code client</p>
                 <p>Prenoms</p>
-                <p>Date de naissance</p>
+                <p>Nom</p>
                 <p>Email</p>
-                <p>Adresse</p>
                 <p>Telephone</p>
+                <p>statut</p>
                 <p>Actions</p>
             </div>
 
             <!-- LISTE DES PATIENTS -->
             <div class="list-client">
                 <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
+                @foreach ($customers as $customer)
+                    <div class="client">
+                        <p>{{ $customer->codeclient }}</p>
+                        <p>{{ $customer->firstname }}</p>
+                        <p>{{ $customer->lastname }}</p>
+                        <p>{{ $customer->email }}</p>
+                        <p>{{ $customer->phone }}</p>
+                        @if ($customer->statut == 'actif')
+                            <p class="status_ok">actif</p>
+                        @else
+                            <p class="status">inactif</p>
+                        @endif
+                        <div>
+                            {{-- <a href="#">
+                                <button class="set"><i class="fa-solid fa-pen"></i></button>
+                            </a> --}}
+                            <button class="set" onclick="reinitCustomerPassword('{{ $customer->codeclient }}')"
+                                title="reinit password"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="changeStatus(this)"
+                                data-url="{{ route('admin.customer.statut', ['codeclient' => $customer->codeclient]) }}"
+                                title="change statut" style="color: red"><i class=".los fa-solid fa-rotate"></i></button>
+                            <button onclick="changeStatus(this)"
+                                data-url="{{ route('admin.customer.delete', ['codeclient' => $customer->codeclient]) }}"
+                                title="change statut" style="color: red"><i class=".los fa-solid fa-trash-can"></i></button>
+                            {{-- <a href="#">
+                                <button onclick="changeStatus('{{ $customer->codeclient }}', '{{ $customer->statut }}')"
+                                    title="change statut" style="color: red"><i
+                                        class=".los fa-solid fa-rotate"></i></button>
+                            </a> --}}
+                        </div>
                     </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
-
-                <!-- Patient -->
-                <div class="client">
-                    <p>OUATTARA</p>
-                    <p>Kiboyou Mohamed</p>
-                    <p>15/04/2022</p>
-                    <p>ouattarakiboyoumohamed@gmail.com</p>
-                    <p>Foyer Babel</p>
-                    <p> 0759239686</p>
-                    <div>
-                        <a href="#"><button class="set"><i class="fa-solid fa-pen"></i></button></a>
-                        <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <!-- PAGINATION -->
             <div class="pagination">
                 <div>
-                    <a href="#"><button class="pre">
+                    <x-pagination :varmodele="$customers"></x-pagination>
+                    {{-- <a href="#"><button class="pre">
                             << </button></a>
-                    <a href="#"><button class="post">>></button></a>
+                    <a href="#"><button class="post">>></button></a> --}}
                 </div>
             </div>
 
@@ -267,4 +145,109 @@
 @section('jscustom')
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
     {{-- <script src="{{asset('js/dashboard/dashboard-car.js')}}"></script> --}}
+@endsection
+@section('scriptjs')
+    <script>
+        // function changeStatus(codeclient, statutclient) {
+        //     const message = statutclient == "actif" ?
+        //         "Le client est actif, voulez-vous le rendre inactif ?" :
+        //         "Le client est inactif, voulez-vous le rendre actif ?";
+        //     console.log(codeclient, statutclient);
+
+        //     const isConfirmed = confirm(message);
+        //     if (isConfirmed) {
+        //         // Logique pour mettre à jour le statut du véhicule
+        //         // alert("Le statut du client a été mis à jour.");
+        //         fetch('/admin/customer/changestatus', {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'Content-Type': 'application/json',
+        //                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        //                 },
+        //                 body: JSON.stringify({
+        //                     codeclient: codeclient
+        //                 })
+        //             })
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 alert(data.message);
+        //                 // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+        //             })
+        //             .catch(error => console.error('Erreur:', error));
+        //     } else {
+        //         alert("Le statut du client n'a pas été modifié.");
+        //     }
+        // }
+        function changeStatus(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous changer le statut de ce client ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("Le statut du client n'a pas été modifié.");
+            }
+        }
+
+        function reinitCustomerPassword(codeclient) {
+            console.log(codeclient);
+
+            const isConfirmed = confirm("Voulez vous reinitialiser le mot de passe de ce client ?");
+            if (isConfirmed) {
+                // Logique pour mettre à jour le statut du véhicule
+                alert("Le mot de passe du client a été réinitialisé.");
+            } else {
+                alert("Le mot de passe du client n'a pas été réinitialisé.");
+            }
+        }
+
+        function deleteCustomer(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous supprimer ce client ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("Le client n'a pas été supprimé.");
+            }
+        }
+    </script>
 @endsection

@@ -8,7 +8,10 @@
         <ul class="flex space-x-8">
             <li><a href="{{ route('home') }}" class="text-lg text-black hover:text-red-600 active">Acceuil</a></li>
             <li><a href="{{ route('allcar') }}" class="text-lg text-black hover:text-red-600">Cars</a></li>
-            <li><a href="{{ Auth::guard('customer')->check() ? route('dashcustomer.index') : route('logincustomer') }}"
+            {{-- <li><a href="{{ Auth::guard('customer')->check() ? route('dashcustomer.index') : route('logincustomer') }}"
+                    class="text-lg text-black hover:text-red-600">Mon
+                    dashboard</a></li> --}}
+            <li><a href="{{ route('dashcustomer.index') }}"
                     class="text-lg text-black hover:text-red-600">Mon
                     dashboard</a></li>
             @auth('customer')
@@ -17,7 +20,8 @@
                 </form>
                 <li
                     class="Deconnexion bg-red-600 text-white py-1 px-8 rounded-full cursor-pointer  hover:bg-white hover:text-red-600 transition duration-500">
-                    <a href="{{ route('logout.customer') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Deconnexion</a>
+                    <a href="{{ route('logout.customer') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Deconnexion</a>
                 </li>
             @endauth
             @guest('customer')

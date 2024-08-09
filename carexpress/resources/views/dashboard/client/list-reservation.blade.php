@@ -58,9 +58,38 @@
                         <p class="status_cancel">Annulé.</p>
                     @endif
                     <div>
+                        @if ($reservation->statut_reservation == 'en attente')
+                            <button style="color: green"
+                                data-url="{{ route('reservation.confirm', $reservation->numreservation) }}"
+                                onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                            <button style="color: red"
+                                data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
+                                onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                        @elseif ($reservation->statut_reservation == 'en cours')
+                            <button style="color: gray"
+                                data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
+                                onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                            <button style="color: red"
+                                data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
+                                onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                        @elseif ($reservation->statut_reservation == 'confirme')
+                            <button style="color: gray"
+                                data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
+                                onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                            <button style="color: red"
+                                data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
+                                onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                        @elseif ($reservation->statut_reservation == 'annule')
+                            <button style="color: gray"
+                                data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
+                                onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                            <button style="color: gray"
+                                data-url="{{ route('reservation.cancel', $reservation->numreservation) }}" disabled
+                                onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                        @endif
                         <!-- VALIDER -->
-                        <a href="#"><button class="set"><i class="fa-solid fa-circle-check"></i></button></a>
-                        <a href="#"><button class="del"><i class="fa-solid fa-ban"></i></button></a>
+                        {{-- <a href="#"><button class="set"><i class="fa-solid fa-circle-check"></i></button></a>
+                        <a href="#"><button class="del"><i class="fa-solid fa-ban"></i></button></a> --}}
 
                         <!-- PAS VALIDER -->
                         <!-- <p>....</p> -->
@@ -74,7 +103,7 @@
         <div class="pagination">
             <div>
                 <a href="#"><button class="pre">
-                        <<< /button></a>
+                        << </button></a>
                 <a href="#"><button class="post">>></button></a>
             </div>
         </div>
@@ -106,4 +135,67 @@
 @endsection
 @section('scriptjs')
     <script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
+@endsection
+@section('scriptjs2')
+    <script>
+        function confirmReservation(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous confirmer la reservation ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("La reservation n'a pas été confirmé.");
+            }
+        }
+
+        function cancelReservation(button) {
+            const url = button.getAttribute('data-url');
+            const isConfirmed = confirm("Voulez-vous annuler la reservation ?");
+            if (isConfirmed) {
+                fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Actualiser la page ou mettre à jour l'interface utilisateur si nécessaire
+                            location.reload();
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("There was an error processing your request.");
+                    });
+            } else {
+                alert("La reservation n'a pas été annule.");
+            }
+        }
+    </script>
 @endsection

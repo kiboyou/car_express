@@ -11,25 +11,25 @@
             <!-- CADRE -->
             <div>
                 <p>Nombre de reservation : </p>
-                <p>27</p>
+                <p>{{$nbreReservation}}</p>
             </div>
 
             <!-- CADRE -->
             <div>
                 <p>Nombre de facture : </p>
-                <p>27</p>
+                <p>{{$nbreFacture}}</p>
             </div>
 
             <!-- CADRE -->
             <div>
                 <p>Nombre de reçu : </p>
-                <p>27</p>
+                <p>{{$nbreReceived}}</p>
             </div>
 
             <!-- CADRE -->
             <div>
                 <p>NOMBRE TOTAL : </p>
-                <p>300</p>
+                <p>{{$nbreReservation+$nbreFacture+$nbreReceived}}</p>
             </div>
 
             <!-- GRAPHIQUE -->

@@ -20,7 +20,6 @@
             Nous vous remercions pour votre confiance et nous vous souhaitons une agréable expérience sur notre site. <br>
         </p>
         <p class="mb-4">
-            Bienvenue à bord ! <br>
             Cordialement,<br>
             L'administrateur.
         </p>

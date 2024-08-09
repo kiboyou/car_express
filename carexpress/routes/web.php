@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashAdminController;
 use App\Http\Controllers\DashCustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InventaireController;
 use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\ModeleController;
 use App\Http\Controllers\PDFController;
@@ -16,20 +17,24 @@ use App\Http\Controllers\VehiculeController;
 use Illuminate\Support\Facades\Route;
 
 //home page
-Route::prefix('')->group(function(){
+Route::prefix('')->group(function () {
     Route::get('/', [HomeController::class, 'welcome'])->name('home');
     Route::get('/car', [HomeController::class, 'carview'])->name('allcar');
     Route::get('/details/{matricule}', [HomeController::class, 'detailspage'])->name('detailscar');
-    Route::get('/login', [HomeController::class, 'logincustomer'])->name('logincustomer');
+    Route::get('/customerlogin', [HomeController::class, 'logincustomer'])->name('logincustomer');
     Route::get('/register', [HomeController::class, 'registercustomer'])->name('registercustomer');
 });
 
 //route for customer dashboard
-Route::prefix('dashboardcustomer')->middleware('auth.customer')->group(function(){
+Route::prefix('dashboardcustomer')->middleware('auth.customer')->group(function () {
     Route::get('/', [DashCustomerController::class, 'index'])->name('dashcustomer.index');
     Route::get('/facture', [DashCustomerController::class, 'facturehome'])->name('dashcustomer.facture');
     Route::get('/facture/{numfacture}', [PDFController::class, 'generateInvoiceCustomer'])->name('pdf.invoice');
+    Route::post('/paiement', [ReservationController::class, 'makePaiementbyCustomer'])->name('dashcustomer.received.paiment');
+
     Route::get('/received', [DashCustomerController::class, 'receivedhome'])->name('dashcustomer.received');
+    Route::get('/received/{numreceived}', [PDFController::class, 'generateReceivedCustomer'])->name('pdf.received');
+
     Route::get('/reservation', [DashCustomerController::class, 'reservationhome'])->name('dashcustomer.reservation');
     Route::get('/parametre', [DashCustomerController::class, 'parameterhome'])->name('dashcustomer.parameter');
 });
@@ -38,21 +43,68 @@ Route::prefix('dashboardcustomer')->middleware('auth.customer')->group(function(
 
 //route for administration login
 Route::prefix('admin')->group(function () {
-    Route::get('/', [DashAdminController::class, 'login'])->name('admin.login');
-    Route::post('/', [AuthController::class, 'loginPersonnel'])->name('login.personnel');
-    // Route::post('customer', [AuthController::class, 'loginCustomer'])->name('login.customer');
-    Route::get('/dashboard', [DashAdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/categorie', [DashAdminController::class, 'categorie'])->name('admin.categorie');
-    Route::get('/customer', [DashAdminController::class, 'customer'])->name('admin.customer');
-    Route::get('/facture', [DashAdminController::class, 'facture'])->name('admin.facture');
-    Route::get('/gestionnaire', [DashAdminController::class, 'gestionnaire'])->name('admin.gestionnaire');
-    Route::get('/inventaire', [DashAdminController::class, 'inventaire'])->name('admin.inventaire');
-    Route::get('/marque', [DashAdminController::class, 'marque'])->name('admin.marque');
-    Route::get('/modele', [DashAdminController::class, 'modele'])->name('admin.modele');
-    Route::get('/received', [DashAdminController::class, 'received'])->name('admin.received');
-    Route::get('/reservation', [DashAdminController::class, 'reservation'])->name('admin.reservation');
-    Route::get('/transmission', [DashAdminController::class, 'transmission'])->name('admin.transmission');
-    Route::get('/voiture', [DashAdminController::class, 'voiture'])->name('admin.voiture');
+    Route::post('/', [AuthController::class, 'loginPersonnel'])->name('admin.personnel')->middleware('guest');
+    Route::get('/resetpassword', [DashAdminController::class, 'resetpasswordform'])->name('admin.resetform');
+
+    // Routes protégées par le middleware auth.personnel
+    Route::middleware(['auth:personnel'])->group(function () {
+        Route::get('/dashboard', [DashAdminController::class, 'index'])->name('admin.dashboard');
+
+        // Routes accessibles aux administrateurs et managers
+        Route::middleware(['role:administrateur,manager'])->group(function () {
+            //route for manage categories
+            Route::get('/categorie', [DashAdminController::class, 'categorie'])->name('admin.categorie');
+            Route::post('/categorie', [CategorieController::class, 'store'])->name('admin.categorie.store');
+            Route::delete('/categorie/{idcategorie}', [CategorieController::class, 'deleteCategorie'])->name('admin.categorie.delete');
+
+            //route for manage facture
+            Route::get('/facture', [DashAdminController::class, 'facture'])->name('admin.facture');
+            Route::get('/facture/{numfacture}', [PDFController::class, 'generateInvoiceCustomer'])->name('admin.facture.pdf');
+            Route::post('/facture/paiment', [ReservationController::class, 'makePaiementbyPersonnel'])->name('admin.facture.paiment');
+
+            //route for manage inventaire
+            Route::get('/inventaire', [DashAdminController::class, 'inventaire'])->name('admin.inventaire');
+            Route::post('/inventaire', [InventaireController::class, 'store'])->name('admin.inventaire.store');
+            Route::get('/inventaire/print', [PDFController::class, 'printInventaire'])->name('admin.inventaire.pdf');
+
+            //route for manage marque
+            Route::get('/marque', [DashAdminController::class, 'marque'])->name('admin.marque');
+            Route::delete('/marque/{idmarque}', [MarqueController::class, 'deleteMarque'])->name('admin.marque.delete');
+
+            //route for manage modele
+            Route::get('/modele', [DashAdminController::class, 'modele'])->name('admin.modele');
+            Route::delete('/modele/{idmodele}', [ModeleController::class, 'deleteModele'])->name('admin.modele.delete');
+
+            //route for manage received
+            Route::get('/received', [DashAdminController::class, 'received'])->name('admin.received');
+            Route::get('/received/{numreceived}', [PDFController::class, 'generateReceivedCustomer'])->name('admin.received.pdf');
+
+            //route for manage reservation
+            Route::get('/reservation', [DashAdminController::class, 'reservation'])->name('admin.reservation');
+
+            //route for manage transmission
+            Route::get('/transmission', [DashAdminController::class, 'transmission'])->name('admin.transmission');
+            Route::post('/transmission', [TransmissionController::class, 'store'])->name('admin.transmission.store');
+            Route::delete('/transmission/{idtransmission}', [TransmissionController::class, 'deleteTransmission'])->name('admin.transmission.delete');
+
+            //route for manage vehicules
+            Route::get('/voiture', [DashAdminController::class, 'voiture'])->name('admin.voiture');
+            Route::put('/voiture/available/{matricule}', [VehiculeController::class, 'updateAvailable'])->name('admin.voiture.available');
+            Route::delete('/voiture/delete/{matricule}', [VehiculeController::class, 'deleteVehicule'])->name('admin.voiture.delete');
+        });
+
+        // Routes spécifiques aux administrateurs
+        Route::middleware(['role:administrateur'])->group(function () {
+            Route::get('/customer', [DashAdminController::class, 'customer'])->name('admin.customer');
+            Route::put('/customer/{codeclient}', [CustomerController::class, 'updateStatus'])->name('admin.customer.statut');
+            Route::delete('/customer/{codeclient}', [CustomerController::class, 'deletePersonnel'])->name('admin.customer.delete');
+
+            Route::get('/gestionnaire', [DashAdminController::class, 'gestionnaire'])->name('admin.gestionnaire');
+            Route::put('/gestionnaire/statut/{idpersonel}', [PersonnelController::class, 'updateStatus'])->name('admin.gestionnaire.statut');
+            Route::delete('/gestionnaire/delete/{idpersonel}', [PersonnelController::class, 'deletePersonnel'])->name('admin.gestionnaire.delete');
+            Route::put('/gestionnaire/resetpassword/{idpersonel}', [PersonnelController::class, 'resetPasswordPersonnel'])->name('admin.gestionnaire.resetpassword');
+        });
+    });
 });
 
 // route for marques
@@ -73,18 +125,6 @@ Route::prefix('modele')->group(function () {
     Route::get('/{modeleId}', [ModeleController::class, 'showMarque'])->name('modele.marque');
 });
 
-// route for transmissions
-Route::prefix('transmission')->group(function () {
-    Route::get('/', [TransmissionController::class, 'index'])->name('transmission.index');
-    Route::post('/', [TransmissionController::class, 'store'])->name('transmission.store');
-});
-
-// route for categories
-Route::prefix('categorie')->group(function () {
-    Route::get('/', [CategorieController::class, 'index'])->name('categorie.index');
-    Route::post('/', [CategorieController::class, 'store'])->name('categorie.store');
-});
-
 //route for manage vehicules
 Route::prefix('vehicule')->group(function () {
     Route::post('/', [VehiculeController::class, 'store'])->name('vehicule.store');
@@ -99,15 +139,21 @@ Route::prefix('customer')->group(function () {
 // route for personnels
 Route::prefix('personnel')->group(function () {
     Route::post('/', [PersonnelController::class, 'store'])->name('personnel.store');
+    Route::post('/reset', [PersonnelController::class, 'resetpasswordfirstlogin'])->name('personnel.resetpassword');
 });
 
 // route for manage reservation
 Route::prefix('reservation')->group(function () {
     Route::post('/', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::put('/confirm/{numreservation}', [ReservationController::class, 'confirmReservation'])->name('reservation.confirm');
+    Route::put('/cancel/{numreservation}', [PDFController::class, 'cancelReservation'])->name('reservation.cancel');
 });
 
 //route for manage login
-Route::prefix('login')->group(function(){
+Route::prefix('login')->group(function () {
+    Route::get('/', [DashAdminController::class, 'login'])->name('login')->middleware('guest');
     Route::post('/customer', [AuthController::class, 'logincustomer'])->name('login.customer');
-    Route::post('/logout', [AuthController::class, 'logoutCustomer'])->name('logout.customer');
+    Route::post('/personnel', [AuthController::class, 'loginPersonnel'])->name('admin.personnel');
+    Route::post('/logoutcustomer', [AuthController::class, 'logoutCustomer'])->name('logout.customer');
+    Route::post('/logoutpersonnel', [AuthController::class, 'logoutPersonnel'])->name('logout.personnel');
 });
