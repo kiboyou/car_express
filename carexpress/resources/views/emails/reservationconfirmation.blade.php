@@ -6,7 +6,7 @@
 
 @section('contentmail')
     <main class="p-6">
-        <h3 class="text-center text-xl font-semibold mb-4">Welcome to our site</h3>
+        <h3 class="text-center text-xl font-semibold mb-4">Reservation Information</h3>
         <p class="mb-4">Bonjour M. {{ $lastname }},</p>
         <p class="mb-4">
             Votre reservation a été effectué avec succès. <br>

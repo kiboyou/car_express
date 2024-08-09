@@ -770,6 +770,8 @@
                 </table>
             </div>
 
+            <div class="text-center py-4 font-bold">Customer Invoice</div>
+
             <div class="bg-slate-100 px-14 py-6 text-sm">
                 <table class="w-full border-collapse border-spacing-0">
                     <tbody>

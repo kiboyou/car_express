@@ -70,26 +70,18 @@
                                     data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
                                     onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
                             @elseif ($reservation->statut_reservation == 'en cours')
-                                <button style="color: gray"
-                                    data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
-                                    onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                                <button style="color: gray" disabled><i class="fa-solid fa-square-check"></i></button>
                                 <button style="color: red"
                                     data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
                                     onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
                             @elseif ($reservation->statut_reservation == 'confirme')
-                                <button style="color: gray"
-                                    data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
-                                    onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
+                                <button style="color: gray" disabled><i class="fa-solid fa-square-check"></i></button>
                                 <button style="color: red"
                                     data-url="{{ route('reservation.cancel', $reservation->numreservation) }}"
                                     onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
                             @elseif ($reservation->statut_reservation == 'annule')
-                                <button style="color: gray"
-                                    data-url="{{ route('reservation.confirm', $reservation->numreservation) }}" disabled
-                                    onclick="confirmReservation(this)"><i class="fa-solid fa-square-check"></i></button>
-                                <button style="color: gray"
-                                    data-url="{{ route('reservation.cancel', $reservation->numreservation) }}" disabled
-                                    onclick="cancelReservation(this)"><i class=".los fa-solid fa-ban"></i></button>
+                                <button style="color: gray" disabled><i class="fa-solid fa-square-check"></i></button>
+                                <button style="color: gray" disabled><i class=".los fa-solid fa-ban"></i></button>
                             @endif
                             {{-- <a href="#"><button class="set"><i class="fa-solid fa-square-check"></i></button></a> --}}
                             {{-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> --}}

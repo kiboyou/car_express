@@ -769,7 +769,7 @@
                     </tbody>
                 </table>
             </div>
-
+            <div class="text-center py-4 font-bold">Customer Receipt</div>
             <div class="bg-slate-100 px-14 py-6 text-sm">
                 <table class="w-full border-collapse border-spacing-0">
                     <tbody>
@@ -814,9 +814,9 @@
                         <tr>
                             <td class="border-b py-3 pl-3">1.</td>
                             <td class="border-b py-3 pl-2">{{ $vehiculereserve }}</td>
-                            <td class="border-b py-3 pl-2 text-right">{{ $numreservation }} €</td>
-                            <td class="border-b py-3 pl-2 text-center"> {{ $numfacture }} €</td>
-                            <td class="border-b py-3 pl-2 text-center">{{$montanttotal}}</td>
+                            <td class="border-b py-3 pl-2 text-right">{{ $numreservation }} </td>
+                            <td class="border-b py-3 pl-2 text-center"> {{ $numfacture }} </td>
+                            <td class="border-b py-3 pl-2 text-center">{{$montanttotal}} €</td>
                             <td class="border-b py-3 pl-2 text-right">{{ $montantverse }} €</td>
                             <td class="border-b py-3 pl-2 pr-3 text-right">{{ $montantrestant }} €</td>
                         </tr>
