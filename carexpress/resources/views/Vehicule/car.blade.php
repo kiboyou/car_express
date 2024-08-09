@@ -5,12 +5,12 @@
         <main class="overview-1 w-full md:w-4/5 lg:w-3/4 mx-auto">
             <!-- SEARCH AND FILTER BAR -->
             <section class="search p-4 md:p-6 lg:p-8 text-center">
-                <form action="{{ route('allcar') }}" method="GET"
+                <form id="filterForm" action="{{ route('allcar') }}" method="GET"
                     class="w-4/5 mx-auto grid grid-cols-1 md:grid-cols-4 gap-2">
                     <!-- SEARCH BAR -->
-                    <input type="search" placeholder="Rechercher par la marque" name="marque"
+                    <input type="search" placeholder="Rechercher marque" id="marque" name="marque"
                         class="w-full px-4 py-2 rounded-md text-gray-800 outline-none border border-red-600 shadow-md" />
-                    <input type="search" placeholder="Rechercher par le modele" name="modele"
+                    <input type="search" placeholder="Rechercher modele" id="modele" name="modele"
                         class="w-full px-4 py-2 rounded-md text-gray-800 outline-none border border-red-600 shadow-md" />
                     <!-- CLIENT'S BUDGET -->
                     {{-- <select name="budget"
@@ -21,7 +21,7 @@
                         <option value="100-200">100€ - 200€</option>
                     </select> --}}
                     <!-- CATEGORY SELECT -->
-                    <select name="categorie"
+                    <select name="categorie" id="categorie"
                         class="w-full px-4 py-2 rounded-md text-gray-800 outline-none border border-red-600 shadow-md">
                         <option selected>Choisir une categorie</option>
                         @foreach ($categories as $categorie)
@@ -35,12 +35,16 @@
                             class="w-full md:w-auto bg-red-600 text-white px-4 py-2 rounded-md shadow-md hover:scale-105 active:scale-95">
                             Rechercher
                         </button>
-
-                        <!-- RESET BUTTON -->
-                        <a href="{{ route('allcar') }}"
+                        <button type="button" id="resetButton"
                             class="w-full md:w-auto bg-gray-600 text-white px-4 py-2 rounded-md shadow-md text-center hover:scale-105 active:scale-95">
                             Réinitialiser
-                        </a>
+                        </button>
+
+                        <!-- RESET BUTTON -->
+                        {{-- <a href="{{ route('allcar') }}"
+                            class="w-full md:w-auto bg-gray-600 text-white px-4 py-2 rounded-md shadow-md text-center hover:scale-105 active:scale-95">
+                            Réinitialiser
+                        </a> --}}
                     </div>
                 </form>
             </section>
@@ -132,5 +136,14 @@
             // alert(url);
             window.location.href = url
         }
+        document.getElementById('resetButton').addEventListener('click', function() {
+            // Effacez les valeurs des champs de filtre
+            document.getElementById('marque').value = '';
+            document.getElementById('modele').value = '';
+            document.getElementById('categorie').selectedIndex = 0;
+
+            // Soumettez le formulaire pour actualiser les résultats sans filtres
+            document.getElementById('filterForm').submit();
+        });
     </script>
 @endsection
