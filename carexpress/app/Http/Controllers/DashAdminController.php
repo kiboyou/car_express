@@ -31,7 +31,7 @@ class DashAdminController extends Controller
         $nbreFacture = Facture::count();
         $nbreInventaire = Inventaire::count();
         $nbrePersonnel = Personnel::count();
-        $nbreReceived = 0;
+        $nbreReceived = Received::count();
         return view('dashboard.admin.dashboard', compact('nbreVehicule', 'nbreClient', 'nbreReservation', 'nbreFacture', 'nbreInventaire', 'nbrePersonnel', 'nbreReceived'));
     }
     //page for categorie list
