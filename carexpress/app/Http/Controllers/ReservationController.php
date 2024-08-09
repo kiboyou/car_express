@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CancelReservation;
+use App\Mail\ConfirmReservation;
 use App\Mail\receivedPaiment;
 use App\Mail\ReservationConfirm;
 use App\Models\Customer;
@@ -78,7 +80,7 @@ class ReservationController extends Controller
             // Envoi de l'email de confirmation
             $customer = Customer::findOrFail($reservation->customer_id);
 
-            Log::info('Info facture', ['lastname'=> $customer->lastname, 'jours' => $days, 'emailclient' =>$customer->email, 'numfacture' => $numfacture, 'numreservation' => $numreservation]);
+            Log::info('Info facture', ['lastname' => $customer->lastname, 'jours' => $days, 'emailclient' => $customer->email, 'numfacture' => $numfacture, 'numreservation' => $numreservation]);
             Mail::to($customer->email)->send(new ReservationConfirm($customer->lastname, $numreservation, $numfacture));
 
             Log::info('Email de confirmation envoyé avec succès', ['email' => $customer->email]);
@@ -91,7 +93,8 @@ class ReservationController extends Controller
     }
 
     //make a paiment
-    public function makePaiementbyCustomer(Request $request){
+    public function makePaiementbyCustomer(Request $request)
+    {
         $request->validate([
             'facture_id' => 'required|exists:factures,numfacture',
             'montant_verse' => 'required|numeric|min:0',
@@ -104,7 +107,7 @@ class ReservationController extends Controller
         if ($montantverser > $facture->montantrestant) {
             return back()->withErrors(['montant_verse' => 'Le montant versé ne peut pas être supérieur au montant restant.']);
         }
-        $restant =  $facture->montantrestant - $montantverser;
+        $restant = $facture->montantrestant - $montantverser;
         Received::create([
             'numreceived' => $numreceived,
             'montant_verse' => $montantverser,
@@ -116,7 +119,7 @@ class ReservationController extends Controller
         $facture->save();
 
         //verifier statut reservation
-        if($reservation->statut_reservation == 'en attente'){
+        if ($reservation->statut_reservation == 'en attente') {
             $reservation->statut_reservation = 'confirme';
             $reservation->save();
         }
@@ -125,7 +128,8 @@ class ReservationController extends Controller
         Mail::to($facture->reservation->customer->email)->send(new receivedPaiment($numreceived, $facture->reservation->customer->lastname, $facture->reservation->created_at, $montantverser));
         return redirect()->route('dashcustomer.facture')->with('success', 'Paiement effectué avec succès.');
     }
-    public function makePaiementbyPersonnel(Request $request){
+    public function makePaiementbyPersonnel(Request $request)
+    {
         $request->validate([
             'facture_id' => 'required|exists:factures,numfacture',
             'montant_verse' => 'required|numeric|min:0',
@@ -143,7 +147,7 @@ class ReservationController extends Controller
         }
 
         // dd($reservation->statut_reservation);
-        $restant =  $facture->montantrestant - $montantverser;
+        $restant = $facture->montantrestant - $montantverser;
         Received::create([
             'numreceived' => $numreceived,
             'montant_verse' => $montantverser,
@@ -155,7 +159,7 @@ class ReservationController extends Controller
         $facture->save();
 
         //verifier statut reservation
-        if($reservation->statut_reservation == 'en attente'){
+        if ($reservation->statut_reservation == 'en attente') {
             $reservation->statut_reservation = 'confirme';
             $reservation->save();
         }
@@ -165,34 +169,44 @@ class ReservationController extends Controller
         return redirect()->route('admin.facture')->with('success', 'Paiement effectué avec succès.');
     }
 
-    //confirm reservation
     public function confirmReservation($numreservation)
     {
+        // Log::info('Attempting to confirm reservation', ['numreservation' => $numreservation]);
+
         $reservation = Reservation::where('numreservation', $numreservation)->first();
 
         if (!$reservation) {
+            // Log::error('Reservation not found', ['numreservation' => $numreservation]);
             return response()->json(['success' => false, 'message' => 'Réservation non trouvée.']);
         }
 
-        //inverser le statut
-        $reservation->statut = "confirme";
+        // Modifier le statut
+        $reservation->statut_reservation = "confirme";
         $reservation->save();
 
-        return response()->json(['success' => true, 'message' => 'Le statut de la réservation a été modifié avec succès.']);
+        // Log::info('Reservation confirmed successfully', ['numreservation' => $numreservation]);
+        Mail::to($reservation->customer->email)->send(new ConfirmReservation($reservation->customer->lastname, $reservation->numreservation));
+        return response()->json(['success' => true, 'message' => 'La réservation a été confirmé avec succès.']);
     }
-    //cancel reservation
+
     public function cancelReservation($numreservation)
     {
+        // Log::info('Attempting to cancel reservation', ['numreservation' => $numreservation]);
+
         $reservation = Reservation::where('numreservation', $numreservation)->first();
 
         if (!$reservation) {
+            // Log::error('Reservation not found', ['numreservation' => $numreservation]);
             return response()->json(['success' => false, 'message' => 'Réservation non trouvée.']);
         }
 
-        //inverser le statut
-        $reservation->statut = "annule";
+        // Modifier le statut
+        $reservation->statut_reservation = "annule";
         $reservation->save();
 
-        return response()->json(['success' => true, 'message' => 'Le statut de la réservation a été modifié avec succès.']);
+        // Log::info('Reservation cancelled successfully', ['numreservation' => $numreservation]);
+        Mail::to($reservation->customer->email)->send(new CancelReservation($reservation->customer->lastname, $reservation->numreservation));
+        return response()->json(['success' => true, 'message' => 'Le reservation a été annulé avec succès.']);
     }
+
 }

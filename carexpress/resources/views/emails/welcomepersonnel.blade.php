@@ -6,7 +6,7 @@
 
 @section('contentmail')
     <main class="p-6">
-        <h3 class="text-center text-xl font-semibold mb-4">Welcome to our site</h3>
+        <h3 class="text-center text-xl font-semibold mb-4">Welcome to your new job</h3>
         <p class="mb-4">Bonjour M. {{ $lastname }},</p>
         <p class="mb-4">
             Nous sommes ravis de vous accueillir en tant que manager au sein de notre équipe !<br>

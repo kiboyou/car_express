@@ -14,8 +14,15 @@ class DashCustomerController extends Controller
     public function index()
     {
         $customer = Auth::guard('customer')->user();
-        $nbreReservation = Reservation::count();
-        $nbreFacture = Facture::count();
+        //client id
+        $customerId = $customer->codeclient;
+        //get stats
+        $nbreReservation = Reservation::where('customer_id', $customer->codeclient)->count();
+        $nbreFacture = Facture::whereIn('reservation_id', function ($query) use ($customerId) {
+            $query->select('numreservation')
+                ->from('reservations')
+                ->where('customer_id', $customerId);
+        })->count();
         $nbreReceived = 0;
         return view('dashboard.client.dashboard', compact('customer', 'nbreReservation', 'nbreFacture', 'nbreReceived'));
     }

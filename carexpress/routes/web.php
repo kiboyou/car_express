@@ -146,7 +146,7 @@ Route::prefix('personnel')->group(function () {
 Route::prefix('reservation')->group(function () {
     Route::post('/', [ReservationController::class, 'store'])->name('reservation.store');
     Route::put('/confirm/{numreservation}', [ReservationController::class, 'confirmReservation'])->name('reservation.confirm');
-    Route::put('/cancel/{numreservation}', [PDFController::class, 'cancelReservation'])->name('reservation.cancel');
+    Route::put('/cancel/{numreservation}', [ReservationController::class, 'cancelReservation'])->name('reservation.cancel');
 });
 
 //route for manage login

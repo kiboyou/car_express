@@ -55,10 +55,8 @@
                         @endphp
                         <a href="{{ route('pdf.invoice', $encryptednumfacture) }}"><button class="set"><i
                                     class="fa-solid fa-print"></i></button></a>
-                        @if ($facture->montantrestant == 0)
-                            <button class="set" disabled
-                                onclick="makePaiement('{{ $facture->numfacture }}', '{{ $facture->montantrestant }}')"><i
-                                    class="fa-solid fa-credit-card"></i></button>
+                        @if ($facture->montantrestant == 0 || $facture->reservation->statut_reservation == 'annule')
+                            <button style="color: gray" disabled ><i class="fa-solid fa-credit-card"></i></button>
                         @else
                             <button class="set"
                                 onclick="makePaiement('{{ $facture->numfacture }}', '{{ $facture->montantrestant }}')"><i
