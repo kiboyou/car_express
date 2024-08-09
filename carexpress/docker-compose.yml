@@ -29,7 +29,7 @@ services:
     environment:
       - PMA_HOST=mysql_db
       - PMA_USER=root
-      - PMA_PASSWORD=Test@1234
+      - PMA_PASSWORD=Abkm@Service225
 
 volumes:
   mysql_data:
