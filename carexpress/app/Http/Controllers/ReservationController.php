@@ -27,7 +27,7 @@ class ReservationController extends Controller
         ]);
 
         try {
-            // Log::info('Début de la création de la réservation');
+            Log::info('Début de la création de la réservation');
 
             $reservation = new Reservation();
             $numreservation = $reservation->generateNumReservation();
@@ -41,7 +41,7 @@ class ReservationController extends Controller
                 'paiement' => $request->input('paiement'),
             ]);
 
-            // Log::info('Réservation créée avec succès', ['reservation_id' => $numreservation]);
+            Log::info('Réservation créée avec succès', ['reservation_id' => $numreservation]);
 
             // Log::info('Début de la création de la facture');
             // Calcul des jours
@@ -70,7 +70,7 @@ class ReservationController extends Controller
                 'montantrestant' => $total_a_payer
             ]);
 
-            // Log::info('Facture créée avec succès', ['numfacture' => $numfacture]);
+            Log::info('Facture créée avec succès', ['numfacture' => $numfacture]);
 
             // Rendre le véhicule indisponible
             $vehicule->update(['disponibilite' => false]);
@@ -78,10 +78,10 @@ class ReservationController extends Controller
             // Envoi de l'email de confirmation
             $customer = Customer::findOrFail($reservation->customer_id);
 
-            // Log::info('Info facture', ['lastname'=> $customer->lastname, 'jours' => $days, 'emailclient' =>$customer->email, 'numfacture' => $numfacture, 'numreservation' => $numreservation]);
+            Log::info('Info facture', ['lastname'=> $customer->lastname, 'jours' => $days, 'emailclient' =>$customer->email, 'numfacture' => $numfacture, 'numreservation' => $numreservation]);
             Mail::to($customer->email)->send(new ReservationConfirm($customer->lastname, $numreservation, $numfacture));
 
-            // Log::info('Email de confirmation envoyé avec succès', ['email' => $customer->email]);
+            Log::info('Email de confirmation envoyé avec succès', ['email' => $customer->email]);
 
             return redirect()->back()->with('success', 'Réservation et facture créées avec succès!');
         } catch (\Exception $e) {

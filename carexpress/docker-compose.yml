@@ -14,12 +14,12 @@ services:
     image: mysql:8.0
     container_name: mysql_db
     ports:
-      - "3306:3306"
+      - "3609:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=laravel
+      - MYSQL_ROOT_PASSWORD=Abkm@Service225
+      - MYSQL_DATABASE=dbcarexpress
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -29,7 +29,7 @@ services:
     environment:
       - PMA_HOST=mysql_db
       - PMA_USER=root
-      - PMA_PASSWORD=root
+      - PMA_PASSWORD=Test@1234
 
 volumes:
   mysql_data:
