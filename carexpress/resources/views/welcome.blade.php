@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- ICON -->
-    <link rel="shortcut icon" href="{{ asset('source/images/logo/logoR.png') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('source/images/logo/logoB.png') }}" type="image/x-icon" />
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
         rel="stylesheet" />
@@ -304,11 +304,11 @@
                 </div>
                 <div
                     class="temoinages-groupe-iten3 img1 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mt-4 md:mt-0">
-                    <img src="{{ asset('source/images/temoin/kib.jpeg') }}" alt=""
+                    <img src="{{ asset('source/images/temoin/ok.jpeg') }}" alt=""
                         class="w-full h-full object-cover">
                 </div>
                 <div class="nomCommentateur text-center mt-2 md:mt-0">
-                    Kiboyou Mohamed
+                    Kiboyou OUATTARA
                 </div>
             </div>
             <div class="temoinages-groupe flex flex-col items-center md:items-center md:flex-1">
