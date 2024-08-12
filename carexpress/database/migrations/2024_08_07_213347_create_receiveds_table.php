@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('receiveds', function (Blueprint $table) {
             $table->string('numreceived')->primary();
             $table->string('facture_id');
-            $table->decimal('montant_verse',10,2);
+            $table->decimal('facture_id',10,2);
             $table->foreign('facture_id')->references('numfacture')->on('factures')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

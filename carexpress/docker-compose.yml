@@ -6,7 +6,7 @@ services:
     volumes:
       - ./:/var/www/html
     ports:
-      - "8000:80"
+      - "8005:80"
     extra_hosts:
       - "car_express.local:127.0.0.1"
 
@@ -20,7 +20,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=Abkm@Service225
       - MYSQL_DATABASE=dbcarexpress
-
+                                               
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
