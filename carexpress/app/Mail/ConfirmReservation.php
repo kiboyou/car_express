@@ -41,7 +41,7 @@ class ConfirmReservation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.ConfirmReservation', with: [
+            view: 'emails.ConfirmReservation', with: [
                 'lastname' => $this->lastname,
                 'reservation'=> $this->reservation,
             ]
