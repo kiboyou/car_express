@@ -51,7 +51,7 @@
                         @php
                             $encryptednumreceived = Crypt::encrypt($received->numreceived);
                         @endphp
-                        <a href="{{ route('pdf.received', $encryptednumreceived) }}"><button class="set"><i class="fa-solid fa-print"></i></button></a>
+                        <a target="_blank" href="{{ route('pdf.received', $encryptednumreceived) }}"><button class="set"><i class="fa-solid fa-print"></i></button></a>
                         {{-- <a href="#"><button class="del"><i class=".los fa-solid fa-trash-can"></i></button></a> --}}
                     </div>
                 </div>

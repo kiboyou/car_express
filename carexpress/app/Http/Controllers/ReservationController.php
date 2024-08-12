@@ -204,6 +204,11 @@ class ReservationController extends Controller
         $reservation->statut_reservation = "annule";
         $reservation->save();
 
+        //modifier statut vehicule
+        $vehicule = Vehicule::findOrFail($reservation->vehicule_id);
+        $vehicule->disponibilite = true;
+        $vehicule->save();
+
         // Log::info('Reservation cancelled successfully', ['numreservation' => $numreservation]);
         Mail::to($reservation->customer->email)->send(new CancelReservation($reservation->customer->lastname, $reservation->numreservation));
         return response()->json(['success' => true, 'message' => 'Le reservation a été annulé avec succès.']);
