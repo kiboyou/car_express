@@ -23,7 +23,15 @@ class DashCustomerController extends Controller
                 ->from('reservations')
                 ->where('customer_id', $customerId);
         })->count();
-        $nbreReceived = 0;
+        $nbreReceived = Received::whereIn('facture_id', function ($query) use ($customerId) {
+            $query->select('numfacture')
+                ->from('factures')
+                ->whereIn('reservation_id', function ($subQuery) use ($customerId) {
+                    $subQuery->select('numreservation')
+                        ->from('reservations')
+                        ->where('customer_id', $customerId);
+                });
+        })->count();
         return view('dashboard.client.dashboard', compact('customer', 'nbreReservation', 'nbreFacture', 'nbreReceived'));
     }
 
