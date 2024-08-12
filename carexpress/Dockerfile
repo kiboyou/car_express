@@ -11,6 +11,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd zip
 
+# Clean up APT when done
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+RUN apt-get update && apt-get install -y libonig-dev
 
 # Install required PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql gd mbstring
@@ -60,4 +65,5 @@ COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 # Exposer le port 80
 EXPOSE 80
 
+# Commande par défaut
 CMD ["apache2-foreground"]
