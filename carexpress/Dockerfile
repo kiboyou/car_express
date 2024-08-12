@@ -13,7 +13,10 @@ RUN apt-get update && apt-get install -y \
 
 
 # Install required PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql gd mbstring
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Set document root
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
@@ -41,6 +44,8 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 RUN chmod -R 755 /var/www/html/storage
 RUN chmod -R 755 /var/www/html/bootstrap/cache
 
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
 
 # Installer les dépendances PHP
 RUN composer install --optimize-autoloader --no-dev

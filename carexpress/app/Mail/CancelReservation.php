@@ -41,7 +41,7 @@ class CancelReservation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.CancelReservation', with: [
+            view: 'emails.CancelReservation', with: [
                 'lastname' => $this->lastname,
                 'reservation'=> $this->reservation,
             ]
