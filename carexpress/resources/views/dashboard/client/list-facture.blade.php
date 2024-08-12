@@ -53,7 +53,7 @@
                         @php
                             $encryptednumfacture = Crypt::encrypt($facture->numfacture);
                         @endphp
-                        <a href="{{ route('pdf.invoice', $encryptednumfacture) }}"><button class="set"><i
+                        <a target="_blank" href="{{ route('pdf.invoice', $encryptednumfacture) }}"><button class="set"><i
                                     class="fa-solid fa-print"></i></button></a>
                         @if ($facture->montantrestant == 0 || $facture->reservation->statut_reservation == 'annule')
                             <button style="color: gray" disabled ><i class="fa-solid fa-credit-card"></i></button>
